@@ -1007,6 +1007,76 @@
   @media (max-width: 720px) {
     .sfdc-fields-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── CLEAN SF FIELD STRUCTURE (no emojis, with API names) ── */
+  .sf-field-section {
+    margin-top: 18px;
+  }
+  .sf-field-section:first-of-type { margin-top: 4px; }
+  .sf-field-section-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--blue-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sf-field-section-title .sf-section-marker {
+    background: var(--blue);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+  }
+  .sf-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .sf-field-row {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+  }
+  .sf-field-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.1px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.3;
+  }
+  .sf-api {
+    font-family: 'JetBrains Mono', 'Menlo', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--blue);
+    background: var(--blue-glow);
+    border: 1px solid var(--blue-border);
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.2px;
+  }
+  .sf-field-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  @media (max-width: 720px) {
+    .sf-fields-grid { grid-template-columns: 1fr; }
+  }
   .arch-beyond h3 {
     font-size: 20px;
     font-weight: 700;
@@ -5262,90 +5332,76 @@
         <div class="sfdc-fields-header-icon">SF</div>
         <h3>Salesforce Fields the Agent Needs</h3>
       </div>
-      <p>The agent grounds every action in real account data. These are the SFDC objects and fields it pulls from at runtime — scoped read access, never write outside the explicit CRM Layer.</p>
-      <div class="sfdc-fields-grid">
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">🏢</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Accounts</div>
-            <div class="sfdc-field-desc">Name, industry, segment, employee count, revenue, owner, territory, hierarchy.</div>
+      <p>Standard Salesforce objects and fields the agent reads from at runtime. Read access scoped per rep's permissions, never write outside the explicit CRM Layer.</p>
+
+      <!-- ACCOUNT FIELDS -->
+      <div class="sf-field-section">
+        <div class="sf-field-section-title">
+          <span class="sf-section-marker">ACCT</span>
+          <span>Account Fields</span>
+        </div>
+        <div class="sf-fields-grid">
+          <div class="sf-field-row">
+            <div class="sf-field-name">Account ID <span class="sf-api">Id</span></div>
+            <div class="sf-field-desc">Standard SF Account record ID. Primary key for all related lookups.</div>
+          </div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Domain / Website <span class="sf-api">Website</span></div>
+            <div class="sf-field-desc">The account's primary domain. Used for contact-to-account matching during enrichment.</div>
+          </div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Opportunities <span class="sf-api">Opportunities related list</span></div>
+            <div class="sf-field-desc">Open, won, and lost opps in the account. Stage history, products, amounts, close dates.</div>
+          </div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Activity History <span class="sf-api">ActivityHistories</span></div>
+            <div class="sf-field-desc">Every email, call, and meeting log against the account.</div>
+          </div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Contacts <span class="sf-api">Contacts related list</span></div>
+            <div class="sf-field-desc">All contacts linked to the account via the AccountId lookup.</div>
+          </div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Contracts <span class="sf-api">Contracts related list</span></div>
+            <div class="sf-field-desc">Active commercial relationships attached to the account record.</div>
+          </div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Annual Revenue / Spend <span class="sf-api">AnnualRevenue + Σ Opportunity.Amount</span></div>
+            <div class="sf-field-desc">Standard company-revenue field plus aggregated closed-won opportunity amounts for total customer spend.</div>
           </div>
         </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">💬</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Activity History (Conversations)</div>
-            <div class="sfdc-field-desc">Every email, call note, and meeting log against the account — for grounding messaging in actual rep language.</div>
-          </div>
+      </div>
+
+      <!-- CONTACT FIELDS -->
+      <div class="sf-field-section">
+        <div class="sf-field-section-title">
+          <span class="sf-section-marker">CON</span>
+          <span>Contact Fields</span>
         </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">💼</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Historical Opportunities</div>
-            <div class="sfdc-field-desc">All past opps — open, won, and lost. Stage history, products, close dates, primary competitor.</div>
+        <div class="sf-fields-grid">
+          <div class="sf-field-row">
+            <div class="sf-field-name">Full Name <span class="sf-api">Name</span></div>
+            <div class="sf-field-desc">Standard SF computed full-name field. Used for outreach personalization.</div>
           </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">⏱️</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Last Activity Date</div>
-            <div class="sfdc-field-desc">Drives the 90-day dormancy flag and the re-engagement workflow trigger.</div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">First / Last Name <span class="sf-api">FirstName, LastName</span></div>
+            <div class="sf-field-desc">Used for first-name email merge and signal-based opener generation.</div>
           </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">💰</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Spend / ARR</div>
-            <div class="sfdc-field-desc">Customer value scoring, cross-sell sizing, and deal-size routing logic.</div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Email <span class="sf-api">Email</span></div>
+            <div class="sf-field-desc">Primary outreach channel. Verified via Clay before sequence enrollment.</div>
           </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">📦</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Products Owned</div>
-            <div class="sfdc-field-desc">Drives cross-sell vs. new-logo motion. Tells the agent whether to lead with land or expand.</div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Phone <span class="sf-api">Phone, MobilePhone</span></div>
+            <div class="sf-field-desc">Direct line and mobile for cold call cadence.</div>
           </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">🚫</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Won / Lost Reasons</div>
-            <div class="sfdc-field-desc">Critical input for win-loss patterns and objection-handling messaging.</div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Activity History <span class="sf-api">ActivityHistories</span></div>
+            <div class="sf-field-desc">Every email, call, and meeting logged against this specific contact.</div>
           </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">⚔️</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Primary Competitor</div>
-            <div class="sfdc-field-desc">Surfaces the right battle card and competitive positioning per account.</div>
-          </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">👥</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Contacts & Roles</div>
-            <div class="sfdc-field-desc">Title, persona, reports-to, last activity. Powers stakeholder mapping and multi-thread plays.</div>
-          </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">📅</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Renewal Date</div>
-            <div class="sfdc-field-desc">Times outreach to coincide with renewal cycles for cross-sell and expansion plays.</div>
-          </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">🏷️</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Account Type / Status</div>
-            <div class="sfdc-field-desc">Prospect, Customer, Former Customer. Filters the right play at the right moment.</div>
-          </div>
-        </div>
-        <div class="sfdc-field">
-          <span class="sfdc-field-icon">🎯</span>
-          <div class="sfdc-field-text">
-            <div class="sfdc-field-name">Lead Source</div>
-            <div class="sfdc-field-desc">Attribution context — knows whether to treat the account as inbound, ABM target, or cold.</div>
+          <div class="sf-field-row">
+            <div class="sf-field-name">Associated Opportunities <span class="sf-api">OpportunityContactRoles</span></div>
+            <div class="sf-field-desc">All opportunities this contact has been linked to as a buyer, champion, or influencer.</div>
           </div>
         </div>
       </div>
@@ -5613,90 +5669,76 @@
           <div class="sfdc-fields-header-icon">SF</div>
           <h3>Salesforce Fields the Agent Reads</h3>
         </div>
-        <p>The Research Layer above pulls from these SFDC objects and fields. Read access scoped per rep's permissions, never write outside the explicit CRM Layer in Stage 4.</p>
-        <div class="sfdc-fields-grid">
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">🏢</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Accounts</div>
-              <div class="sfdc-field-desc">Name, industry, segment, employee count, revenue, owner, territory.</div>
+        <p>Standard Salesforce objects and fields the Research Layer above pulls from. Read access scoped per rep's permissions, never write outside the explicit CRM Layer in Stage 4.</p>
+
+        <!-- ACCOUNT FIELDS -->
+        <div class="sf-field-section">
+          <div class="sf-field-section-title">
+            <span class="sf-section-marker">ACCT</span>
+            <span>Account Fields</span>
+          </div>
+          <div class="sf-fields-grid">
+            <div class="sf-field-row">
+              <div class="sf-field-name">Account ID <span class="sf-api">Id</span></div>
+              <div class="sf-field-desc">Standard SF Account record ID. Primary key for all related lookups.</div>
+            </div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Domain / Website <span class="sf-api">Website</span></div>
+              <div class="sf-field-desc">The account's primary domain. Used for contact-to-account matching during enrichment.</div>
+            </div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Opportunities <span class="sf-api">Opportunities related list</span></div>
+              <div class="sf-field-desc">Open, won, and lost opps in the account. Stage history, products, amounts, close dates.</div>
+            </div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Activity History <span class="sf-api">ActivityHistories</span></div>
+              <div class="sf-field-desc">Every email, call, and meeting log against the account.</div>
+            </div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Contacts <span class="sf-api">Contacts related list</span></div>
+              <div class="sf-field-desc">All contacts linked to the account via the AccountId lookup.</div>
+            </div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Contracts <span class="sf-api">Contracts related list</span></div>
+              <div class="sf-field-desc">Active commercial relationships attached to the account record.</div>
+            </div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Annual Revenue / Spend <span class="sf-api">AnnualRevenue + Σ Opportunity.Amount</span></div>
+              <div class="sf-field-desc">Standard company-revenue field plus aggregated closed-won opportunity amounts for total customer spend.</div>
             </div>
           </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">💬</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Activity History (Conversations)</div>
-              <div class="sfdc-field-desc">Every email, call note, and meeting log against the account.</div>
-            </div>
+        </div>
+
+        <!-- CONTACT FIELDS -->
+        <div class="sf-field-section">
+          <div class="sf-field-section-title">
+            <span class="sf-section-marker">CON</span>
+            <span>Contact Fields</span>
           </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">💼</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Historical Opportunities</div>
-              <div class="sfdc-field-desc">All opps — open, won, lost. Stage history, products, close dates.</div>
+          <div class="sf-fields-grid">
+            <div class="sf-field-row">
+              <div class="sf-field-name">Full Name <span class="sf-api">Name</span></div>
+              <div class="sf-field-desc">Standard SF computed full-name field. Used for outreach personalization.</div>
             </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">⏱️</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Last Activity Date</div>
-              <div class="sfdc-field-desc">Powers 90-day dormancy detection and re-engagement triggers.</div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">First / Last Name <span class="sf-api">FirstName, LastName</span></div>
+              <div class="sf-field-desc">Used for first-name email merge and signal-based opener generation.</div>
             </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">💰</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Spend / ARR</div>
-              <div class="sfdc-field-desc">Customer value, cross-sell sizing, deal-size routing.</div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Email <span class="sf-api">Email</span></div>
+              <div class="sf-field-desc">Primary outreach channel. Verified via Clay before sequence enrollment.</div>
             </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">📦</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Products Owned</div>
-              <div class="sfdc-field-desc">Drives cross-sell vs. new-logo motion.</div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Phone <span class="sf-api">Phone, MobilePhone</span></div>
+              <div class="sf-field-desc">Direct line and mobile for cold call cadence.</div>
             </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">🚫</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Won / Lost Reasons</div>
-              <div class="sfdc-field-desc">Win-loss pattern training and objection handling.</div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Activity History <span class="sf-api">ActivityHistories</span></div>
+              <div class="sf-field-desc">Every email, call, and meeting logged against this specific contact.</div>
             </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">⚔️</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Primary Competitor</div>
-              <div class="sfdc-field-desc">Surfaces the right battle card per account.</div>
-            </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">👥</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Contacts & Roles</div>
-              <div class="sfdc-field-desc">Title, persona, reports-to. Powers org chart and multi-thread.</div>
-            </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">📅</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Renewal Date</div>
-              <div class="sfdc-field-desc">Times outreach to renewal cycles for expansion plays.</div>
-            </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">🏷️</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Account Type / Status</div>
-              <div class="sfdc-field-desc">Prospect, Customer, Former Customer.</div>
-            </div>
-          </div>
-          <div class="sfdc-field">
-            <span class="sfdc-field-icon">🎯</span>
-            <div class="sfdc-field-text">
-              <div class="sfdc-field-name">Lead Source</div>
-              <div class="sfdc-field-desc">Inbound, ABM, cold attribution context.</div>
+            <div class="sf-field-row">
+              <div class="sf-field-name">Associated Opportunities <span class="sf-api">OpportunityContactRoles</span></div>
+              <div class="sf-field-desc">All opportunities this contact has been linked to as a buyer, champion, or influencer.</div>
             </div>
           </div>
         </div>
