@@ -1591,6 +1591,380 @@
     .wf-stage.reverse .wf-annotation { order: 2; }
   }
 
+  /* ── ACCOUNT PRIORITIZATION ── */
+  .pri-source-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+    background: var(--surface-2);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .pri-source-tab {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pri-source-tab.active {
+    background: var(--surface);
+    color: var(--magenta);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  .pri-source-pane { display: none; }
+  .pri-source-pane.active { display: block; animation: fadeUp 0.25s ease; }
+
+  .pri-dropzone {
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    padding: 36px 24px;
+    text-align: center;
+    background: var(--surface-2);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .pri-dropzone:hover {
+    border-color: var(--magenta);
+    background: var(--magenta-glow);
+  }
+  .pri-dropzone.has-file {
+    border-color: var(--green);
+    border-style: solid;
+    background: var(--green-glow);
+  }
+  .pri-dropzone-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+  .pri-dropzone-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .pri-dropzone-sub {
+    font-size: 12.5px;
+    color: var(--text-muted);
+  }
+  .pri-dropzone .pri-file-info {
+    display: none;
+  }
+  .pri-dropzone.has-file .pri-dropzone-icon,
+  .pri-dropzone.has-file .pri-dropzone-title,
+  .pri-dropzone.has-file .pri-dropzone-sub { display: none; }
+  .pri-dropzone.has-file .pri-file-info { display: block; }
+  .pri-file-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .pri-file-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .pri-fake-button {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* Filter bar */
+  .pri-filter-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    padding: 14px 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    align-items: center;
+  }
+  .pri-search {
+    flex: 1;
+    min-width: 200px;
+    padding: 9px 14px 9px 36px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13.5px;
+    font-family: inherit;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+  }
+  .pri-search:focus {
+    outline: none;
+    border-color: var(--magenta);
+  }
+  .pri-filter {
+    padding: 9px 30px 9px 12px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 12.5px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 12 8'%3E%3Cpath fill='%23999' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    min-width: 130px;
+  }
+  .pri-filter:focus { outline: none; border-color: var(--magenta); }
+
+  .pri-results-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pri-results-count {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .pri-results-count strong { color: var(--text); }
+
+  /* Account row */
+  .pri-account-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 8px;
+    display: grid;
+    grid-template-columns: 32px 1fr auto auto auto 24px;
+    gap: 14px;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pri-account-row:hover {
+    border-color: var(--magenta-border);
+    transform: translateX(2px);
+  }
+  .pri-account-row.expanded {
+    border-color: var(--magenta);
+    box-shadow: 0 0 0 3px var(--magenta-glow);
+  }
+
+  .pri-rank {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .pri-acct-info { min-width: 0; }
+  .pri-acct-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.1px;
+    margin-bottom: 3px;
+  }
+  .pri-acct-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+  .pri-acct-meta-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .pri-acct-meta-tag.customer { color: var(--green); border-color: var(--green-border); }
+  .pri-acct-meta-tag.former { color: var(--amber); border-color: var(--amber-border); }
+  .pri-acct-meta-tag.dormant { color: var(--red); border-color: var(--red-border); background: var(--red-glow); }
+  .pri-signals-row {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+  .pri-signal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 8px;
+    background: var(--magenta-glow);
+    border: 1px solid var(--magenta-border);
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--magenta);
+  }
+
+  .pri-stat {
+    text-align: right;
+    min-width: 70px;
+  }
+  .pri-stat-value {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+  }
+  .pri-stat-label {
+    font-size: 9.5px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+
+  .pri-score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px; height: 50px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    background: var(--green);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.5px;
+  }
+  .pri-score.high { background: linear-gradient(135deg, var(--green), #059669); }
+  .pri-score.medium { background: linear-gradient(135deg, var(--amber), #B45309); }
+  .pri-score.low { background: linear-gradient(135deg, var(--text-dim), #4B5563); }
+
+  .pri-chevron {
+    font-size: 12px;
+    color: var(--text-dim);
+    transition: transform 0.2s;
+  }
+  .pri-account-row.expanded .pri-chevron { transform: rotate(180deg); }
+
+  .pri-detail {
+    display: none;
+    grid-column: 1 / -1;
+    padding-top: 16px;
+    margin-top: 12px;
+    border-top: 1px dashed var(--border);
+  }
+  .pri-account-row.expanded .pri-detail { display: block; animation: fadeUp 0.3s ease; }
+
+  .pri-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .pri-detail-section h5 {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pri-score-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .pri-score-bar-label {
+    flex-shrink: 0;
+    width: 100px;
+    color: var(--text-muted);
+  }
+  .pri-score-bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .pri-score-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--magenta), var(--cyan));
+    border-radius: 3px;
+  }
+  .pri-score-bar-value {
+    flex-shrink: 0;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    width: 38px;
+    text-align: right;
+  }
+
+  .pri-fits-text {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .pri-fits-text strong { color: var(--text); font-weight: 600; }
+
+  .pri-detail-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .pri-empty {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  @media (max-width: 720px) {
+    .pri-account-row {
+      grid-template-columns: 32px 1fr auto;
+    }
+    .pri-account-row > .pri-stat { display: none; }
+    .pri-account-row > .pri-stat:last-of-type { display: block; }
+    .pri-detail-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── AGENT CHAT (animated conversation) ── */
   .chat-container {
     max-width: 720px;
@@ -1653,12 +2027,96 @@
   .chat-messages {
     padding: 22px 18px;
     min-height: 380px;
-    max-height: 560px;
+    max-height: 720px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 14px;
   }
+
+  /* Inline tool block (rendered as agent message in chat flow) */
+  .chat-tool-block {
+    background: var(--surface);
+    border: 1.5px solid var(--magenta-border);
+    border-radius: 12px;
+    border-top-left-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(219, 39, 119, 0.08);
+  }
+  .chat-tool-block-header {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, var(--magenta-glow), var(--cyan-glow));
+    border-bottom: 1px solid var(--magenta-border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chat-tool-block-icon {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: var(--magenta);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .chat-tool-block-info { flex: 1; min-width: 0; }
+  .chat-tool-block-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.1px;
+  }
+  .chat-tool-block-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .chat-tool-block-tag {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    background: var(--surface);
+    border: 1px solid var(--magenta-border);
+    border-radius: 999px;
+    padding: 2px 8px;
+    flex-shrink: 0;
+  }
+  .chat-tool-block-body {
+    padding: 14px 16px;
+  }
+  .chat-tool-block-body h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .chat-tool-block-body p.subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  /* Compact overrides for content rendered inside chat tool blocks */
+  .chat-tool-block-body {
+    padding: 14px 16px;
+  }
+  .chat-tool-block-body .demo-results-header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+  .chat-tool-block-body .demo-results-title h3 {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .chat-tool-block-body .demo-results-title p {
+    font-size: 12px;
+  }
+
+  /* Hide the old static tool panel — everything is in-chat now */
+  .chat-tool-panel { display: none !important; }
   .chat-msg {
     display: flex;
     gap: 10px;
@@ -1808,6 +2266,1354 @@
     transition: all 0.15s;
   }
   .chat-replay:hover { background: var(--magenta); color: white; }
+
+  /* ── INLINE TOOL OUTPUT IN CHAT ── */
+  .chat-msg.tool .chat-bubble {
+    max-width: 95%;
+    width: 95%;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1.5px solid var(--magenta-border);
+    border-top-left-radius: 4px;
+  }
+  .chat-tool-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .chat-tool-icon {
+    font-size: 14px;
+  }
+
+  /* Compact account row in chat */
+  .chat-acct-row {
+    display: grid;
+    grid-template-columns: 28px 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chat-acct-row:hover {
+    border-color: var(--magenta);
+    background: var(--magenta-glow);
+  }
+  .chat-acct-row.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .chat-acct-row.selected {
+    border-color: var(--magenta);
+    background: var(--magenta-glow);
+    box-shadow: 0 0 0 2px var(--magenta-glow);
+  }
+  .chat-acct-rank {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .chat-acct-info { min-width: 0; }
+  .chat-acct-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .chat-acct-meta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+  .chat-acct-meta strong {
+    color: var(--magenta);
+    font-weight: 600;
+  }
+  .chat-acct-score {
+    width: 32px; height: 32px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(135deg, var(--green), #059669);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .chat-acct-action {
+    background: var(--magenta);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .chat-acct-action:hover { opacity: 0.9; }
+
+  /* Compact contact row in chat */
+  .chat-ct-row {
+    display: grid;
+    grid-template-columns: 20px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chat-ct-row:hover {
+    border-color: var(--magenta-border);
+  }
+  .chat-ct-row.checked {
+    border-color: var(--magenta);
+    background: var(--magenta-glow);
+  }
+  .chat-ct-checkbox {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    flex-shrink: 0;
+    position: relative;
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+  .chat-ct-row.checked .chat-ct-checkbox {
+    background: var(--magenta);
+    border-color: var(--magenta);
+  }
+  .chat-ct-row.checked .chat-ct-checkbox::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    position: absolute;
+    top: -3px; left: 2px;
+  }
+  .chat-ct-info { min-width: 0; }
+  .chat-ct-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .chat-ct-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .chat-ct-signal {
+    font-size: 10.5px;
+    color: var(--magenta);
+    font-weight: 600;
+  }
+  .chat-ct-score {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--green);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .chat-tool-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .chat-tool-btn {
+    padding: 8px 14px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .chat-tool-btn:hover {
+    border-color: var(--magenta);
+    color: var(--magenta);
+  }
+  .chat-tool-btn.primary {
+    background: var(--magenta);
+    color: white;
+    border-color: var(--magenta);
+  }
+  .chat-tool-btn.primary:hover { opacity: 0.92; color: white; }
+  .chat-tool-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .chat-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin: 4px 0;
+  }
+  .chat-progress.done {
+    color: var(--green);
+    border-color: var(--green-border);
+    background: var(--green-glow);
+  }
+  .chat-progress-icon {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--surface-3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--text-dim);
+  }
+  .chat-progress.active .chat-progress-icon {
+    background: var(--magenta);
+    color: white;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  .chat-progress.done .chat-progress-icon {
+    background: var(--green);
+    color: white;
+  }
+
+  .chat-suggestions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .chat-suggestion-pill {
+    padding: 5px 11px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: default;
+  }
+
+  /* ── INLINE TOOL OUTPUT IN CHAT (end) ── */
+
+  /* ── STORYBOARD (frame-by-frame walkthrough) ── */
+  .storyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 24px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .story-frame { position: relative; }
+  .story-arrow {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+  }
+  .story-arrow svg { width: 22px; height: 22px; opacity: 0.45; }
+  .frame-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .frame-num {
+    width: 26px; height: 26px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .frame-info { flex: 1; }
+  .frame-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 2px 0;
+    letter-spacing: -0.1px;
+  }
+  .frame-info p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+  }
+  .frame-window {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  }
+  .frame-window-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, var(--magenta-glow), var(--cyan-glow));
+    border-bottom: 1px solid var(--magenta-border);
+  }
+  .frame-window-avatar {
+    width: 26px; height: 26px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .frame-window-name {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .frame-window-status {
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+  .frame-window-status::before {
+    content: '●';
+    color: var(--green);
+    margin-right: 4px;
+    font-size: 8px;
+    vertical-align: middle;
+  }
+  .frame-window-tools {
+    margin-left: auto;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 8px;
+  }
+  .frame-quick-actions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    padding: 8px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .frame-quick-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 4px 9px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .frame-quick-btn.highlight {
+    border-color: var(--magenta);
+    color: var(--magenta);
+    background: var(--magenta-glow);
+  }
+  .frame-window-body {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--surface-2);
+    min-height: 80px;
+  }
+  .frame-window-input {
+    border-top: 1px solid var(--border);
+    padding: 10px 14px;
+    background: var(--surface);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .frame-window-input-box {
+    flex: 1;
+    padding: 7px 10px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .frame-window-input-send {
+    padding: 7px 12px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+  }
+
+  /* Mini chat messages within frames */
+  .fmsg {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .fmsg.user { flex-direction: row-reverse; }
+  .fmsg-avatar {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .fmsg-avatar.agent { background: var(--magenta); color: white; }
+  .fmsg-avatar.user { background: var(--text); color: white; }
+  .fmsg-bubble {
+    max-width: 80%;
+    padding: 9px 12px;
+    border-radius: 12px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--text);
+  }
+  .fmsg.agent .fmsg-bubble {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top-left-radius: 4px;
+  }
+  .fmsg.user .fmsg-bubble {
+    background: var(--magenta);
+    color: white;
+    border-top-right-radius: 4px;
+  }
+  .fmsg-bubble strong { font-weight: 700; }
+  .fmsg-typing {
+    display: inline-flex;
+    gap: 3px;
+    padding: 6px 0;
+  }
+  .fmsg-typing span {
+    width: 5px; height: 5px;
+    background: var(--text-dim);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  /* Workflow CTA inside frame */
+  .frame-cta {
+    margin-left: 32px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1.5px solid var(--magenta);
+    border-radius: 10px;
+    border-top-left-radius: 4px;
+  }
+  .frame-cta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 5px;
+  }
+  .frame-cta-tag::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--magenta);
+    border-radius: 50%;
+  }
+  .frame-cta-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .frame-cta-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin-bottom: 8px;
+  }
+  .frame-cta-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* Loading display in frame */
+  .frame-loading {
+    margin-left: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .frame-loading-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .frame-loading-spinner {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-top-color: var(--magenta);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .frame-loading-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .frame-loading-sub {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-top: 1px;
+  }
+  .frame-loading-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .frame-loading-step.done { color: var(--green); }
+  .frame-loading-step.active { color: var(--magenta); font-weight: 600; }
+  .frame-loading-step-icon {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .frame-loading-step.done .frame-loading-step-icon {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+  }
+  .frame-loading-step.active .frame-loading-step-icon {
+    background: var(--magenta);
+    border-color: var(--magenta);
+    color: white;
+  }
+
+  /* Rich account card */
+  .rich-acct-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 32px;
+  }
+  .rich-acct-list .rich-acct-list-header {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .rich-acct-list .rich-acct-list-header strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .rich-acct-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .rich-acct-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .rich-acct-rank-badge {
+    width: 24px; height: 24px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .rich-acct-name-block { flex: 1; min-width: 0; }
+  .rich-acct-name-block h5 {
+    font-size: 13.5px;
+    font-weight: 700;
+    margin: 0 0 1px 0;
+    color: var(--text);
+    letter-spacing: -0.2px;
+    line-height: 1.25;
+  }
+  .rich-acct-name-block .meta {
+    font-size: 10.5px;
+    color: var(--text-muted);
+  }
+  .rich-acct-score-badge {
+    padding: 3px 10px;
+    background: linear-gradient(135deg, var(--green), #059669);
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .rich-acct-score-num {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .rich-acct-score-label {
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+    opacity: 0.95;
+  }
+  .rich-acct-section { margin-bottom: 10px; }
+  .rich-acct-section:last-child { margin-bottom: 0; }
+  .rich-acct-section-label {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 5px;
+  }
+  .rich-acct-signal-row {
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    padding: 3px 0;
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+  .rich-acct-signal-row .icon {
+    font-size: 12px;
+    line-height: 1.3;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+  }
+  .rich-acct-signal-row .text { flex: 1; color: var(--text); }
+  .rich-acct-signal-row .text .src {
+    font-size: 9.5px;
+    color: var(--text-dim);
+    margin-left: 4px;
+    font-style: italic;
+  }
+  .rich-acct-fit {
+    background: var(--magenta-glow);
+    border: 1px dashed var(--magenta-border);
+    border-radius: 8px;
+    padding: 9px 11px;
+  }
+  .rich-acct-fit .rich-acct-section-label { color: var(--magenta); margin-bottom: 4px; }
+  .rich-acct-fit-product {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--magenta);
+    margin-bottom: 6px;
+    letter-spacing: -0.1px;
+  }
+  .rich-acct-fit ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .rich-acct-fit li {
+    padding-left: 14px;
+    position: relative;
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 3px;
+  }
+  .rich-acct-fit li:last-child { margin-bottom: 0; }
+  .rich-acct-fit li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 800;
+    font-size: 11px;
+  }
+  .rich-acct-card-footer {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    justify-content: flex-end;
+  }
+  .rich-acct-card-btn {
+    background: var(--magenta);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: default;
+    font-family: inherit;
+  }
+  .rich-acct-card-btn.highlight {
+    box-shadow: 0 0 0 3px var(--magenta-glow);
+  }
+
+  /* FDM form in frame */
+  .frame-fdm-form {
+    margin-left: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .frame-fdm-field { margin-bottom: 12px; }
+  .frame-fdm-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 5px;
+    display: block;
+  }
+  .frame-fdm-label .src {
+    font-size: 9px;
+    color: var(--text-dim);
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0.2px;
+    margin-left: 5px;
+  }
+  .frame-fdm-select {
+    width: 100%;
+    padding: 8px 11px;
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    font-size: 12px;
+    color: var(--text);
+  }
+  .frame-fdm-select.filled {
+    border-color: var(--magenta);
+    background: var(--magenta-glow);
+    color: var(--magenta);
+    font-weight: 600;
+  }
+  .frame-fdm-pills {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .frame-fdm-pill {
+    padding: 4px 10px;
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .frame-fdm-pill.selected {
+    background: var(--magenta-glow);
+    border-color: var(--magenta);
+    color: var(--magenta);
+  }
+  .frame-fdm-submit {
+    width: 100%;
+    padding: 9px 14px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  /* Contact mini cards */
+  .frame-contacts {
+    margin-left: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .frame-contact-list-header {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .frame-contact-list-header strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+  .frame-contact {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .frame-contact.selected {
+    border-color: var(--magenta);
+    background: var(--magenta-glow);
+  }
+  .frame-contact-check {
+    width: 16px; height: 16px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .frame-contact.selected .frame-contact-check {
+    background: var(--magenta);
+    border-color: var(--magenta);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+  }
+  .frame-contact-info { flex: 1; min-width: 0; }
+  .frame-contact-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.25;
+  }
+  .frame-contact-title {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .frame-contact-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+  .frame-contact-meta span { display: inline-flex; gap: 3px; align-items: center; }
+  .frame-contact-signal {
+    margin-top: 5px;
+    font-size: 10.5px;
+    color: var(--magenta);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .frame-contact-score {
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--green), #059669);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .frame-contact-score.medium {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+  }
+
+  .frame-send-btn {
+    align-self: flex-end;
+    padding: 8px 14px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 7px;
+    font-size: 11.5px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+
+  /* Sequence picker in frame */
+  .frame-seq {
+    margin-left: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .frame-seq-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .frame-seq-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .frame-seq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .frame-seq-option {
+    padding: 9px 11px;
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .frame-seq-option.selected {
+    border-color: var(--magenta);
+    background: var(--magenta-glow);
+    color: var(--magenta);
+    font-weight: 700;
+  }
+  .frame-seq-option-radio {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    background: var(--surface);
+  }
+  .frame-seq-option.selected .frame-seq-option-radio {
+    border-color: var(--magenta);
+    background: var(--magenta);
+    box-shadow: inset 0 0 0 3px var(--surface);
+  }
+  .frame-seq-confirm {
+    width: 100%;
+    padding: 9px;
+    background: var(--magenta);
+    color: white;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* Success in frame */
+  .frame-success {
+    margin-left: 32px;
+    background: linear-gradient(135deg, #ecfdf5, #f0fdfa);
+    border: 1.5px solid var(--green);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .frame-success-icon {
+    width: 38px; height: 38px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .frame-success h5 {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 4px 0;
+  }
+  .frame-success p {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin: 0 0 12px 0;
+    line-height: 1.45;
+  }
+  .frame-success-stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 12px;
+  }
+  .frame-success-stat {
+    text-align: center;
+  }
+  .frame-success-stat-num {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--green);
+    line-height: 1;
+  }
+  .frame-success-stat-lbl {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+  .frame-success-cta {
+    display: inline-block;
+    padding: 8px 14px;
+    background: var(--green);
+    color: white;
+    border-radius: 6px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  /* Suggestion pills */
+  .frame-suggestions {
+    margin-left: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 4px;
+  }
+  .frame-suggestion {
+    padding: 5px 10px;
+    background: var(--surface);
+    border: 1px solid var(--magenta-border);
+    border-radius: 999px;
+    font-size: 10.5px;
+    color: var(--magenta);
+    font-weight: 600;
+  }
+
+  /* ── EVERYTHING SALES AGENT EXPLAINER ── */
+  .agent-explainer {
+    background: linear-gradient(135deg, var(--magenta-glow), var(--cyan-glow));
+    border: 1.5px solid var(--magenta-border);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .agent-explainer-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 3px 9px;
+    background: var(--surface);
+    border: 1px solid var(--magenta-border);
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+  .agent-explainer h4 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+  }
+  .agent-explainer p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0 0 8px 0;
+  }
+  .agent-explainer p:last-child { margin-bottom: 0; }
+  .agent-explainer p strong { color: var(--text); font-weight: 700; }
+  .agent-explainer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .agent-explainer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .agent-explainer-card-label {
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 4px;
+  }
+  .agent-explainer-card.open .agent-explainer-card-label { color: var(--blue); }
+  .agent-explainer-card.deterministic .agent-explainer-card-label { color: var(--magenta); }
+  .agent-explainer-card-text {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+  @media (max-width: 600px) {
+    .agent-explainer-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── QUICK ACTIONS ROW ── */
+  .chat-quick-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .chat-quick-actions-label {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    align-self: center;
+    margin-right: 6px;
+  }
+  .chat-quick-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 5px 11px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .chat-quick-btn:hover {
+    border-color: var(--magenta);
+    color: var(--magenta);
+    background: var(--magenta-glow);
+  }
+
+  /* ── CONFIRMATION CTA (workflow trigger) ── */
+  .chat-confirm-cta {
+    align-self: flex-start;
+    max-width: 88%;
+    margin-left: 38px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1.5px solid var(--magenta);
+    border-radius: 12px;
+    border-top-left-radius: 4px;
+    box-shadow: 0 4px 12px rgba(219, 39, 119, 0.08);
+    animation: chatSlideIn 0.3s ease;
+  }
+  .chat-confirm-cta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .chat-confirm-cta-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--magenta);
+    border-radius: 50%;
+  }
+  .chat-confirm-cta-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .chat-confirm-cta-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .chat-confirm-cta-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .chat-confirm-btn {
+    background: var(--magenta);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    font-family: inherit;
+  }
+  .chat-confirm-btn:hover { opacity: 0.92; }
+  .chat-confirm-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--text-dim);
+  }
+  .chat-confirm-btn.secondary {
+    background: var(--surface);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .chat-confirm-btn.secondary:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
+  }
+
+  /* ── FDM CONFIG FORM (in chat tool panel) ── */
+  .chat-fdm-form {
+    padding: 22px 18px;
+  }
+  .chat-fdm-form-intro {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .chat-fdm-form-intro strong { color: var(--text); font-weight: 700; }
+  .chat-fdm-form-field {
+    margin-bottom: 16px;
+  }
+  .chat-fdm-form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 7px;
+  }
+  .chat-fdm-form-label .source-tag {
+    font-size: 9.5px;
+    color: var(--text-dim);
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 0.2px;
+    margin-left: 6px;
+  }
+  .chat-fdm-form-select {
+    width: 100%;
+    padding: 10px 32px 10px 12px;
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--text);
+    font-family: inherit;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 12 8'%3E%3Cpath fill='%23999' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+  }
+  .chat-fdm-form-select:focus {
+    outline: none;
+    border-color: var(--magenta);
+  }
+  .chat-fdm-form-pills {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .chat-fdm-pill {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--surface-2);
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .chat-fdm-pill:hover { border-color: var(--magenta-border); color: var(--text); }
+  .chat-fdm-pill.selected {
+    background: var(--magenta-glow);
+    border-color: var(--magenta);
+    color: var(--magenta);
+  }
+  .chat-fdm-form-submit {
+    width: 100%;
+    padding: 11px 16px;
+    background: var(--magenta);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: opacity 0.15s;
+    font-family: inherit;
+  }
+  .chat-fdm-form-submit:hover { opacity: 0.92; }
+  .chat-fdm-form-submit:disabled {
+    opacity: 0.4;
+    background: var(--text-dim);
+    cursor: not-allowed;
+  }
 
   /* ── INLINE TOOL PANEL (within chat) ── */
   .chat-tool-panel {
@@ -6001,6 +7807,7 @@
         <!-- SUB-TABS -->
         <div class="demo-subtabs">
           <button class="demo-subtab active" data-subtab="agent">Agent Chat</button>
+          <button class="demo-subtab" data-subtab="prioritize">Account Prioritization</button>
           <button class="demo-subtab" data-subtab="dm">Find Decision Makers</button>
           <button class="demo-subtab" data-subtab="signals">Uncover Signals</button>
           <button class="demo-subtab" data-subtab="pov">POV Generator</button>
@@ -6019,144 +7826,869 @@
               <p>The agent isn't a form. It's a conversation. The rep describes what they need, the agent asks follow-ups, and pulls in the right tool when it has enough context.</p>
             </div>
 
-            <div class="chat-container">
-              <div class="chat-window">
-                <div class="chat-header">
-                  <div class="chat-header-avatar">Q</div>
-                  <div class="chat-header-info">
-                    <div class="chat-header-name">Sales Agent</div>
-                    <div class="chat-header-status">Online · grounded in your data</div>
-                  </div>
-                  <span class="chat-header-tools">7 tools available</span>
+            <!-- EVERYTHING SALES AGENT EXPLAINER -->
+            <div class="agent-explainer">
+              <div class="agent-explainer-tag">How it works</div>
+              <h4>The Everything Sales Agent</h4>
+              <p>This is a hybrid agent. <strong>Open conversation on top, deterministic workflows underneath.</strong> The chat handles intent and clarifying questions. Anything that touches your real data — prospecting, signal research, response drafting — runs as a pre-built skill the rep manually triggers.</p>
+              <p>That separation is the point. General-purpose LLMs hallucinate, fabricate sources, and reproduce stale playbooks. By gating every data-touching action behind a deterministic workflow you've already designed, the agent stays accurate, grounded, and auditable. The rep is always in the loop.</p>
+              <div class="agent-explainer-grid">
+                <div class="agent-explainer-card open">
+                  <div class="agent-explainer-card-label">Open Layer</div>
+                  <div class="agent-explainer-card-text">Free-form chat. Asks clarifying questions, surfaces context, suggests the right next step.</div>
                 </div>
-                <div class="chat-messages" id="chat-messages">
-                  <!-- Populated by animation -->
-                </div>
-                <div class="chat-footer">
-                  <div class="chat-input-mock">Ask anything or describe what you need...</div>
-                  <button class="chat-replay" id="chat-replay">↻ Replay</button>
-                </div>
-              </div>
-
-              <!-- INLINE TOOL RESULT PANEL (Find Decision Makers in chat) -->
-              <div class="chat-tool-panel" id="chat-tool-panel" style="display: none;">
-                <div class="chat-tool-header">
-                  <div class="chat-tool-header-icon">🎯</div>
-                  <div class="chat-tool-header-info">
-                    <div class="chat-tool-header-title">Find Decision Makers</div>
-                    <div class="chat-tool-header-sub">Truist Financial · Voice of Customer Modernization</div>
-                  </div>
-                  <div class="chat-tool-header-tag">Tool result</div>
-                </div>
-
-                <div class="chat-tool-body">
-
-                  <!-- Loading state -->
-                  <div class="chat-tool-state" id="chat-tool-loading">
-                    <div class="demo-loading" style="padding: 24px 16px;">
-                      <div class="demo-spinner"></div>
-                      <div class="demo-loading-status" id="chat-loading-status">Working...</div>
-                      <div class="demo-loading-substatus" id="chat-loading-substatus"></div>
-                      <div class="demo-progress-list">
-                        <div class="demo-progress-step" data-chat-step="0">
-                          <div class="demo-progress-icon">1</div>
-                          Pulling account context from Salesforce
-                        </div>
-                        <div class="demo-progress-step" data-chat-step="1">
-                          <div class="demo-progress-icon">2</div>
-                          Identifying ICP personas for VoC play
-                        </div>
-                        <div class="demo-progress-step" data-chat-step="2">
-                          <div class="demo-progress-icon">3</div>
-                          Querying Clay for matching contacts
-                        </div>
-                        <div class="demo-progress-step" data-chat-step="3">
-                          <div class="demo-progress-icon">4</div>
-                          Enriching with verified email and phone
-                        </div>
-                        <div class="demo-progress-step" data-chat-step="4">
-                          <div class="demo-progress-icon">5</div>
-                          Drafting personalized sequences
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Results state -->
-                  <div class="chat-tool-state" id="chat-tool-results" style="display: none;">
-                    <div class="demo-results-header">
-                      <div class="demo-results-title">
-                        <h3 id="chat-results-title">Found decision makers</h3>
-                        <p id="chat-results-subtitle">Ranked by ICP fit and engagement signals</p>
-                      </div>
-                      <div class="demo-results-actions">
-                        <button class="demo-action-btn" id="chat-org-btn">📊 Org Chart</button>
-                        <button class="demo-action-btn primary" id="chat-send-btn" disabled>Send to Outreach (<span id="chat-selected-count">0</span>)</button>
-                      </div>
-                    </div>
-                    <div id="chat-contact-list"></div>
-                  </div>
-
-                  <!-- Importing state -->
-                  <div class="chat-tool-state" id="chat-tool-importing" style="display: none;">
-                    <div class="demo-loading" style="padding: 24px 16px;">
-                      <div class="demo-spinner"></div>
-                      <div class="demo-loading-status" id="chat-import-status">Importing to Salesforce...</div>
-                      <div class="demo-loading-substatus" id="chat-import-substatus">Creating contact records and routing to owners</div>
-                      <div class="demo-progress-list">
-                        <div class="demo-progress-step" data-chat-import="0">
-                          <div class="demo-progress-icon">1</div>
-                          Checking Salesforce for existing records
-                        </div>
-                        <div class="demo-progress-step" data-chat-import="1">
-                          <div class="demo-progress-icon">2</div>
-                          Creating new contact records in SFDC
-                        </div>
-                        <div class="demo-progress-step" data-chat-import="2">
-                          <div class="demo-progress-icon">3</div>
-                          Pushing prospects to Outreach
-                        </div>
-                        <div class="demo-progress-step" data-chat-import="3">
-                          <div class="demo-progress-icon">4</div>
-                          Enrolling in selected sequence
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Success state -->
-                  <div class="chat-tool-state" id="chat-tool-success" style="display: none;">
-                    <div class="demo-success" style="padding: 28px 16px;">
-                      <div class="success-circle">✓</div>
-                      <h3>Contacts Successfully Enrolled</h3>
-                      <p>Your selected contacts were imported into Salesforce and enrolled in your Outreach sequence.</p>
-                      <div class="demo-success-stats">
-                        <div class="demo-stat-item">
-                          <div class="demo-stat-value" id="chat-success-contacts">0</div>
-                          <div class="demo-stat-label">Contacts</div>
-                        </div>
-                        <div class="demo-stat-item">
-                          <div class="demo-stat-value" id="chat-success-sfdc">0</div>
-                          <div class="demo-stat-label">SFDC Records</div>
-                        </div>
-                        <div class="demo-stat-item">
-                          <div class="demo-stat-value" id="chat-success-emails">0</div>
-                          <div class="demo-stat-label">Emails Queued</div>
-                        </div>
-                      </div>
-                      <div style="margin-top: 16px;">
-                        <button class="demo-action-btn primary" onclick="window.open('https://app.outreach.io/', '_blank')">Open Outreach</button>
-                        <button class="demo-action-btn" id="chat-tool-close">Continue Chat</button>
-                      </div>
-                    </div>
-                  </div>
-
+                <div class="agent-explainer-card deterministic">
+                  <div class="agent-explainer-card-label">Deterministic Layer</div>
+                  <div class="agent-explainer-card-text">Pre-built skills triggered manually. Same inputs, same outputs. Grounded in real data, every time.</div>
                 </div>
               </div>
             </div>
 
+            <div class="storyboard">
+
+              <!-- ════════ FRAME 1: AGENT OPENS ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">1</div>
+                  <div class="frame-info">
+                    <h4>The rep opens the Sales Agent</h4>
+                    <p>Quick action buttons for the most-used workflows are pinned at the top. Below that, the agent greets and waits for input.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Online · grounded in your data</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-quick-actions">
+                    <button class="frame-quick-btn">Prioritize Accounts</button>
+                    <button class="frame-quick-btn">Find Decision Makers</button>
+                    <button class="frame-quick-btn">Uncover Signals</button>
+                    <button class="frame-quick-btn">Generate POV</button>
+                    <button class="frame-quick-btn">Draft Response</button>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble">Hey Mason. I can help you prospect end-to-end &mdash; <strong>prioritize your book</strong>, <strong>find decision makers</strong>, <strong>uncover signals</strong>, draft <strong>POVs</strong>, even handle inbound replies. What do you want to tackle first?</div>
+                    </div>
+                  </div>
+                  <div class="frame-window-input">
+                    <div class="frame-window-input-box">Ask anything or describe what you need...</div>
+                    <div class="frame-window-input-send">Send</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 2: USER ASKS ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">2</div>
+                  <div class="frame-info">
+                    <h4>Mason asks in plain language</h4>
+                    <p>Instead of clicking a quick action, he types what he needs in his own words. The agent parses intent.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Online · grounded in your data</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble">Hey Mason. What do you want to tackle first?</div>
+                    </div>
+                    <div class="fmsg user">
+                      <div class="fmsg-avatar user">M</div>
+                      <div class="fmsg-bubble">Pull my top 5 new logos</div>
+                    </div>
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble"><span class="fmsg-typing"><span></span><span></span><span></span></span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 3: WORKFLOW TRIGGER ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">3</div>
+                  <div class="frame-info">
+                    <h4>Agent surfaces the workflow trigger</h4>
+                    <p>The agent confirms intent and surfaces the matching deterministic workflow. Nothing runs until Mason clicks &mdash; no hallucinations, no surprises.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Online · grounded in your data</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble">Got it. I'm going to trigger the <strong>Account Prioritization</strong> workflow &mdash; pulls every prospect in your book, scores against your ICP, factors in CRM activity and news signals, and returns your top 5 new-logo targets ranked best fit to worst.</div>
+                    </div>
+                    <div class="frame-cta">
+                      <div class="frame-cta-tag">Workflow trigger · deterministic</div>
+                      <div class="frame-cta-title">Run Account Prioritization</div>
+                      <div class="frame-cta-desc">Top 5 New-Logo Targets · scored against the FSI ICP · grounded in SFDC, news, intent</div>
+                      <div class="frame-cta-btn">Run Workflow &rarr;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 4: WORKFLOW LOADING ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">4</div>
+                  <div class="frame-info">
+                    <h4>The deterministic workflow runs</h4>
+                    <p>Pulling SFDC accounts. Scoring against ICP. Cross-referencing CRM activity, news signals, intent data. Same inputs, same outputs, every time.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Running Account Prioritization...</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="frame-loading">
+                      <div class="frame-loading-header">
+                        <div class="frame-loading-spinner"></div>
+                        <div>
+                          <div class="frame-loading-title">Cross-referencing CRM and news signals...</div>
+                          <div class="frame-loading-sub">Activity history, earnings calls, press releases, intent data</div>
+                        </div>
+                      </div>
+                      <div class="frame-loading-step done"><div class="frame-loading-step-icon">&check;</div>Pulled 1,247 prospect accounts from Salesforce</div>
+                      <div class="frame-loading-step done"><div class="frame-loading-step-icon">&check;</div>Scored against Qualtrics FSI ICP profile</div>
+                      <div class="frame-loading-step active"><div class="frame-loading-step-icon">3</div>Cross-referencing news, intent, and activity signals</div>
+                      <div class="frame-loading-step"><div class="frame-loading-step-icon">4</div>Ranking and surfacing top 5</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 5: TOP 5 ACCOUNTS ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">5</div>
+                  <div class="frame-info">
+                    <h4>Top 5 prioritized accounts surface in the chat</h4>
+                    <p>Each account shows the score, the signals that put it on the list, and a specific recommendation for which Qualtrics product to lead with.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">5 accounts surfaced</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble">Done. Top 5 ranked best fit to worst. <strong>Truist Financial</strong> is the loudest. Click <strong>Find DMs</strong> on any account to launch the next workflow.</div>
+                    </div>
+
+                    <div class="rich-acct-list">
+
+                      <!-- Truist Financial -->
+                      <div class="rich-acct-card">
+                        <div class="rich-acct-card-header">
+                          <div class="rich-acct-rank-badge">#1</div>
+                          <div class="rich-acct-name-block">
+                            <h5>Truist Financial</h5>
+                            <div class="meta">Banking · Strategic · $50B+ AUM</div>
+                          </div>
+                          <div class="rich-acct-score-badge">
+                            <div class="rich-acct-score-num">96</div>
+                            <div class="rich-acct-score-label">ICP</div>
+                          </div>
+                        </div>
+                        <div class="rich-acct-section">
+                          <div class="rich-acct-section-label">Why they made the cut</div>
+                          <div class="rich-acct-signal-row"><span class="icon">🔥</span><div class="text">Posted Senior VoC Program Manager role 4 days ago<span class="src">LinkedIn Jobs</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">📊</span><div class="text">CFO mentioned "vendor consolidation" 4 times in Q4 earnings<span class="src">SEC 10-K</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">🎯</span><div class="text">Active SurveyMonkey + Medallia footprint detected<span class="src">BuiltWith</span></div></div>
+                        </div>
+                        <div class="rich-acct-section rich-acct-fit">
+                          <div class="rich-acct-section-label">How Qualtrics helps</div>
+                          <div class="rich-acct-fit-product">Survey Essentials + XM Discover</div>
+                          <ul>
+                            <li>Replaces fragmented SurveyMonkey + Medallia stack with unified VoC platform</li>
+                            <li>Operationalizes the program expansion they're hiring for</li>
+                            <li>Real-time text analytics on top of existing customer feedback</li>
+                          </ul>
+                        </div>
+                        <div class="rich-acct-card-footer">
+                          <button class="rich-acct-card-btn highlight">Find DMs &rarr;</button>
+                        </div>
+                      </div>
+
+                      <!-- Pacific Western Bank -->
+                      <div class="rich-acct-card">
+                        <div class="rich-acct-card-header">
+                          <div class="rich-acct-rank-badge">#2</div>
+                          <div class="rich-acct-name-block">
+                            <h5>Pacific Western Bank</h5>
+                            <div class="meta">Banking · Tier 1 · West Coast</div>
+                          </div>
+                          <div class="rich-acct-score-badge">
+                            <div class="rich-acct-score-num">92</div>
+                            <div class="rich-acct-score-label">ICP</div>
+                          </div>
+                        </div>
+                        <div class="rich-acct-section">
+                          <div class="rich-acct-section-label">Why they made the cut</div>
+                          <div class="rich-acct-signal-row"><span class="icon">👤</span><div class="text">New CHRO joined 30 days ago from a Qualtrics customer<span class="src">LinkedIn</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">📣</span><div class="text">EX modernization stated as top priority in onboarding<span class="src">Internal post</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">💼</span><div class="text">Posted People Analytics Manager role 10 days ago<span class="src">LinkedIn Jobs</span></div></div>
+                        </div>
+                        <div class="rich-acct-section rich-acct-fit">
+                          <div class="rich-acct-section-label">How Qualtrics helps</div>
+                          <div class="rich-acct-fit-product">People Engage Essentials</div>
+                          <ul>
+                            <li>Net-new EX listening program aligned to CHRO's stated 90-day priorities</li>
+                            <li>CHRO already used Qualtrics at previous company &mdash; minimal switching cost</li>
+                            <li>Pulse + lifecycle surveys + manager dashboards out of the box</li>
+                          </ul>
+                        </div>
+                        <div class="rich-acct-card-footer">
+                          <button class="rich-acct-card-btn">Find DMs &rarr;</button>
+                        </div>
+                      </div>
+
+                      <!-- Suncorp Bank -->
+                      <div class="rich-acct-card">
+                        <div class="rich-acct-card-header">
+                          <div class="rich-acct-rank-badge">#3</div>
+                          <div class="rich-acct-name-block">
+                            <h5>Suncorp Bank</h5>
+                            <div class="meta">Banking · Tier 1 · APAC</div>
+                          </div>
+                          <div class="rich-acct-score-badge">
+                            <div class="rich-acct-score-num">87</div>
+                            <div class="rich-acct-score-label">ICP</div>
+                          </div>
+                        </div>
+                        <div class="rich-acct-section">
+                          <div class="rich-acct-section-label">Why they made the cut</div>
+                          <div class="rich-acct-signal-row"><span class="icon">📰</span><div class="text">Announced multi-year digital transformation initiative<span class="src">AFR</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">📊</span><div class="text">Earnings mentioned "customer feedback infrastructure" investment<span class="src">Q4 earnings</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">🎯</span><div class="text">3 different survey tools detected on new digital platform<span class="src">BuiltWith</span></div></div>
+                        </div>
+                        <div class="rich-acct-section rich-acct-fit">
+                          <div class="rich-acct-section-label">How Qualtrics helps</div>
+                          <div class="rich-acct-fit-product">Digital CX + Survey Essentials</div>
+                          <ul>
+                            <li>Consolidates fragmented survey tooling into a single platform</li>
+                            <li>Journey-level CX measurement aligned to digital transformation goals</li>
+                            <li>XM Discover for unstructured digital feedback at scale</li>
+                          </ul>
+                        </div>
+                        <div class="rich-acct-card-footer">
+                          <button class="rich-acct-card-btn">Find DMs &rarr;</button>
+                        </div>
+                      </div>
+
+                      <!-- PenFed Credit Union -->
+                      <div class="rich-acct-card">
+                        <div class="rich-acct-card-header">
+                          <div class="rich-acct-rank-badge">#4</div>
+                          <div class="rich-acct-name-block">
+                            <h5>PenFed Credit Union</h5>
+                            <div class="meta">Credit Union · Tier 1</div>
+                          </div>
+                          <div class="rich-acct-score-badge">
+                            <div class="rich-acct-score-num">85</div>
+                            <div class="rich-acct-score-label">ICP</div>
+                          </div>
+                        </div>
+                        <div class="rich-acct-section">
+                          <div class="rich-acct-section-label">Why they made the cut</div>
+                          <div class="rich-acct-signal-row"><span class="icon">💼</span><div class="text">Hiring 3 customer analytics roles right now<span class="src">LinkedIn Jobs</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">🎤</span><div class="text">SVP speaking at 2026 Credit Union Analytics Summit<span class="src">Event listing</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">🆕</span><div class="text">New Head of Customer Analytics promoted 4 months ago<span class="src">LinkedIn</span></div></div>
+                        </div>
+                        <div class="rich-acct-section rich-acct-fit">
+                          <div class="rich-acct-section-label">How Qualtrics helps</div>
+                          <div class="rich-acct-fit-product">XM Discover + CX Suite</div>
+                          <ul>
+                            <li>Powers the analytics function they're actively building out</li>
+                            <li>Member experience use case fits the credit union charter</li>
+                            <li>Fast time-to-value for newly-promoted analytics leader</li>
+                          </ul>
+                        </div>
+                        <div class="rich-acct-card-footer">
+                          <button class="rich-acct-card-btn">Find DMs &rarr;</button>
+                        </div>
+                      </div>
+
+                      <!-- Citizens Financial -->
+                      <div class="rich-acct-card">
+                        <div class="rich-acct-card-header">
+                          <div class="rich-acct-rank-badge">#5</div>
+                          <div class="rich-acct-name-block">
+                            <h5>Citizens Financial</h5>
+                            <div class="meta">Banking · Strategic</div>
+                          </div>
+                          <div class="rich-acct-score-badge">
+                            <div class="rich-acct-score-num">82</div>
+                            <div class="rich-acct-score-label">ICP</div>
+                          </div>
+                        </div>
+                        <div class="rich-acct-section">
+                          <div class="rich-acct-section-label">Why they made the cut</div>
+                          <div class="rich-acct-signal-row"><span class="icon">📊</span><div class="text">10-K filing mentions "customer experience" 24 times<span class="src">SEC 10-K</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">🏛️</span><div class="text">Active in BAI Customer Experience Council<span class="src">Public membership</span></div></div>
+                          <div class="rich-acct-signal-row"><span class="icon">👥</span><div class="text">Connected to 2 Qualtrics AVPs on LinkedIn<span class="src">Internal data</span></div></div>
+                        </div>
+                        <div class="rich-acct-section rich-acct-fit">
+                          <div class="rich-acct-section-label">How Qualtrics helps</div>
+                          <div class="rich-acct-fit-product">CX Suite + XM Discover</div>
+                          <ul>
+                            <li>Board-level CX mandate creates a top-down buying environment</li>
+                            <li>Existing AVP-level relationships warm the path</li>
+                            <li>Multi-product opportunity from VoC to predictive insights</li>
+                          </ul>
+                        </div>
+                        <div class="rich-acct-card-footer">
+                          <button class="rich-acct-card-btn">Find DMs &rarr;</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 6: FIND DMS FORM ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">6</div>
+                  <div class="frame-info">
+                    <h4>Mason picks Truist Financial &mdash; Find DMs form opens</h4>
+                    <p>Clicking <strong>Find DMs</strong> opens the workflow's input form. He picks the sales play and seniority levels he wants to target.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Online · grounded in your data</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg user">
+                      <div class="fmsg-avatar user">M</div>
+                      <div class="fmsg-bubble">Find decision makers at Truist Financial</div>
+                    </div>
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble"><strong>Truist Financial</strong> &mdash; got it. Configure the <strong>Find Decision Makers</strong> workflow below. Pick the play and seniority levels and I'll run it.</div>
+                    </div>
+                    <div class="frame-fdm-form">
+                      <div class="frame-fdm-field">
+                        <label class="frame-fdm-label">Sales Play <span class="src">Highspot · via Ask AI</span></label>
+                        <div class="frame-fdm-select filled">Voice of Customer Modernization</div>
+                      </div>
+                      <div class="frame-fdm-field">
+                        <label class="frame-fdm-label">Seniority Levels <span class="src">Clay · enrichment filter</span></label>
+                        <div class="frame-fdm-pills">
+                          <span class="frame-fdm-pill">C-Level</span>
+                          <span class="frame-fdm-pill">EVP</span>
+                          <span class="frame-fdm-pill selected">SVP</span>
+                          <span class="frame-fdm-pill selected">VP</span>
+                          <span class="frame-fdm-pill">Senior Director</span>
+                          <span class="frame-fdm-pill selected">Director</span>
+                          <span class="frame-fdm-pill">Senior Manager</span>
+                          <span class="frame-fdm-pill">Manager</span>
+                        </div>
+                      </div>
+                      <div class="frame-fdm-submit">Run Find Decision Makers &rarr;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 7: FDM LOADING ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">7</div>
+                  <div class="frame-info">
+                    <h4>Find Decision Makers workflow runs</h4>
+                    <p>Mining contacts via waterfall enrichment, validating verified emails, drafting personalized sequences from approved messaging.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Running Find Decision Makers...</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="frame-loading">
+                      <div class="frame-loading-header">
+                        <div class="frame-loading-spinner"></div>
+                        <div>
+                          <div class="frame-loading-title">Querying Clay for matching contacts...</div>
+                          <div class="frame-loading-sub">Filtering for SVP, VP, Director · Voice of Customer buyer profile</div>
+                        </div>
+                      </div>
+                      <div class="frame-loading-step done"><div class="frame-loading-step-icon">&check;</div>Pulled Truist Financial account context from SFDC</div>
+                      <div class="frame-loading-step done"><div class="frame-loading-step-icon">&check;</div>Mapped VoC Modernization to target buyer personas</div>
+                      <div class="frame-loading-step active"><div class="frame-loading-step-icon">3</div>Querying Clay waterfall enrichment for matching contacts</div>
+                      <div class="frame-loading-step"><div class="frame-loading-step-icon">4</div>Validating emails and phone numbers</div>
+                      <div class="frame-loading-step"><div class="frame-loading-step-icon">5</div>Drafting personalized sequences from Ask AI</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 8: CONTACTS ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">8</div>
+                  <div class="frame-info">
+                    <h4>5 decision makers surface in the chat</h4>
+                    <p>Each contact has lead score, verified email + phone, personal signals, fit reasoning, and a draft sequence ready for review.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">5 contacts surfaced</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble">Found <strong>5 decision makers</strong> at Truist Financial. Ranked by ICP fit and engagement signals. Pick who to enroll.</div>
+                    </div>
+                    <div class="frame-contacts">
+                      <div class="frame-contact">
+                        <div class="frame-contact-check"></div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">David Kumar</div>
+                          <div class="frame-contact-title">Head of Voice of Customer</div>
+                          <div class="frame-contact-meta"><span>✉ d.kumar@truist.com</span><span>☏ +1 (415) 555-0119</span><span>in /davidkumar</span></div>
+                          <div class="frame-contact-signal">📣 Quoted in earnings: "expanding our VoC program"</div>
+                        </div>
+                        <div class="frame-contact-score">96</div>
+                      </div>
+                      <div class="frame-contact">
+                        <div class="frame-contact-check"></div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">Sarah Chen</div>
+                          <div class="frame-contact-title">SVP, Customer Experience</div>
+                          <div class="frame-contact-meta"><span>✉ s.chen@truist.com</span><span>☏ +1 (415) 555-0142</span><span>in /sarahchen</span></div>
+                          <div class="frame-contact-signal">✍️ Published LinkedIn article: "The State of NPS in 2026"</div>
+                        </div>
+                        <div class="frame-contact-score">94</div>
+                      </div>
+                      <div class="frame-contact">
+                        <div class="frame-contact-check"></div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">Michael Torres</div>
+                          <div class="frame-contact-title">VP, Digital Banking</div>
+                          <div class="frame-contact-meta"><span>✉ m.torres@truist.com</span><span>☏ +1 (415) 555-0188</span><span>in /michaeltorres</span></div>
+                          <div class="frame-contact-signal">🆕 Started new role 92 days ago · posted 3 analytics roles</div>
+                        </div>
+                        <div class="frame-contact-score">89</div>
+                      </div>
+                      <div class="frame-contact">
+                        <div class="frame-contact-check"></div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">Jennifer Park</div>
+                          <div class="frame-contact-title">Director of Customer Insights</div>
+                          <div class="frame-contact-meta"><span>✉ j.park@truist.com</span><span>☏ +1 (415) 555-0167</span><span>in /jenniferpark</span></div>
+                          <div class="frame-contact-signal">🔄 Former Medallia user at previous company</div>
+                        </div>
+                        <div class="frame-contact-score">86</div>
+                      </div>
+                      <div class="frame-contact">
+                        <div class="frame-contact-check"></div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">Rachel Thompson</div>
+                          <div class="frame-contact-title">Manager, Customer Strategy</div>
+                          <div class="frame-contact-meta"><span>✉ r.thompson@truist.com</span><span>☏ +1 (415) 555-0205</span><span>in /rachelthompson</span></div>
+                          <div class="frame-contact-signal" style="color: var(--text-dim); font-weight: 500;">Influencer-level &mdash; useful for multi-threading</div>
+                        </div>
+                        <div class="frame-contact-score medium">72</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 9: REVIEW & SELECT ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">9</div>
+                  <div class="frame-info">
+                    <h4>Review messaging and pick a sequence</h4>
+                    <p>Mason selects 3 contacts to enroll, reviews the AI-drafted personalized sequence, then chooses which approved Outreach sequence to push them into.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">3 selected · ready to enroll</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="frame-contacts">
+                      <div class="frame-contact selected">
+                        <div class="frame-contact-check">&check;</div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">David Kumar</div>
+                          <div class="frame-contact-title">Head of Voice of Customer</div>
+                          <div class="frame-contact-signal">📣 Sequence opens with: "Saw your earnings comments on expanding the VoC program..."</div>
+                        </div>
+                        <div class="frame-contact-score">96</div>
+                      </div>
+                      <div class="frame-contact selected">
+                        <div class="frame-contact-check">&check;</div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">Sarah Chen</div>
+                          <div class="frame-contact-title">SVP, Customer Experience</div>
+                          <div class="frame-contact-signal">✍️ Sequence opens with: "Read your LinkedIn piece on the state of NPS..."</div>
+                        </div>
+                        <div class="frame-contact-score">94</div>
+                      </div>
+                      <div class="frame-contact selected">
+                        <div class="frame-contact-check">&check;</div>
+                        <div class="frame-contact-info">
+                          <div class="frame-contact-name">Michael Torres</div>
+                          <div class="frame-contact-title">VP, Digital Banking</div>
+                          <div class="frame-contact-signal">🆕 Sequence opens with: "Three months in and posting analytics roles &mdash; bet you're feeling it..."</div>
+                        </div>
+                        <div class="frame-contact-score">89</div>
+                      </div>
+                    </div>
+                    <div class="frame-seq">
+                      <div class="frame-seq-title">Pick an Outreach sequence</div>
+                      <div class="frame-seq-sub">Approved sequences for Voice of Customer Modernization · 3 contacts will be enrolled</div>
+                      <div class="frame-seq-options">
+                        <div class="frame-seq-option selected">
+                          <div class="frame-seq-option-radio"></div>
+                          <span><strong>FSI · VoC Modernization · Outbound</strong> &nbsp;<span style="opacity: 0.7;">5 steps · 14 days · 38% reply rate</span></span>
+                        </div>
+                        <div class="frame-seq-option">
+                          <div class="frame-seq-option-radio"></div>
+                          <span>FSI · Digital CX · Outbound &nbsp;<span style="opacity: 0.7;">5 steps · 14 days</span></span>
+                        </div>
+                        <div class="frame-seq-option">
+                          <div class="frame-seq-option-radio"></div>
+                          <span>FSI · Closed-Loop · Outbound &nbsp;<span style="opacity: 0.7;">4 steps · 10 days</span></span>
+                        </div>
+                      </div>
+                      <div class="frame-seq-confirm">Enroll 3 contacts &amp; push to Outreach &rarr;</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 10: SUCCESS ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">10</div>
+                  <div class="frame-info">
+                    <h4>Pushed to Outreach &mdash; head over to execute</h4>
+                    <p>Contacts created in SFDC, enrolled in the sequence, ready in Outreach. Mason heads to Outreach to execute the daily tasks the sequence creates.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Enrollment complete</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble">Done. <strong>3 contacts</strong> enrolled in <strong>FSI · VoC Modernization · Outbound</strong>. Tasks are live in Outreach now &mdash; head over there to execute.</div>
+                    </div>
+                    <div class="frame-success">
+                      <div class="frame-success-icon">&check;</div>
+                      <h5>Pushed to Outreach successfully</h5>
+                      <p>Contacts created in SFDC · enrolled in sequence · daily tasks generated for the next 14 days</p>
+                      <div class="frame-success-stats">
+                        <div class="frame-success-stat">
+                          <div class="frame-success-stat-num">3</div>
+                          <div class="frame-success-stat-lbl">Contacts</div>
+                        </div>
+                        <div class="frame-success-stat">
+                          <div class="frame-success-stat-num">3</div>
+                          <div class="frame-success-stat-lbl">SFDC Records</div>
+                        </div>
+                        <div class="frame-success-stat">
+                          <div class="frame-success-stat-num">15</div>
+                          <div class="frame-success-stat-lbl">Emails Drafted</div>
+                        </div>
+                      </div>
+                      <a class="frame-success-cta">Open Outreach to execute &rarr;</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="story-arrow">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+
+              <!-- ════════ FRAME 11: WHAT'S NEXT ════════ -->
+              <div class="story-frame">
+                <div class="frame-meta">
+                  <div class="frame-num">11</div>
+                  <div class="frame-info">
+                    <h4>The agent stays available for whatever's next</h4>
+                    <p>Workflow complete. The agent loops back, ready for the next request &mdash; build a POV brief, pull deeper signals, draft a reply when someone responds.</p>
+                  </div>
+                </div>
+                <div class="frame-window">
+                  <div class="frame-window-header">
+                    <div class="frame-window-avatar">Q</div>
+                    <div>
+                      <div class="frame-window-name">Sales Agent</div>
+                      <div class="frame-window-status">Online · grounded in your data</div>
+                    </div>
+                    <span class="frame-window-tools">7 tools</span>
+                  </div>
+                  <div class="frame-window-body">
+                    <div class="fmsg agent">
+                      <div class="fmsg-avatar agent">Q</div>
+                      <div class="fmsg-bubble">Is there anything else I can help you with?</div>
+                    </div>
+                    <div class="frame-suggestions">
+                      <span class="frame-suggestion">💡 Build a POV brief for the first call</span>
+                      <span class="frame-suggestion">📡 Pull deeper signals on these accounts</span>
+                      <span class="frame-suggestion">✉️ Draft a reply when someone responds</span>
+                      <span class="frame-suggestion">⭐ Prioritize another batch of accounts</span>
+                    </div>
+                  </div>
+                  <div class="frame-window-input">
+                    <div class="frame-window-input-box">Ask anything or describe what you need...</div>
+                    <div class="frame-window-input-send">Send</div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /storyboard -->
+
           </div>
           <!-- /flow-agent -->
+
+          <!-- ════════════════════════════════════════════════ -->
+          <!-- FLOW: ACCOUNT PRIORITIZATION                     -->
+          <!-- ════════════════════════════════════════════════ -->
+          <div class="demo-flow" id="flow-prioritize">
+
+            <!-- ─── PRI FORM ─── -->
+            <div class="demo-step active" id="pri-step-form">
+              <div class="demo-form-intro">
+                <h3>Prioritize Your Book</h3>
+                <p>Upload a CSV or pick a Salesforce report. The agent scores every account against the Qualtrics ICP, factors in CRM signals and recent news, then ranks them best fit to worst fit.</p>
+              </div>
+
+              <div class="demo-form" style="max-width: 580px;">
+                <div class="demo-field">
+                  <label>Source</label>
+                  <div class="pri-source-tabs">
+                    <button class="pri-source-tab active" data-pri-src="csv">📁 Upload CSV</button>
+                    <button class="pri-source-tab" data-pri-src="sfdc">📊 Salesforce Report</button>
+                  </div>
+
+                  <!-- CSV PANE -->
+                  <div class="pri-source-pane active" id="pri-pane-csv">
+                    <div class="pri-dropzone" id="pri-dropzone">
+                      <div class="pri-dropzone-icon">📥</div>
+                      <div class="pri-dropzone-title">Drop your CSV here</div>
+                      <div class="pri-dropzone-sub">or click to browse — must include account names + IDs</div>
+                      <div class="pri-fake-button">Choose file</div>
+                      <div class="pri-file-info">
+                        <div class="pri-file-name">✓ accounts_q1_2026.csv</div>
+                        <div class="pri-file-meta">847 accounts loaded · 12 columns detected</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- SFDC PANE -->
+                  <div class="pri-source-pane" id="pri-pane-sfdc">
+                    <div class="demo-field" style="margin-top: 4px;">
+                      <select id="pri-report">
+                        <option value="">Choose a Salesforce report...</option>
+                        <option value="active">FSI Active Pipeline · Q1 2026 (412 accounts)</option>
+                        <option value="dormant">FSI Untouched 90+ Days (1,247 accounts)</option>
+                        <option value="closedwon">FSI Closed Won · Last 12 Months (89 accounts)</option>
+                        <option value="myaccts">All My Accounts · Mason Anderson (203 accounts)</option>
+                        <option value="newlogo">FSI New Logo Targets · 2026 (586 accounts)</option>
+                        <option value="dormant_customer">FSI Customers · No Touch in 60 Days (124 accounts)</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="demo-submit" id="pri-submit" disabled>Score & Rank Accounts</button>
+              </div>
+            </div>
+
+            <!-- ─── PRI LOADING ─── -->
+            <div class="demo-step" id="pri-step-loading">
+              <div class="demo-loading">
+                <div class="demo-spinner"></div>
+                <div class="demo-loading-status" id="pri-loading-status">Working...</div>
+                <div class="demo-loading-substatus" id="pri-loading-substatus"></div>
+
+                <div class="demo-progress-list">
+                  <div class="demo-progress-step" data-pri-step="0">
+                    <div class="demo-progress-icon">1</div>
+                    Loading accounts and matching to Salesforce records
+                  </div>
+                  <div class="demo-progress-step" data-pri-step="1">
+                    <div class="demo-progress-icon">2</div>
+                    Scoring against Qualtrics ICP profile
+                  </div>
+                  <div class="demo-progress-step" data-pri-step="2">
+                    <div class="demo-progress-icon">3</div>
+                    Pulling CRM activity history and conversations
+                  </div>
+                  <div class="demo-progress-step" data-pri-step="3">
+                    <div class="demo-progress-icon">4</div>
+                    Cross-referencing news, hiring, and intent signals
+                  </div>
+                  <div class="demo-progress-step" data-pri-step="4">
+                    <div class="demo-progress-icon">5</div>
+                    Ranking accounts and generating fit explanations
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ─── PRI RESULTS ─── -->
+            <div class="demo-step" id="pri-step-results">
+              <div class="demo-results-header">
+                <div class="demo-results-title">
+                  <h3 id="pri-results-title">Prioritized Account List</h3>
+                  <p id="pri-results-subtitle">Ranked by ICP fit score with signals factored in</p>
+                </div>
+                <div class="demo-results-actions">
+                  <button class="demo-action-btn" id="pri-new-search">New Source</button>
+                </div>
+              </div>
+
+              <!-- Filter / Search bar -->
+              <div class="pri-filter-bar">
+                <input type="text" class="pri-search" id="pri-search" placeholder="Search account name or industry...">
+                <select class="pri-filter" id="pri-filter-type">
+                  <option value="all">All Types</option>
+                  <option value="Prospect">Prospects</option>
+                  <option value="Customer">Customers</option>
+                  <option value="Former Customer">Former Customers</option>
+                </select>
+                <select class="pri-filter" id="pri-filter-score">
+                  <option value="all">All Scores</option>
+                  <option value="high">High (80+)</option>
+                  <option value="medium">Medium (60-79)</option>
+                  <option value="low">Low (&lt;60)</option>
+                </select>
+                <select class="pri-filter" id="pri-filter-segment">
+                  <option value="all">All Segments</option>
+                  <option value="Strategic">Strategic</option>
+                  <option value="Tier 1">Tier 1</option>
+                  <option value="Tier 2">Tier 2</option>
+                  <option value="Long-tail">Long-tail</option>
+                </select>
+                <select class="pri-filter" id="pri-sort">
+                  <option value="score-desc">Sort: Fit Score ↓</option>
+                  <option value="score-asc">Sort: Fit Score ↑</option>
+                  <option value="name-asc">Sort: Name A-Z</option>
+                  <option value="activity">Sort: Recent Activity</option>
+                  <option value="spend-desc">Sort: Spend ↓</option>
+                </select>
+              </div>
+
+              <div class="pri-results-meta">
+                <div class="pri-results-count" id="pri-count">Showing <strong>0</strong> accounts</div>
+              </div>
+
+              <div id="pri-account-list"></div>
+            </div>
+
+          </div>
+          <!-- /flow-prioritize -->
 
           <!-- ════════════════════════════════════════════════ -->
           <!-- FLOW 1: FIND DECISION MAKERS                     -->
@@ -6837,6 +9369,171 @@
 
   // ── DEMO DATA ──
   // Generated based on account + play. Same set of contacts but copy adapts.
+  // Per-account contact data — different decision makers for each of the 5 prioritized accounts
+  const ACCOUNT_CONTACTS = {
+    truist: [
+      { name: 'Sarah Chen',     title: 'SVP, Customer Experience',         emailLocal: 's.chen',       phone: '+1 (415) 555-0142', score: 94,
+        fit: `Owns the CX charter at <strong>Truist Financial</strong>. Quoted in 2 industry publications recently about modernizing customer feedback. Strong fit for this play.`,
+        signals: [
+          { icon: '✍️', text: 'Published LinkedIn article: <strong>"The State of NPS in 2026"</strong>', meta: '5 days ago', link: { text: 'Read post', url: 'https://www.linkedin.com/' } },
+          { icon: '🎤', text: 'Spoke at <strong>Forrester CX Summit</strong> on real-time feedback loops', meta: 'Last month', link: { text: 'Watch session', url: 'https://www.forrester.com/' } },
+          { icon: '👥', text: 'Followed by <strong>3 Qualtrics execs</strong> on LinkedIn', meta: 'Ongoing', link: null }
+        ],
+        topSignal: { type: 'linkedin_post', detail: 'your LinkedIn article on the state of NPS' } },
+      { name: 'Michael Torres', title: 'VP, Digital Banking',              emailLocal: 'm.torres',     phone: '+1 (415) 555-0188', score: 89,
+        fit: `Recently led the digital platform launch. Hiring data scientists for customer analytics per <strong>3 open roles</strong> posted last week.`,
+        signals: [
+          { icon: '🆕', text: 'Started new role <strong>92 days ago</strong> (typical first vendor decision window)', meta: 'Tenure', link: null },
+          { icon: '💼', text: 'Posted <strong>3 open roles</strong> for customer analytics on his team', meta: 'Last week', link: { text: 'View postings', url: 'https://www.linkedin.com/jobs/' } }
+        ],
+        topSignal: { type: 'new_role', detail: "you're three months into the new role and just posted a few analytics roles" } },
+      { name: 'Jennifer Park',  title: 'Director of Customer Insights',    emailLocal: 'j.park',       phone: '+1 (415) 555-0167', score: 86,
+        fit: `Runs the analytics team that consumes all VoC data. <strong>Former Medallia user</strong> per LinkedIn. Champion-level persona.`,
+        signals: [
+          { icon: '🔄', text: '<strong>Former Medallia user</strong> at previous company per LinkedIn history', meta: 'Career history', link: { text: 'View profile', url: 'https://www.linkedin.com/' } },
+          { icon: '👍', text: 'Liked a <strong>Qualtrics customer story</strong> post on LinkedIn', meta: '2 weeks ago', link: { text: 'See post', url: 'https://www.linkedin.com/' } }
+        ],
+        topSignal: { type: 'former_competitor', detail: 'you used Medallia at your last role' } },
+      { name: 'David Kumar',    title: 'Head of Voice of Customer',        emailLocal: 'd.kumar',      phone: '+1 (415) 555-0119', score: 96,
+        fit: `Direct owner of the VoC program. Mentioned program expansion in last earnings commentary. Highest-priority decision maker for this play.`,
+        signals: [
+          { icon: '📣', text: 'Quoted in earnings: <strong>"expanding our VoC program"</strong>', meta: 'Last quarter', link: { text: 'Earnings transcript', url: 'https://www.sec.gov/' } },
+          { icon: '🏛️', text: 'Active in <strong>FSI Customer Experience Council</strong>', meta: 'Ongoing', link: null }
+        ],
+        topSignal: { type: 'earnings_quote', detail: 'your comments on expanding the VoC program in the last earnings call' } },
+      { name: 'Rachel Thompson', title: 'Manager, Customer Strategy',      emailLocal: 'r.thompson',   phone: '+1 (415) 555-0205', score: 72,
+        fit: `Influencer-level. Reports to Director of Insights. Useful for multi-threading.`,
+        signals: [], topSignal: null }
+    ],
+    pacific: [
+      { name: 'Marcus Rivera',  title: 'CHRO',                              emailLocal: 'm.rivera',    phone: '+1 (213) 555-0188', score: 95,
+        fit: `<strong>New CHRO joined 30 days ago</strong>. First-90-day vendor decisions get made fast. Top buying signal at the account.`,
+        signals: [
+          { icon: '🆕', text: 'Joined <strong>Pacific Western Bank</strong> 30 days ago from a Qualtrics customer', meta: 'Recent', link: { text: 'View profile', url: 'https://www.linkedin.com/' } },
+          { icon: '📣', text: 'Stated EX modernization as top priority in <strong>onboarding announcement</strong>', meta: '2 weeks ago', link: null }
+        ],
+        topSignal: { type: 'new_chro', detail: "you're a month into the new CHRO role and EX modernization is your stated priority" } },
+      { name: 'Lisa Wang',      title: 'SVP, People Operations',           emailLocal: 'l.wang',      phone: '+1 (213) 555-0144', score: 88,
+        fit: `Runs people operations. Has direct ownership over employee feedback program tooling. Likely buyer alongside the CHRO.`,
+        signals: [
+          { icon: '💼', text: 'Posted <strong>People Analytics Manager</strong> role 10 days ago', meta: 'Recent', link: { text: 'View posting', url: 'https://www.linkedin.com/jobs/' } },
+          { icon: '👥', text: 'Connected with <strong>2 Qualtrics CSMs</strong> on LinkedIn', meta: 'This month', link: null }
+        ],
+        topSignal: { type: 'hiring', detail: 'the people analytics role you posted last week' } },
+      { name: 'James Patterson', title: 'Director of Employee Engagement', emailLocal: 'j.patterson', phone: '+1 (213) 555-0211', score: 86,
+        fit: `Owns the engagement program day-to-day. Direct champion for People Engage at this account.`,
+        signals: [
+          { icon: '✍️', text: 'Recent LinkedIn post on <strong>continuous listening cadence</strong>', meta: '1 week ago', link: { text: 'Read post', url: 'https://www.linkedin.com/' } }
+        ],
+        topSignal: { type: 'linkedin_post', detail: 'your post on continuous listening cadence' } },
+      { name: 'Anita Desai',    title: 'Head of People Analytics',         emailLocal: 'a.desai',     phone: '+1 (213) 555-0173', score: 91,
+        fit: `Heads up the analytics function. Recently spoke at <strong>Glassdoor Recruiter Connect</strong>. Strong technical buyer.`,
+        signals: [
+          { icon: '🎤', text: 'Spoke at <strong>Glassdoor Recruiter Connect</strong> conference', meta: 'Last month', link: { text: 'Watch session', url: 'https://www.glassdoor.com/' } },
+          { icon: '🎯', text: 'Bombora intent surge for <strong>"engagement platform"</strong>', meta: 'This week', link: null }
+        ],
+        topSignal: { type: 'speaking', detail: 'your talk at Glassdoor Recruiter Connect last month' } },
+      { name: 'Tom Bradley',    title: 'Manager, HR Technology',           emailLocal: 't.bradley',   phone: '+1 (213) 555-0298', score: 70,
+        fit: `Influencer-level. Owns the HR tech stack. Useful for multi-threading and architecture conversations.`,
+        signals: [], topSignal: null }
+    ],
+    suncorp: [
+      { name: 'Catherine O\'Neill', title: 'SVP, Digital Transformation',  emailLocal: 'c.oneill',    phone: '+61 7 5555 0142',  score: 92,
+        fit: `Leading the multi-year digital transformation announced last quarter. Public face of the program.`,
+        signals: [
+          { icon: '📰', text: 'Featured in <strong>AFR article</strong> on the digital program', meta: '3 weeks ago', link: { text: 'Read article', url: 'https://www.afr.com/' } },
+          { icon: '📣', text: 'Quoted in earnings on <strong>customer feedback infrastructure</strong>', meta: 'Last quarter', link: null }
+        ],
+        topSignal: { type: 'press', detail: 'the AFR coverage of your digital transformation program' } },
+      { name: 'Robert Singh',   title: 'VP, Customer Experience',          emailLocal: 'r.singh',     phone: '+61 7 5555 0188',  score: 88,
+        fit: `Direct CX owner. Working through the digital launch right now — strong fit for Digital CX play.`,
+        signals: [
+          { icon: '🎯', text: 'BuiltWith shows <strong>3 different survey tools</strong> on the new platform', meta: 'This week', link: null },
+          { icon: '🆕', text: 'Promoted to current role <strong>4 months ago</strong>', meta: 'Tenure', link: null }
+        ],
+        topSignal: { type: 'tech_sprawl', detail: 'the survey tool fragmentation we noticed across your new platform' } },
+      { name: 'Maria Gonzalez', title: 'Director of CX Strategy',          emailLocal: 'm.gonzalez',  phone: '+61 7 5555 0167',  score: 85,
+        fit: `Champion-level CX strategist. Public proponent of journey-based feedback models.`,
+        signals: [
+          { icon: '✍️', text: 'Co-authored a <strong>journey analytics whitepaper</strong>', meta: '2 months ago', link: { text: 'Read paper', url: 'https://www.suncorpgroup.com.au/' } }
+        ],
+        topSignal: { type: 'thought_leadership', detail: 'your journey analytics whitepaper' } },
+      { name: 'Daniel Wright',  title: 'Head of Customer Operations',      emailLocal: 'd.wright',    phone: '+61 7 5555 0119',  score: 93,
+        fit: `Owns customer operations end-to-end. Vocal advocate for closed-loop systems on LinkedIn.`,
+        signals: [
+          { icon: '✍️', text: 'Recent post: <strong>"Why Closed Loop Is the Whole Game"</strong>', meta: '6 days ago', link: { text: 'Read post', url: 'https://www.linkedin.com/' } },
+          { icon: '🎯', text: 'Engaged with <strong>Qualtrics product page</strong> twice this month', meta: 'Recent', link: null }
+        ],
+        topSignal: { type: 'linkedin_post', detail: 'your recent post about closed-loop being the whole game' } },
+      { name: 'Steve Park',     title: 'Manager, Insights & Analytics',    emailLocal: 's.park',      phone: '+61 7 5555 0205',  score: 71,
+        fit: `Working layer. Reports to Director of CX Strategy. Useful for technical due diligence.`,
+        signals: [], topSignal: null }
+    ],
+    penfed: [
+      { name: 'Angela Foster',  title: 'SVP, Customer Insights',           emailLocal: 'a.foster',    phone: '+1 (703) 555-0142', score: 93,
+        fit: `Owns the analytics charter. <strong>Posted 3 customer analytics roles</strong> last week — building out the team.`,
+        signals: [
+          { icon: '💼', text: 'Posted <strong>3 customer analytics roles</strong> last week', meta: 'Recent', link: { text: 'View postings', url: 'https://www.linkedin.com/jobs/' } },
+          { icon: '🎤', text: 'Speaking at the <strong>2026 Credit Union Analytics Summit</strong>', meta: 'Upcoming', link: { text: 'Event page', url: 'https://www.cuna.org/' } }
+        ],
+        topSignal: { type: 'hiring', detail: 'the 3 analytics roles your team posted last week' } },
+      { name: 'Brian Chen',     title: 'VP, Member Experience',            emailLocal: 'b.chen',      phone: '+1 (703) 555-0188', score: 87,
+        fit: `Member experience lead — equivalent to CX in banking. Active on member feedback modernization.`,
+        signals: [
+          { icon: '✍️', text: 'Recent LinkedIn post on <strong>member listening at scale</strong>', meta: '8 days ago', link: { text: 'Read post', url: 'https://www.linkedin.com/' } }
+        ],
+        topSignal: { type: 'linkedin_post', detail: 'your post on member listening at scale' } },
+      { name: 'Patricia Hayes', title: 'Director of Data Science',         emailLocal: 'p.hayes',     phone: '+1 (703) 555-0211', score: 88,
+        fit: `Heads data science. Technical buyer. Mentioned text analytics expansion in a recent talk.`,
+        signals: [
+          { icon: '🎤', text: 'Spoke at <strong>Strata Data 2025</strong> on text analytics in financial services', meta: 'Q4 2025', link: { text: 'Watch talk', url: 'https://www.oreilly.com/' } },
+          { icon: '🎯', text: 'Engaged with <strong>Qualtrics XM Discover content</strong> twice', meta: 'Recent', link: null }
+        ],
+        topSignal: { type: 'speaking', detail: 'your Strata talk on text analytics in financial services' } },
+      { name: 'Ryan Mitchell',  title: 'Head of Customer Analytics',       emailLocal: 'r.mitchell',  phone: '+1 (703) 555-0173', score: 92,
+        fit: `Direct champion. Owns the analytics function. Quoted in trade press about the program expansion.`,
+        signals: [
+          { icon: '📣', text: 'Quoted in <strong>CUInsight</strong> on the analytics expansion', meta: '2 weeks ago', link: { text: 'Read article', url: 'https://www.cuinsight.com/' } }
+        ],
+        topSignal: { type: 'press', detail: 'your CUInsight quote on the analytics program' } },
+      { name: 'Jessica Lee',    title: 'Manager, Member Strategy',         emailLocal: 'j.lee',       phone: '+1 (703) 555-0298', score: 73,
+        fit: `Working layer. Reports to VP Member Experience. Useful for working-team conversations.`,
+        signals: [], topSignal: null }
+    ],
+    navy: [
+      { name: 'Jonathan Hayes', title: 'SVP, Customer Experience',         emailLocal: 'j.hayes',     phone: '+1 (401) 555-0142', score: 89,
+        fit: `Top of the CX function. <strong>10-K mentions CX 24 times</strong> — board-level mandate.`,
+        signals: [
+          { icon: '📊', text: '10-K filing references <strong>"customer experience" 24 times</strong>', meta: 'Q4 2025', link: { text: 'View 10-K', url: 'https://www.sec.gov/' } },
+          { icon: '🏛️', text: 'Active in <strong>BAI Customer Experience Council</strong>', meta: 'Ongoing', link: null }
+        ],
+        topSignal: { type: 'sec_filing', detail: 'the 10-K reference to CX as a strategic priority' } },
+      { name: 'Diana Ross',     title: 'VP, Strategic Initiatives',        emailLocal: 'd.ross',      phone: '+1 (401) 555-0188', score: 84,
+        fit: `Cross-functional strategy lead. Influences large vendor decisions across CX, EX, and Operations.`,
+        signals: [
+          { icon: '👥', text: 'Connected with <strong>2 Qualtrics AVPs</strong> on LinkedIn', meta: 'This month', link: null }
+        ],
+        topSignal: { type: 'connections', detail: 'we share a few connections including a couple of our AVPs' } },
+      { name: 'Kevin O\'Brien', title: 'Director of Voice of Customer',    emailLocal: 'k.obrien',    phone: '+1 (401) 555-0211', score: 92,
+        fit: `Direct VoC owner. Champion-level. Recently announced expanding the customer feedback program.`,
+        signals: [
+          { icon: '📣', text: 'Announced <strong>Q1 VoC program expansion</strong> internally (per LinkedIn post)', meta: '3 weeks ago', link: { text: 'Read post', url: 'https://www.linkedin.com/' } },
+          { icon: '✍️', text: 'Co-presenting at the <strong>FSI VoC Leaders Summit</strong>', meta: 'Upcoming', link: null }
+        ],
+        topSignal: { type: 'program_expansion', detail: 'the VoC program expansion you announced last month' } },
+      { name: 'Marcus Johnson', title: 'Head of CX Operations',            emailLocal: 'm.johnson',   phone: '+1 (401) 555-0173', score: 90,
+        fit: `Runs CX operations. Direct technical buyer. Engaged with Qualtrics content multiple times.`,
+        signals: [
+          { icon: '🎯', text: 'Engaged with <strong>4 Qualtrics LinkedIn posts</strong> in last 60 days', meta: 'Recent', link: null },
+          { icon: '🆕', text: 'Promoted to current role <strong>5 months ago</strong>', meta: 'Tenure', link: null }
+        ],
+        topSignal: { type: 'engagement', detail: "you've engaged with our content several times in the last couple months" } },
+      { name: 'Emily Wong',     title: 'Manager, Customer Strategy',       emailLocal: 'e.wong',      phone: '+1 (401) 555-0205', score: 70,
+        fit: `Working layer. Reports to Director of VoC. Helpful for technical and ops-level conversations.`,
+        signals: [], topSignal: null }
+    ]
+  };
+
   function getContactsFor(account, play) {
     const accountName = accountNames[account] || 'the account';
     const playName = playNames[play] || 'this play';
@@ -6866,95 +9563,28 @@
     };
 
     const ctx = playContext[play] || playContext.voc;
+    const baseDomain = account === 'truist' ? 'truist' :
+                       account === 'pacific' ? 'pacwest' :
+                       account === 'suncorp' ? 'suncorp' :
+                       account === 'penfed' ? 'penfed' :
+                       account === 'navy' ? 'citizensbank' : 'company';
 
-    // 5 plausible contacts with persona variation
-    return [
-      {
-        name: 'Sarah Chen',
-        title: 'SVP, Customer Experience',
-        email: 's.chen@' + (account === 'truist' ? 'truist' : 'company') + '.com',
-        phone: '+1 (415) 555-0142',
-        linkedin: 'linkedin.com/in/sarahchen',
-        score: 94,
-        fit: `Owns the CX charter at ${accountName}. Quoted in <strong>2 industry publications</strong> in the last 60 days about modernizing customer feedback. Active on LinkedIn discussing journey analytics. Strong fit for <strong>${playName}</strong>.`,
-        problem: ctx.problem,
-        solution: ctx.solution,
-        signals: [
-          { icon: '✍️', text: 'Published LinkedIn article: <strong>"The State of NPS in 2026"</strong>', meta: '5 days ago', link: { text: 'Read post', url: 'https://www.linkedin.com/' } },
-          { icon: '🎤', text: 'Spoke at <strong>Forrester CX Summit</strong> on real-time feedback loops', meta: 'Last month', link: { text: 'Watch session', url: 'https://www.forrester.com/' } },
-          { icon: '👥', text: 'Followed by <strong>3 Qualtrics execs</strong> on LinkedIn', meta: 'Ongoing', link: null }
-        ],
-        topSignal: { type: 'linkedin_post', detail: 'your LinkedIn article on the state of NPS' },
-        sequence: null
-      },
-      {
-        name: 'Michael Torres',
-        title: 'VP, Digital Banking',
-        email: 'm.torres@' + (account === 'truist' ? 'truist' : 'company') + '.com',
-        phone: '+1 (415) 555-0188',
-        linkedin: 'linkedin.com/in/michaeltorres',
-        score: 89,
-        fit: `Recently led the digital platform launch. Hiring data scientists for customer analytics per <strong>3 open roles posted last week</strong>. Engaged with content from Forrester on banking CX trends.`,
-        problem: ctx.problem,
-        solution: ctx.solution,
-        signals: [
-          { icon: '🆕', text: 'Started new role <strong>92 days ago</strong> (typical first vendor decision window)', meta: 'Tenure', link: null },
-          { icon: '💼', text: 'Posted <strong>3 open roles</strong> for customer analytics on his team', meta: 'Last week', link: { text: 'View postings', url: 'https://www.linkedin.com/jobs/' } },
-          { icon: '📚', text: 'Engaged with <strong>Forrester banking CX research</strong> recently', meta: '2 weeks ago', link: null }
-        ],
-        topSignal: { type: 'new_role', detail: "you're three months into the new role and just posted a few analytics roles" },
-        sequence: null
-      },
-      {
-        name: 'Jennifer Park',
-        title: 'Director of Customer Insights',
-        email: 'j.park@' + (account === 'truist' ? 'truist' : 'company') + '.com',
-        phone: '+1 (415) 555-0167',
-        linkedin: 'linkedin.com/in/jenniferpark',
-        score: 86,
-        fit: `Runs the analytics team that consumes all VoC data. <strong>Former Medallia user</strong> (per LinkedIn). Champion-level persona based on past closed-won pattern at peer FSI accounts.`,
-        problem: ctx.problem,
-        solution: ctx.solution,
-        signals: [
-          { icon: '🔄', text: '<strong>Former Medallia user</strong> at previous company per LinkedIn history', meta: 'Career history', link: { text: 'View profile', url: 'https://www.linkedin.com/' } },
-          { icon: '👍', text: 'Liked a <strong>Qualtrics customer story</strong> post on LinkedIn', meta: '2 weeks ago', link: { text: 'See post', url: 'https://www.linkedin.com/' } }
-        ],
-        topSignal: { type: 'former_competitor', detail: 'you used Medallia at your last role' },
-        sequence: null
-      },
-      {
-        name: 'David Kumar',
-        title: 'Head of Voice of Customer',
-        email: 'd.kumar@' + (account === 'truist' ? 'truist' : 'company') + '.com',
-        phone: '+1 (415) 555-0119',
-        linkedin: 'linkedin.com/in/davidkumar',
-        score: 96,
-        fit: `Direct owner of the VoC program. <strong>Active in 2 trade associations</strong>. Mentioned program expansion in his last earnings call commentary. Highest-priority decision maker for this play.`,
-        problem: ctx.problem,
-        solution: ctx.solution,
-        signals: [
-          { icon: '📣', text: 'Quoted in earnings commentary about <strong>"expanding our VoC program"</strong>', meta: 'Last quarter', link: { text: 'Earnings transcript', url: 'https://www.sec.gov/' } },
-          { icon: '🏛️', text: 'Active in <strong>FSI Customer Experience Council</strong> and <strong>VoC Leaders Network</strong>', meta: 'Ongoing', link: null },
-          { icon: '✍️', text: 'Recent LinkedIn post on closed-loop feedback program design', meta: '8 days ago', link: { text: 'Read post', url: 'https://www.linkedin.com/' } }
-        ],
-        topSignal: { type: 'earnings_quote', detail: 'your comments on expanding the VoC program in the last earnings call' },
-        sequence: null
-      },
-      {
-        name: 'Rachel Thompson',
-        title: 'Manager, Customer Strategy',
-        email: 'r.thompson@' + (account === 'truist' ? 'truist' : 'company') + '.com',
-        phone: '+1 (415) 555-0205',
-        linkedin: 'linkedin.com/in/rachelthompson',
-        score: 72,
-        fit: `Influencer-level. Reports to Director of Insights. Useful for multi-threading and getting context from the working layer of the org.`,
-        problem: ctx.problem,
-        solution: ctx.solution,
-        signals: [],
-        topSignal: null,
-        sequence: null
-      }
-    ].map(c => ({ ...c, sequence: makeSequence(c.name.split(' ')[0], accountName, playName, c.title, c.topSignal) }));
+    const contacts = ACCOUNT_CONTACTS[account] || ACCOUNT_CONTACTS.truist;
+
+    return contacts.map(c => ({
+      name: c.name,
+      title: c.title,
+      email: `${c.emailLocal}@${baseDomain}.com`,
+      phone: c.phone,
+      linkedin: 'linkedin.com/in/' + c.emailLocal.replace('.', ''),
+      score: c.score,
+      fit: c.fit,
+      problem: ctx.problem,
+      solution: ctx.solution,
+      signals: c.signals,
+      topSignal: c.topSignal,
+      sequence: makeSequence(c.name.split(' ')[0], accountName, playName, c.title, c.topSignal)
+    }));
   }
 
   // ── ACCOUNT SIGNALS BY PLAY ──
@@ -7697,28 +10327,20 @@
       subtabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       flows.forEach(f => f.classList.remove('active'));
-      const flowMap = { agent: 'flow-agent', dm: 'flow-dm', signals: 'flow-signals', pov: 'flow-pov', response: 'flow-response' };
-      const labelMap = { agent: 'Agent Chat', dm: 'Find Decision Makers', signals: 'Uncover Signals', pov: 'POV Generator', response: 'Response Generator' };
+      const flowMap = { agent: 'flow-agent', prioritize: 'flow-prioritize', dm: 'flow-dm', signals: 'flow-signals', pov: 'flow-pov', response: 'flow-response' };
+      const labelMap = { agent: 'Agent Chat', prioritize: 'Account Prioritization', dm: 'Find Decision Makers', signals: 'Uncover Signals', pov: 'POV Generator', response: 'Response Generator' };
       document.getElementById(flowMap[tab.dataset.subtab]).classList.add('active');
       document.getElementById('demo-step-label').textContent = labelMap[tab.dataset.subtab];
 
       // Auto-trigger animations on tab click
       if (tab.dataset.subtab === 'response') {
         setTimeout(runResponseAnimation, 250);
-      } else if (tab.dataset.subtab === 'agent') {
-        setTimeout(runChatAnimation, 250);
       }
+      // (agent sub-tab uses a static storyboard now — no animation)
     });
   });
 
-  // Auto-trigger chat animation when Live Demo top tab is opened (agent is default)
-  document.querySelector('.nav-tab[data-view="demo"]').addEventListener('click', () => {
-    // Only trigger if agent sub-tab is currently active
-    const activeSubtab = document.querySelector('.demo-subtab.active');
-    if (activeSubtab && activeSubtab.dataset.subtab === 'agent') {
-      setTimeout(runChatAnimation, 350);
-    }
-  });
+  // (agent sub-tab is now a static storyboard — no auto-trigger needed)
 
   // ════════════════════════════════════════════════════════
   //              UNCOVER SIGNALS FLOW
@@ -8351,42 +10973,27 @@ Mason`;
   // ════════════════════════════════════════════════════════
   //              AGENT CHAT (animated conversation)
   // ════════════════════════════════════════════════════════
-  // Conversation script — flows from open question to a tool launch
-  const chatScript = [
-    {
-      role: 'user',
-      text: "Hey, I need to fill some pipeline this quarter. Where should I start with my book?"
-    },
-    {
-      role: 'agent',
-      text: "Looking at your book, three accounts are flashing strong signals right now: <strong>Truist Financial</strong>, <strong>Pacific Western Bank</strong>, and <strong>Navy Federal CU</strong>.\n\nTruist is the loudest. Their CFO mentioned vendor consolidation 4 times in last quarter's earnings call, and they posted a Senior VoC Program Manager role 4 days ago.\n\nWant me to give you the full rundown on Truist?",
-      typingMs: 1200,
-      revealMs: 28
-    },
-    {
-      role: 'user',
-      text: "Yeah, what else is going on at Truist?"
-    },
-    {
-      role: 'agent',
-      text: "A few more relevant signals:\n\n<strong>·</strong> Named to the J.D. Power CX leaders list 2 weeks ago\n<strong>·</strong> Tech footprint shows SurveyMonkey + Medallia running side-by-side (consolidation opening)\n<strong>·</strong> Their CEO highlighted CX as a strategic priority on the same earnings call\n\nThe <strong>Voice of Customer Modernization</strong> play maps cleanly here. Lots of budget, public mandate, and tool sprawl that's begging to be replaced.",
-      typingMs: 1100,
-      revealMs: 26
-    },
-    {
-      role: 'user',
-      text: "VoC Modernization sounds right. What's next?"
-    },
-    {
-      role: 'agent',
-      text: "I can spin up the prospecting flow for you. I'll find the right SVPs, VPs, and Directors at Truist, enrich them through Clay, and draft personalized email sequences grounded in the signals we just talked through.\n\nReady when you are. Want me to launch <span class=\"chat-tool-pill\">🎯 Find Decision Makers</span> with Truist + VoC Modernization pre-filled?",
-      typingMs: 1100,
-      revealMs: 26
-    }
-  ];
+  // Multi-step flow: Prioritization → Pick account → FDM → Pick contacts → Enroll
+
+  // Top 5 new-logo accounts (filtered from PRI_ACCOUNTS to Prospects only, scored highest)
+  function getTop5NewLogos() {
+    return [
+      { id: 'truist', name: 'Truist Financial', industry: 'Banking', segment: 'Strategic', score: 96,
+        signal: '🔥 Posted Senior VoC Program Manager role 4 days ago' },
+      { id: 'pacific', name: 'Pacific Western Bank', industry: 'Banking', segment: 'Tier 1', score: 92,
+        signal: '💼 New CHRO joined 30 days ago' },
+      { id: 'suncorp', name: 'Suncorp Bank', industry: 'Banking', segment: 'Tier 1', score: 87,
+        signal: '📰 Announced multi-year digital transformation' },
+      { id: 'penfed', name: 'PenFed Credit Union', industry: 'Credit Union', segment: 'Tier 1', score: 85,
+        signal: '💼 Hiring 3 customer analytics roles' },
+      { id: 'navy', name: 'Citizens Financial', industry: 'Banking', segment: 'Strategic', score: 82,
+        signal: '📊 10-K mentions CX 24 times' }
+    ];
+  }
 
   let chatAnimationActive = false;
   let chatTimeouts = [];
+  let chatStage = 'idle';  // idle, intro-done, accounts-shown, account-selected, contacts-shown, complete
 
   function clearChatTimeouts() {
     chatTimeouts.forEach(t => clearTimeout(t));
@@ -8435,8 +11042,6 @@ Mason`;
 
   async function streamMessageInto(bubble, htmlContent, charDelay = 28) {
     bubble.innerHTML = '';
-    // Stream text but preserve HTML markup (strong, span, br/newline)
-    // Approach: parse the content into chunks (text vs tag) and stream text chunks character by character
     const tokens = [];
     let i = 0;
     while (i < htmlContent.length) {
@@ -8462,110 +11067,406 @@ Mason`;
         for (const ch of token.value) {
           rendered += ch;
           bubble.innerHTML = rendered;
-          // Auto-scroll the chat as content streams in
           const container = document.getElementById('chat-messages');
           container.scrollTop = container.scrollHeight;
-          // Slower for sentence-end punctuation
           await chatDelay(/[.!?\n]/.test(ch) ? charDelay * 4 : charDelay);
         }
       }
     }
   }
 
+  async function streamAgentMessage(text, typingMs = 1000, revealMs = 26) {
+    const typingEl = appendTypingIndicator();
+    await chatDelay(typingMs);
+    typingEl.remove();
+    const bubble = appendChatMessage('agent', '').querySelector('.chat-bubble');
+    await streamMessageInto(bubble, text, revealMs);
+    return bubble;
+  }
+
+  function appendUserMessage(text) {
+    appendChatMessage('user', text);
+  }
+
+  // ── MAIN CHAT FLOW ──
   async function runChatAnimation() {
     if (chatAnimationActive) return;
     chatAnimationActive = true;
     clearChatTimeouts();
+    chatStage = 'idle';
+
+    // Before clearing chat, move tool-state elements back to their hidden panel
+    // so we can re-use them on next animation
+    const panel = document.getElementById('chat-tool-panel');
+    const toolBody = panel.querySelector('.chat-tool-body');
+    ['chat-tool-pri-loading', 'chat-tool-pri-results', 'chat-tool-fdm-form', 'chat-tool-loading', 'chat-tool-results', 'chat-tool-importing', 'chat-tool-success'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.parentElement !== toolBody) {
+        toolBody.appendChild(el);
+        el.style.display = 'none';
+      }
+    });
 
     const container = document.getElementById('chat-messages');
     container.innerHTML = '';
 
-    // Remove any leftover CTA
-    const oldCta = document.getElementById('chat-cta-row');
-    if (oldCta) oldCta.remove();
-
     await chatDelay(400);
 
-    for (const turn of chatScript) {
-      if (turn.role === 'user') {
-        // User message slides in instantly
-        appendChatMessage('user', turn.text);
-        await chatDelay(900);
-      } else {
-        // Agent: typing indicator first, then stream message
-        const typingEl = appendTypingIndicator();
-        await chatDelay(turn.typingMs || 1000);
-        typingEl.remove();
+    // ── Greeting ──
+    await streamAgentMessage(
+      "Hey Mason. I can help you prospect end-to-end — <strong>prioritize your book</strong>, <strong>find decision makers</strong>, <strong>uncover signals</strong>, draft <strong>POVs</strong>, even handle inbound replies. What do you want to tackle first?",
+      900, 22
+    );
+    await chatDelay(800);
 
-        const bubble = appendChatMessage('agent', '').querySelector('.chat-bubble');
-        await streamMessageInto(bubble, turn.text, turn.revealMs || 28);
-        await chatDelay(700);
-      }
-    }
+    // ── User asks for top 5 new logos ──
+    appendUserMessage("Pull my top 5 new logos");
+    await chatDelay(900);
 
-    // Final CTA — animated entrance, prompts user to launch Find Decision Makers
-    await chatDelay(300);
-    const cta = document.createElement('div');
-    cta.className = 'chat-cta-row';
-    cta.id = 'chat-cta-row';
-    cta.innerHTML = `
-      <div class="chat-cta-text">
-        <strong>Suggested action:</strong> Find decision makers at Truist Financial for Voice of Customer Modernization
+    // ── Agent surfaces a workflow trigger (deterministic skill) ──
+    await streamAgentMessage(
+      "Got it. I'm going to trigger the <strong>Account Prioritization</strong> workflow — it pulls every prospect account in your book, scores against your ICP, factors in CRM activity and news signals, and returns your top 5 new-logo targets ranked best fit to worst.\n\nThis is a deterministic skill grounded in your real data. Run it when you're ready.",
+      900, 22
+    );
+    await chatDelay(400);
+
+    // Append the confirmation CTA card and wait for user click
+    chatStage = 'intro-done';
+    await appendConfirmCTA({
+      title: 'Run Account Prioritization',
+      desc: 'Top 5 New-Logo Targets · scored against the ICP · grounded in SFDC, news, intent',
+      buttonText: 'Run Workflow →'
+    });
+
+    await launchPrioritizationInChat();
+  }
+
+  // ── Append a confirmation CTA below the last agent message and wait for user click ──
+  function appendConfirmCTA(opts) {
+    return new Promise(resolve => {
+      const container = document.getElementById('chat-messages');
+      const cta = document.createElement('div');
+      cta.className = 'chat-confirm-cta';
+      cta.innerHTML = `
+        <div class="chat-confirm-cta-tag">Workflow trigger · deterministic</div>
+        <div class="chat-confirm-cta-title">${opts.title}</div>
+        <div class="chat-confirm-cta-desc">${opts.desc}</div>
+        <div class="chat-confirm-cta-actions">
+          <button class="chat-confirm-btn">${opts.buttonText}</button>
+          <button class="chat-confirm-btn secondary">Not now</button>
+        </div>
+      `;
+      container.appendChild(cta);
+      container.scrollTop = container.scrollHeight;
+
+      const runBtn = cta.querySelector('.chat-confirm-btn:not(.secondary)');
+      const cancelBtn = cta.querySelector('.chat-confirm-btn.secondary');
+
+      const cleanup = () => {
+        // Disable buttons after click and dim the CTA
+        runBtn.disabled = true;
+        cancelBtn.disabled = true;
+        cta.style.opacity = '0.6';
+      };
+
+      runBtn.addEventListener('click', () => {
+        cleanup();
+        runBtn.textContent = '✓ Running...';
+        resolve(true);
+      }, { once: true });
+
+      cancelBtn.addEventListener('click', () => {
+        cleanup();
+        resolve(false);
+      }, { once: true });
+    });
+  }
+
+  // ── Helper: append a tool block as an agent chat message and return inner body ──
+  function appendChatToolBlock(opts) {
+    const container = document.getElementById('chat-messages');
+    const msg = document.createElement('div');
+    msg.className = 'chat-msg agent tool';
+    msg.innerHTML = `
+      <div class="chat-avatar agent">Q</div>
+      <div class="chat-bubble" style="padding: 0; background: transparent; border: none;">
+        <div class="chat-tool-block">
+          <div class="chat-tool-block-header">
+            <div class="chat-tool-block-icon">${opts.icon}</div>
+            <div class="chat-tool-block-info">
+              <div class="chat-tool-block-title">${opts.title}</div>
+              <div class="chat-tool-block-sub">${opts.subtitle}</div>
+            </div>
+            ${opts.tag !== false ? `<span class="chat-tool-block-tag">${opts.tag || 'Tool result'}</span>` : ''}
+          </div>
+          <div class="chat-tool-block-body"></div>
+        </div>
       </div>
-      <button class="chat-cta-button" id="chat-launch-fdm">🎯 Launch →</button>
     `;
-    container.appendChild(cta);
+    container.appendChild(msg);
     container.scrollTop = container.scrollHeight;
+    return msg.querySelector('.chat-tool-block-body');
+  }
 
-    // Wire up the launch button — render Find Decision Makers UI inline in the chat
-    document.getElementById('chat-launch-fdm').addEventListener('click', launchFDMInChat);
+  // ── PRIORITIZATION FLOW ──
+  async function launchPrioritizationInChat() {
+    // Append a tool block in chat
+    const body = appendChatToolBlock({
+      icon: '⭐',
+      title: 'Account Prioritization',
+      subtitle: 'Top 5 New-Logo Targets · FSI ICP'
+    });
 
+    // Move the existing loading element into this body
+    const loadingEl = document.getElementById('chat-tool-pri-loading');
+    loadingEl.style.display = 'block';
+    body.appendChild(loadingEl);
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
+    await runChatPriLoading();
+
+    // Hide loading, show results in same body
+    loadingEl.style.display = 'none';
+    const resultsEl = document.getElementById('chat-tool-pri-results');
+    resultsEl.style.display = 'block';
+    body.appendChild(resultsEl);
+
+    renderPriListInChat();
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
+    // Continue conversation
+    await chatDelay(700);
+    await streamAgentMessage(
+      "Done. Top 5 ranked best fit to worst. <strong>Truist Financial</strong> is the loudest — CFO mentioned vendor consolidation 4 times last quarter and they posted a Senior VoC role 4 days ago.\n\nClick <strong>Find DMs</strong> on any account to trigger the next workflow.",
+      1000, 22
+    );
+
+    chatStage = 'accounts-shown';
     chatAnimationActive = false;
   }
 
-  // ── INLINE FIND DECISION MAKERS (within chat) ──
-  let chatLaunchInProgress = false;
+  async function runChatPriLoading() {
+    const steps = document.querySelectorAll('#chat-tool-pri-loading .demo-progress-step');
+    steps.forEach(s => {
+      s.classList.remove('active', 'done');
+      s.querySelector('.demo-progress-icon').textContent = (parseInt(s.dataset.chatPriStep) + 1).toString();
+    });
 
-  async function launchFDMInChat() {
-    if (chatLaunchInProgress) return;
-    chatLaunchInProgress = true;
+    const messages = [
+      { status: 'Pulling new-logo accounts from Salesforce...', sub: 'Filtering for Account Type = Prospect across your territory' },
+      { status: 'Scoring against Qualtrics ICP profile...', sub: 'Industry, size, segment, persona fit' },
+      { status: 'Cross-referencing CRM and news signals...', sub: 'Activity history, earnings calls, press releases, intent data' },
+      { status: 'Ranking best fit to worst fit...', sub: 'Top 5 surfaced — others available on demand' }
+    ];
 
-    // Disable the launch button + remove the CTA
-    const launchBtn = document.getElementById('chat-launch-fdm');
-    if (launchBtn) {
-      launchBtn.disabled = true;
-      launchBtn.textContent = '✓ Launching...';
+    for (let i = 0; i < messages.length; i++) {
+      if (i > 0) {
+        steps[i - 1].classList.remove('active');
+        steps[i - 1].classList.add('done');
+        steps[i - 1].querySelector('.demo-progress-icon').textContent = '✓';
+      }
+      steps[i].classList.add('active');
+      document.getElementById('chat-pri-loading-status').textContent = messages[i].status;
+      document.getElementById('chat-pri-loading-substatus').textContent = messages[i].sub;
+      await chatDelay(950);
+    }
+    steps[messages.length - 1].classList.remove('active');
+    steps[messages.length - 1].classList.add('done');
+    steps[messages.length - 1].querySelector('.demo-progress-icon').textContent = '✓';
+    await chatDelay(400);
+  }
+
+  function renderPriListInChat() {
+    const list = document.getElementById('chat-pri-list');
+    const accounts = getTop5NewLogos();
+
+    list.innerHTML = accounts.map((a, idx) => `
+      <div class="chat-acct-row" data-acct="${a.id}" data-name="${a.name}">
+        <div class="chat-acct-rank">#${idx + 1}</div>
+        <div class="chat-acct-info">
+          <div class="chat-acct-name">${a.name}</div>
+          <div class="chat-acct-meta">${a.industry} · ${a.segment}<br><strong>${a.signal}</strong></div>
+        </div>
+        <div class="chat-acct-score">${a.score}</div>
+        <button class="chat-acct-action" data-acct-btn="${a.id}">Find DMs →</button>
+      </div>
+    `).join('');
+
+    // Wire up account selection
+    list.querySelectorAll('.chat-acct-row').forEach(row => {
+      row.addEventListener('click', () => {
+        if (chatStage !== 'accounts-shown') return;
+        const acctId = row.dataset.acct;
+        const acctName = row.dataset.name;
+        // Mark this row as selected, disable all others
+        list.querySelectorAll('.chat-acct-row').forEach(r => {
+          if (r === row) r.classList.add('selected');
+          else r.classList.add('disabled');
+        });
+        selectAccountInChat(acctId, acctName);
+      });
+    });
+  }
+
+  // ── ACCOUNT SELECTED → SHOW FDM CONFIG FORM ──
+  async function selectAccountInChat(acctId, acctName) {
+    if (chatAnimationActive) return;
+    chatAnimationActive = true;
+    chatStage = 'account-selected';
+
+    // User message
+    appendUserMessage(`Find decision makers at ${acctName}`);
+    await chatDelay(700);
+
+    // Set the account context (play + seniority will come from the form)
+    currentAccount = acctId;
+
+    // Agent acknowledges + surfaces the FDM workflow trigger
+    await streamAgentMessage(
+      `<strong>${acctName}</strong> — got it. Configure the <strong>Find Decision Makers</strong> workflow below. Pick the play and seniority levels you want, and I'll run it.`,
+      900, 22
+    );
+    await chatDelay(400);
+
+    // Append a tool block for the FDM form
+    const body = appendChatToolBlock({
+      icon: '🎯',
+      title: 'Find Decision Makers',
+      subtitle: `${acctName} · configure the search`,
+      tag: 'Configure'
+    });
+
+    // Move the FDM form element into this body
+    const formEl = document.getElementById('chat-tool-fdm-form');
+    formEl.style.display = 'block';
+    body.appendChild(formEl);
+    document.getElementById('chat-fdm-form-intro').innerHTML =
+      `Configure the <strong>Find Decision Makers</strong> workflow for <strong>${acctName}</strong>. Pick the sales play and which seniority levels to pull.`;
+
+    // Reset form state
+    const playSelect = document.getElementById('chat-fdm-play');
+    playSelect.value = '';
+    document.querySelectorAll('#chat-fdm-seniority .chat-fdm-pill').forEach(p => {
+      const sen = p.dataset.sen;
+      if (['SVP', 'VP', 'Director'].includes(sen)) {
+        p.classList.add('selected');
+      } else {
+        p.classList.remove('selected');
+      }
+    });
+    document.getElementById('chat-fdm-form-submit').disabled = true;
+
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
+    chatStage = 'fdm-form-shown';
+    chatAnimationActive = false;
+  }
+
+  // ── FDM FORM SUBMIT → RUN FDM WORKFLOW ──
+  async function submitChatFDMForm() {
+    if (chatAnimationActive) return;
+    chatAnimationActive = true;
+    chatStage = 'fdm-running';
+
+    const play = document.getElementById('chat-fdm-play').value;
+    const seniorityPills = document.querySelectorAll('#chat-fdm-seniority .chat-fdm-pill.selected');
+    const seniority = Array.from(seniorityPills).map(p => p.dataset.sen);
+
+    if (!play || seniority.length === 0) {
+      chatAnimationActive = false;
+      return;
     }
 
-    // Add a confirming agent message
-    const typingEl = appendTypingIndicator();
-    await chatDelay(900);
-    typingEl.remove();
-    const bubble = appendChatMessage('agent', '').querySelector('.chat-bubble');
-    await streamMessageInto(bubble, "On it. Pulling SVPs, VPs, and Directors at <strong>Truist Financial</strong> that fit the VoC Modernization buyer profile. Watch below — I'll show you the matches as they come in.", 22);
+    currentPlay = play;
+    currentSeniority = seniority;
 
-    // Show the inline tool panel
-    const panel = document.getElementById('chat-tool-panel');
-    panel.style.display = 'block';
-    // Reset states
-    document.getElementById('chat-tool-loading').style.display = 'block';
-    document.getElementById('chat-tool-results').style.display = 'none';
-    document.getElementById('chat-tool-importing').style.display = 'none';
-    document.getElementById('chat-tool-success').style.display = 'none';
+    const acctName = accountNames[currentAccount] || 'the account';
+    const playName = playNames[play] || play;
 
-    // Scroll to the tool panel
-    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    // Append a "user submitted form" message
+    appendUserMessage(`Run with ${playName} · ${seniority.join(', ')}`);
+    await chatDelay(600);
 
-    // Set context (used by getContactsFor and modal)
-    currentAccount = 'truist';
-    currentPlay = 'voc';
-    currentSeniority = ['SVP', 'VP', 'Director'];
+    // Agent ack
+    await streamAgentMessage(
+      `Running. Pulling ${seniority.join(', ')} contacts at <strong>${acctName}</strong> that fit the ${playName} buyer profile.`,
+      800, 22
+    );
+    await chatDelay(400);
 
-    // Run the loading animation
+    // Append a new tool block for the FDM run
+    const body = appendChatToolBlock({
+      icon: '🎯',
+      title: 'Find Decision Makers',
+      subtitle: `${acctName} · ${playName}`
+    });
+
+    // Move loading element in, run loading
+    const loadingEl = document.getElementById('chat-tool-loading');
+    loadingEl.style.display = 'block';
+    body.appendChild(loadingEl);
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
     await runChatToolLoading();
 
-    // Then render the contact list
+    // Hide loading, show results in same body
+    loadingEl.style.display = 'none';
+    const resultsEl = document.getElementById('chat-tool-results');
+    resultsEl.style.display = 'block';
+    body.appendChild(resultsEl);
+
     renderContactsInChat();
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+
+    chatStage = 'contacts-shown';
+
+    // Auto-progress: select 3 contacts, send to Outreach
+    await chatDelay(900);
+    await autoSelectContactsInChat();
+  }
+
+  async function autoSelectContactsInChat() {
+    // Top 3 contacts by lead score get checked
+    const checkboxes = document.querySelectorAll('#chat-contact-list .contact-checkbox');
+    if (checkboxes.length === 0) {
+      chatAnimationActive = false;
+      return;
+    }
+
+    // Click first 3 checkboxes with brief pauses so the count animates
+    const limit = Math.min(3, checkboxes.length);
+    for (let i = 0; i < limit; i++) {
+      checkboxes[i].click();
+      await chatDelay(420);
+    }
+
+    // Click Send to Outreach button
+    await chatDelay(600);
+    const sendBtn = document.getElementById('chat-send-btn');
+    if (sendBtn && !sendBtn.disabled) {
+      // Scroll the chat container (not window) to bottom
+      const chatContainer = document.getElementById('chat-messages');
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      await chatDelay(350);
+      sendBtn.click();
+    }
+
+    // Modal opens — pick a sequence
+    await chatDelay(700);
+    const seqSelect = document.getElementById('modal-sequence');
+    if (seqSelect) {
+      seqSelect.value = 'FSI · VoC Modernization · Outbound (5 steps)';
+      seqSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      await chatDelay(700);
+
+      // Click Enroll & Push
+      const confirmBtn = document.getElementById('modal-confirm');
+      if (confirmBtn && !confirmBtn.disabled) {
+        confirmBtn.click();
+      }
+    }
+
+    chatAnimationActive = false;
   }
 
   async function runChatToolLoading() {
@@ -8575,8 +11476,9 @@ Mason`;
       s.querySelector('.demo-progress-icon').textContent = (parseInt(s.dataset.chatStep) + 1).toString();
     });
 
+    const acctDisplay = accountNames[currentAccount] || 'the account';
     const messages = [
-      { status: 'Pulling account context from Salesforce...', sub: 'Loading Truist Financial record, activity history, opportunities' },
+      { status: 'Pulling account context from Salesforce...', sub: `Loading ${acctDisplay} record, activity history, opportunities` },
       { status: 'Identifying ICP personas for VoC play...', sub: 'Mapping Voice of Customer Modernization to target buyer types' },
       { status: 'Querying Clay for matching contacts...', sub: 'Filtering for SVP, VP, Director via waterfall enrichment' },
       { status: 'Enriching with verified email and phone...', sub: 'Validating deliverability and confidence scores' },
@@ -8602,7 +11504,8 @@ Mason`;
   }
 
   function renderContactsInChat() {
-    demoContacts = getContactsFor('truist', 'voc');
+    const acctName = accountNames[currentAccount] || 'the account';
+    demoContacts = getContactsFor(currentAccount, currentPlay || 'voc');
     demoSelected = new Set();
 
     // Switch to results state
@@ -8610,9 +11513,9 @@ Mason`;
     document.getElementById('chat-tool-results').style.display = 'block';
 
     document.getElementById('chat-results-title').textContent =
-      `Found ${demoContacts.length} decision makers at Truist Financial`;
+      `Found ${demoContacts.length} decision makers at ${acctName}`;
     document.getElementById('chat-results-subtitle').textContent =
-      'Matched against "Voice of Customer Modernization". Ranked by ICP fit and engagement signals.';
+      `Matched against "${playNames[currentPlay] || currentPlay}". Ranked by ICP fit and engagement signals.`;
 
     const list = document.getElementById('chat-contact-list');
     list.innerHTML = '';
@@ -8780,17 +11683,23 @@ Mason`;
 
       document.getElementById('org-modal').classList.add('show');
     };
-
-    chatLaunchInProgress = false;
   }
 
   // Track which UI initiated the modal flow
   let currentToolHost = 'fdm';
 
   async function runChatImport() {
-    document.getElementById('chat-tool-results').style.display = 'none';
-    document.getElementById('chat-tool-importing').style.display = 'block';
-    document.getElementById('chat-tool-importing').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Append a new tool block for import
+    const body = appendChatToolBlock({
+      icon: '↑',
+      title: 'Push to Outreach',
+      subtitle: 'Importing to SFDC + enrolling in sequence'
+    });
+
+    const importEl = document.getElementById('chat-tool-importing');
+    importEl.style.display = 'block';
+    body.appendChild(importEl);
+    document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
     const steps = document.querySelectorAll('#chat-tool-importing .demo-progress-step');
     steps.forEach(s => {
@@ -8821,25 +11730,40 @@ Mason`;
     steps[messages.length - 1].querySelector('.demo-progress-icon').textContent = '✓';
     await chatDelay(400);
 
-    // Show success
+    // Show success in same body (replace import with success)
+    importEl.style.display = 'none';
+    const successEl = document.getElementById('chat-tool-success');
+    successEl.style.display = 'block';
+    body.appendChild(successEl);
     showChatSuccess();
   }
 
   function showChatSuccess() {
-    document.getElementById('chat-tool-importing').style.display = 'none';
-    document.getElementById('chat-tool-success').style.display = 'block';
     const n = demoSelected.size;
     document.getElementById('chat-success-contacts').textContent = n;
     document.getElementById('chat-success-sfdc').textContent = n;
     document.getElementById('chat-success-emails').textContent = n * 5;
 
-    // Add closing agent message
+    // Add closing agent message with suggested follow-ups
     setTimeout(async () => {
       const typingEl = appendTypingIndicator();
       await chatDelay(1100);
       typingEl.remove();
       const bubble = appendChatMessage('agent', '').querySelector('.chat-bubble');
-      await streamMessageInto(bubble, `Done. <strong>${demoSelected.size} contacts</strong> are live in Outreach now. I'll keep an eye on replies and let you know when someone engages. Anything else you want me to dig into?`, 22);
+      await streamMessageInto(bubble, `Done. <strong>${demoSelected.size} contacts</strong> are live in Outreach now. I'll keep an eye on replies and let you know when someone engages.`, 22);
+
+      // Add suggestion pills for next actions
+      await chatDelay(500);
+      const suggestionsHtml = `
+        <div style="margin-top: 6px; font-size: 12px; color: var(--text-muted);">Want me to also:</div>
+        <div class="chat-suggestions" style="border-top: none; padding-top: 6px;">
+          <span class="chat-suggestion-pill">💡 Build a POV brief for the first call</span>
+          <span class="chat-suggestion-pill">📡 Pull deeper signals on these accounts</span>
+          <span class="chat-suggestion-pill">✉️ Draft replies if anyone responds</span>
+        </div>
+      `;
+      const followBubble = appendChatMessage('agent', '').querySelector('.chat-bubble');
+      followBubble.innerHTML = suggestionsHtml;
     }, 600);
   }
 
@@ -8850,17 +11774,408 @@ Mason`;
     }
   });
 
-  document.getElementById('chat-replay').addEventListener('click', () => {
-    if (chatAnimationActive) {
-      clearChatTimeouts();
-      chatAnimationActive = false;
-    }
-    runChatAnimation();
+  // ── FDM FORM WIRE-UP (guarded — storyboard replaces live form) ──
+  const fdmPlayEl = document.getElementById('chat-fdm-play');
+  const fdmSubmitEl = document.getElementById('chat-fdm-form-submit');
+  if (fdmPlayEl && fdmSubmitEl) {
+    document.querySelectorAll('#chat-fdm-seniority .chat-fdm-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        pill.classList.toggle('selected');
+        checkChatFDMForm();
+      });
+    });
+    fdmPlayEl.addEventListener('change', checkChatFDMForm);
+    fdmSubmitEl.addEventListener('click', () => { submitChatFDMForm(); });
+  }
+
+  function checkChatFDMForm() {
+    const play = document.getElementById('chat-fdm-play');
+    const senCount = document.querySelectorAll('#chat-fdm-seniority .chat-fdm-pill.selected').length;
+    const submit = document.getElementById('chat-fdm-form-submit');
+    if (play && submit) submit.disabled = !(play.value && senCount > 0);
+  }
+
+  // ── QUICK ACTIONS WIRE-UP ──
+  document.querySelectorAll('.chat-quick-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.quick;
+      // Map to sub-tab keys
+      const map = {
+        prioritize: 'prioritize',
+        dm: 'dm',
+        signals: 'signals',
+        pov: 'pov',
+        response: 'response'
+      };
+      const subtab = map[target];
+      if (subtab) {
+        const tab = document.querySelector(`.demo-subtab[data-subtab="${subtab}"]`);
+        if (tab) tab.click();
+      }
+    });
   });
+
+  // Storyboard replaces the live chat — guard old replay handler
+  const chatReplayBtn = document.getElementById('chat-replay');
+  if (chatReplayBtn) {
+    chatReplayBtn.addEventListener('click', () => {
+      if (chatAnimationActive) {
+        clearChatTimeouts();
+        chatAnimationActive = false;
+      }
+      runChatAnimation();
+    });
+  }
 
   // Auto-trigger on first page load if demo tab is the initial view
   // (the initial view is Business Case, so this won't run on page load)
   // But trigger when user first switches to the demo tab — handled by the demo nav-tab click handler above
+
+  // ════════════════════════════════════════════════════════
+  //              ACCOUNT PRIORITIZATION
+  // ════════════════════════════════════════════════════════
+  const PRI_ACCOUNTS = [
+    { name: 'Truist Financial', industry: 'Banking', subIndustry: 'Regional Bank', segment: 'Strategic', type: 'Prospect', revenue: '$23B', spend: 0, lastActivity: 5, score: 96,
+      breakdown: { industry: 24, size: 19, signals: 24, engagement: 14, techFit: 15 },
+      signals: [{ icon: '🔥', label: 'New VoC role posted' }, { icon: '📊', label: 'CFO mentioned consolidation' }, { icon: '🎯', label: 'Tech stack ripe' }],
+      whyItFits: '<strong>Top fit.</strong> Banking ICP, $23B revenue puts them in our strategic tier, and they posted a Senior VoC Program Manager role 4 days ago. CFO mentioned vendor consolidation 4 times in last quarter\'s earnings. Active SurveyMonkey + Medallia footprint detected.' },
+    { name: 'Pacific Western Bank', industry: 'Banking', subIndustry: 'Commercial Bank', segment: 'Tier 1', type: 'Prospect', revenue: '$8B', spend: 0, lastActivity: 12, score: 92,
+      breakdown: { industry: 24, size: 17, signals: 22, engagement: 14, techFit: 15 },
+      signals: [{ icon: '💼', label: 'CHRO hired 30d ago' }, { icon: '🎯', label: 'Bombora intent surge' }],
+      whyItFits: 'Banking ICP, mid-market sweet spot. New CHRO joined 30 days ago — first-90-day vendor decisions are made fast. Bombora intent surge for "employee engagement platform" detected this week.' },
+    { name: 'Navy Federal Credit Union', industry: 'Credit Union', subIndustry: 'CU', segment: 'Strategic', type: 'Customer', revenue: '$15B', spend: 187000, lastActivity: 8, score: 89,
+      breakdown: { industry: 23, size: 18, signals: 20, engagement: 13, techFit: 15 },
+      signals: [{ icon: '📈', label: 'Expansion signal' }, { icon: '🤝', label: 'Active deal' }],
+      whyItFits: 'Existing customer with $187K ARR. Last earnings call mentioned expanding the customer feedback program. Strong cross-sell opportunity into People Engage Essentials.' },
+    { name: 'Suncorp Bank', industry: 'Banking', subIndustry: 'Retail Bank', segment: 'Tier 1', type: 'Prospect', revenue: '$6B', spend: 0, lastActivity: 23, score: 87,
+      breakdown: { industry: 23, size: 16, signals: 21, engagement: 12, techFit: 15 },
+      signals: [{ icon: '📰', label: 'Digital transformation news' }, { icon: '🎯', label: 'Tech sprawl detected' }],
+      whyItFits: 'Recent press release announced a multi-year digital transformation program. Running 3 different survey tools per BuiltWith data — clean consolidation opportunity.' },
+    { name: 'PenFed Credit Union', industry: 'Credit Union', subIndustry: 'CU', segment: 'Tier 1', type: 'Prospect', revenue: '$4B', spend: 0, lastActivity: 45, score: 85,
+      breakdown: { industry: 23, size: 15, signals: 19, engagement: 13, techFit: 15 },
+      signals: [{ icon: '💼', label: 'Hiring data scientists' }, { icon: '📊', label: 'CX program mentioned' }],
+      whyItFits: 'Posted 3 customer analytics roles last week. CEO mentioned customer experience improvement on the most recent earnings call.' },
+    { name: 'Citizens Financial', industry: 'Banking', subIndustry: 'Commercial Bank', segment: 'Strategic', type: 'Prospect', revenue: '$31B', spend: 0, lastActivity: 67, score: 82,
+      breakdown: { industry: 24, size: 19, signals: 16, engagement: 8, techFit: 15 },
+      signals: [{ icon: '📊', label: '10-K mentions CX 24x' }],
+      whyItFits: 'Strategic-tier banking account. 10-K filing referenced "customer experience" 24 times. Strong board-level mandate but no recent engagement from our team.' },
+    { name: 'KeyBank', industry: 'Banking', subIndustry: 'Regional Bank', segment: 'Tier 1', type: 'Customer', revenue: '$18B', spend: 95000, lastActivity: 18, score: 78,
+      breakdown: { industry: 23, size: 17, signals: 15, engagement: 12, techFit: 11 },
+      signals: [{ icon: '📅', label: 'Renewal in 90d' }],
+      whyItFits: 'Existing customer with $95K ARR. Renewal coming up in 90 days. Cross-sell opportunity exists but no active expansion deal.' },
+    { name: 'Charles Schwab', industry: 'Wealth Management', subIndustry: 'Brokerage', segment: 'Strategic', type: 'Customer', revenue: '$20B', spend: 245000, lastActivity: 4, score: 76,
+      breakdown: { industry: 21, size: 19, signals: 13, engagement: 14, techFit: 9 },
+      signals: [{ icon: '🤝', label: 'Active deal' }],
+      whyItFits: '$245K ARR customer with active expansion conversation. Engagement is healthy but ICP fit is slightly off-vertical (wealth management vs. core banking).' },
+    { name: 'USAA', industry: 'Insurance', subIndustry: 'P&C Insurance', segment: 'Strategic', type: 'Prospect', revenue: '$36B', spend: 0, lastActivity: 89, score: 75,
+      breakdown: { industry: 19, size: 19, signals: 18, engagement: 7, techFit: 12 },
+      signals: [{ icon: '📰', label: 'CX leader change' }],
+      whyItFits: 'Recent CX leadership change. Insurance vertical is secondary ICP but their scale puts them firmly in strategic. Old contact at the account.' },
+    { name: 'SoFi', industry: 'FinTech', subIndustry: 'Digital Bank', segment: 'Tier 1', type: 'Prospect', revenue: '$2B', spend: 0, lastActivity: 32, score: 71,
+      breakdown: { industry: 18, size: 12, signals: 19, engagement: 10, techFit: 12 },
+      signals: [{ icon: '🚀', label: 'Series F funding' }, { icon: '💼', label: 'Scaling team' }],
+      whyItFits: 'Recent Series F closed. Scaling customer experience team. FinTech is adjacent ICP but the growth signals are strong.' },
+    { name: 'Ally Financial', industry: 'Banking', subIndustry: 'Online Bank', segment: 'Tier 1', type: 'Customer', revenue: '$7B', spend: 124000, lastActivity: 41, score: 68,
+      breakdown: { industry: 22, size: 16, signals: 10, engagement: 11, techFit: 9 },
+      signals: [{ icon: '⚠️', label: 'Usage declining' }],
+      whyItFits: '$124K customer but usage is declining. Risk of churn at renewal. Needs an executive sponsor conversation, not a cross-sell.' },
+    { name: 'Fifth Third Bank', industry: 'Banking', subIndustry: 'Regional Bank', segment: 'Tier 1', type: 'Prospect', revenue: '$11B', spend: 0, lastActivity: 102, score: 65,
+      breakdown: { industry: 22, size: 17, signals: 12, engagement: 4, techFit: 10 },
+      signals: [{ icon: '😴', label: 'Dormant 90+ days' }],
+      whyItFits: 'Banking ICP fit is strong but no engagement in over 100 days. Re-engagement play needed before any active prospecting.' },
+    { name: 'First Citizens Bank', industry: 'Banking', subIndustry: 'Commercial Bank', segment: 'Tier 2', type: 'Prospect', revenue: '$9B', spend: 0, lastActivity: 145, score: 61,
+      breakdown: { industry: 22, size: 16, signals: 9, engagement: 4, techFit: 10 },
+      signals: [{ icon: '😴', label: 'Dormant 90+ days' }],
+      whyItFits: 'Banking ICP. No engagement signals. Long dormant — needs cold restart.' },
+    { name: 'Synchrony Financial', industry: 'Banking', subIndustry: 'Consumer Finance', segment: 'Tier 2', type: 'Former Customer', revenue: '$15B', spend: 0, lastActivity: 187, score: 58,
+      breakdown: { industry: 20, size: 17, signals: 8, engagement: 4, techFit: 9 },
+      signals: [{ icon: '🔄', label: 'Former customer' }],
+      whyItFits: 'Former customer that churned 12 months ago. Win-back opportunity but loss reason was pricing — needs different positioning.' },
+    { name: 'Discover Financial', industry: 'Banking', subIndustry: 'Consumer Finance', segment: 'Tier 1', type: 'Prospect', revenue: '$15B', spend: 0, lastActivity: 76, score: 56,
+      breakdown: { industry: 20, size: 17, signals: 7, engagement: 5, techFit: 7 },
+      signals: [],
+      whyItFits: 'Banking ICP fit but limited public signals. Last activity was an outbound email with no reply. Cold restart territory.' },
+    { name: 'Chime', industry: 'FinTech', subIndustry: 'Neobank', segment: 'Tier 2', type: 'Prospect', revenue: '$1.7B', spend: 0, lastActivity: 134, score: 52,
+      breakdown: { industry: 16, size: 11, signals: 11, engagement: 4, techFit: 10 },
+      signals: [{ icon: '😴', label: 'Dormant 90+ days' }],
+      whyItFits: 'FinTech adjacent. Smaller revenue. Long dormant. Lower priority than banking targets but worth a re-engagement attempt.' },
+    { name: 'Marcus by Goldman Sachs', industry: 'Banking', subIndustry: 'Online Bank', segment: 'Tier 2', type: 'Prospect', revenue: '$1B', spend: 0, lastActivity: 58, score: 48,
+      breakdown: { industry: 18, size: 9, signals: 8, engagement: 6, techFit: 7 },
+      signals: [],
+      whyItFits: 'Banking ICP but the brand is being wound down by Goldman. Limited buying authority within the parent org.' },
+    { name: 'Varo Bank', industry: 'FinTech', subIndustry: 'Neobank', segment: 'Long-tail', type: 'Prospect', revenue: '$300M', spend: 0, lastActivity: 213, score: 42,
+      breakdown: { industry: 14, size: 6, signals: 8, engagement: 3, techFit: 11 },
+      signals: [{ icon: '😴', label: 'Dormant 90+ days' }],
+      whyItFits: 'Small fintech, long dormant. Long-tail tier. Agent-led only.' },
+    { name: 'Current', industry: 'FinTech', subIndustry: 'Neobank', segment: 'Long-tail', type: 'Prospect', revenue: '$180M', spend: 0, lastActivity: 245, score: 38,
+      breakdown: { industry: 13, size: 5, signals: 7, engagement: 3, techFit: 10 },
+      signals: [{ icon: '😴', label: 'Dormant 90+ days' }],
+      whyItFits: 'Below typical revenue threshold. Long-tail at best.' },
+    { name: 'Chase Mortgage', industry: 'Banking', subIndustry: 'Mortgage', segment: 'Long-tail', type: 'Former Customer', revenue: '$500M', spend: 0, lastActivity: 312, score: 35,
+      breakdown: { industry: 16, size: 8, signals: 4, engagement: 2, techFit: 5 },
+      signals: [{ icon: '🔄', label: 'Former customer' }],
+      whyItFits: 'Subsidiary of Chase. Former customer that lost interest after acquisition. Hard to penetrate via division-level sale.' }
+  ];
+
+  // State
+  let priData = []; // active list
+
+  // ── Form / submit logic ──
+  const priSourceTabs = document.querySelectorAll('.pri-source-tab');
+  const priPanes = document.querySelectorAll('.pri-source-pane');
+  const priDropzone = document.getElementById('pri-dropzone');
+  const priReport = document.getElementById('pri-report');
+  const priSubmit = document.getElementById('pri-submit');
+  let priCsvUploaded = false;
+
+  priSourceTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      priSourceTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      priPanes.forEach(p => p.classList.remove('active'));
+      const paneId = tab.dataset.priSrc === 'csv' ? 'pri-pane-csv' : 'pri-pane-sfdc';
+      document.getElementById(paneId).classList.add('active');
+      checkPriForm();
+    });
+  });
+
+  priDropzone.addEventListener('click', () => {
+    priCsvUploaded = !priCsvUploaded;
+    priDropzone.classList.toggle('has-file', priCsvUploaded);
+    checkPriForm();
+  });
+
+  priReport.addEventListener('change', checkPriForm);
+
+  function checkPriForm() {
+    const activeSrc = document.querySelector('.pri-source-tab.active').dataset.priSrc;
+    if (activeSrc === 'csv') {
+      priSubmit.disabled = !priCsvUploaded;
+    } else {
+      priSubmit.disabled = !priReport.value;
+    }
+  }
+
+  priSubmit.addEventListener('click', () => {
+    runPriResearch();
+  });
+
+  document.getElementById('pri-new-search').addEventListener('click', () => {
+    priCsvUploaded = false;
+    priDropzone.classList.remove('has-file');
+    priReport.value = '';
+    priSubmit.disabled = true;
+    showPriStep('form');
+  });
+
+  const priSteps = {
+    form: document.getElementById('pri-step-form'),
+    loading: document.getElementById('pri-step-loading'),
+    results: document.getElementById('pri-step-results')
+  };
+
+  function showPriStep(name) {
+    Object.values(priSteps).forEach(el => el.classList.remove('active'));
+    priSteps[name].classList.add('active');
+  }
+
+  function runPriResearch() {
+    showPriStep('loading');
+    const steps = document.querySelectorAll('#pri-step-loading .demo-progress-step');
+    steps.forEach(s => {
+      s.classList.remove('active', 'done');
+      s.querySelector('.demo-progress-icon').textContent = (parseInt(s.dataset.priStep) + 1).toString();
+    });
+
+    const activeSrc = document.querySelector('.pri-source-tab.active').dataset.priSrc;
+    const sourceLabel = activeSrc === 'csv' ? '847 accounts from accounts_q1_2026.csv' : `${priReport.options[priReport.selectedIndex].text}`;
+
+    const messages = [
+      { status: 'Loading accounts and matching to Salesforce records...', sub: `Source: ${sourceLabel}` },
+      { status: 'Scoring against Qualtrics ICP profile...', sub: 'Industry, size, segment, and persona fit' },
+      { status: 'Pulling CRM activity history and conversations...', sub: 'Last 12 months of emails, calls, and meeting notes' },
+      { status: 'Cross-referencing news, hiring, and intent signals...', sub: 'Web search, LinkedIn, Bombora, BuiltWith' },
+      { status: 'Ranking accounts and generating fit explanations...', sub: 'Best fit to worst fit' }
+    ];
+
+    let i = 0;
+    function advance() {
+      if (i > 0) {
+        steps[i - 1].classList.remove('active');
+        steps[i - 1].classList.add('done');
+        steps[i - 1].querySelector('.demo-progress-icon').textContent = '✓';
+      }
+      if (i >= messages.length) {
+        setTimeout(showPriResults, 400);
+        return;
+      }
+      steps[i].classList.add('active');
+      document.getElementById('pri-loading-status').textContent = messages[i].status;
+      document.getElementById('pri-loading-substatus').textContent = messages[i].sub;
+      i++;
+      setTimeout(advance, 1100);
+    }
+    advance();
+  }
+
+  function showPriResults() {
+    priData = [...PRI_ACCOUNTS];
+
+    const sourceLabel = document.querySelector('.pri-source-tab.active').dataset.priSrc === 'csv'
+      ? '847 accounts from CSV'
+      : priReport.options[priReport.selectedIndex].text;
+
+    document.getElementById('pri-results-title').textContent = `Prioritized: ${sourceLabel}`;
+
+    // Reset filters
+    document.getElementById('pri-search').value = '';
+    document.getElementById('pri-filter-type').value = 'all';
+    document.getElementById('pri-filter-score').value = 'all';
+    document.getElementById('pri-filter-segment').value = 'all';
+    document.getElementById('pri-sort').value = 'score-desc';
+
+    renderPriList();
+    showPriStep('results');
+  }
+
+  // ── Filter / sort / render ──
+  function renderPriList() {
+    const search = document.getElementById('pri-search').value.toLowerCase().trim();
+    const filterType = document.getElementById('pri-filter-type').value;
+    const filterScore = document.getElementById('pri-filter-score').value;
+    const filterSegment = document.getElementById('pri-filter-segment').value;
+    const sort = document.getElementById('pri-sort').value;
+
+    let list = [...priData];
+
+    // Filter
+    if (filterType !== 'all') list = list.filter(a => a.type === filterType);
+    if (filterScore === 'high') list = list.filter(a => a.score >= 80);
+    else if (filterScore === 'medium') list = list.filter(a => a.score >= 60 && a.score < 80);
+    else if (filterScore === 'low') list = list.filter(a => a.score < 60);
+    if (filterSegment !== 'all') list = list.filter(a => a.segment === filterSegment);
+
+    // Search
+    if (search) {
+      list = list.filter(a =>
+        a.name.toLowerCase().includes(search) ||
+        a.industry.toLowerCase().includes(search) ||
+        a.subIndustry.toLowerCase().includes(search)
+      );
+    }
+
+    // Sort
+    if (sort === 'score-desc') list.sort((a, b) => b.score - a.score);
+    else if (sort === 'score-asc') list.sort((a, b) => a.score - b.score);
+    else if (sort === 'name-asc') list.sort((a, b) => a.name.localeCompare(b.name));
+    else if (sort === 'activity') list.sort((a, b) => a.lastActivity - b.lastActivity);
+    else if (sort === 'spend-desc') list.sort((a, b) => b.spend - a.spend);
+
+    // Update count
+    document.getElementById('pri-count').innerHTML = `Showing <strong>${list.length}</strong> of ${priData.length} accounts`;
+
+    // Render
+    const container = document.getElementById('pri-account-list');
+    if (list.length === 0) {
+      container.innerHTML = `<div class="pri-empty">No accounts match your filters. Try clearing some.</div>`;
+      return;
+    }
+
+    container.innerHTML = list.map((a, idx) => {
+      const scoreClass = a.score >= 80 ? 'high' : (a.score >= 60 ? 'medium' : 'low');
+      const typeClass = a.type === 'Customer' ? 'customer' : (a.type === 'Former Customer' ? 'former' : '');
+      const dormant = a.lastActivity >= 90;
+      const spendDisplay = a.spend > 0 ? `$${(a.spend / 1000).toFixed(0)}K` : '—';
+      const lastActivityDisplay = a.lastActivity < 30 ? `${a.lastActivity}d ago` : `${a.lastActivity}d ago`;
+
+      const rowId = `pri-row-${a.name.replace(/[^a-z0-9]/gi, '')}`;
+
+      return `
+        <div class="pri-account-row" id="${rowId}" data-name="${a.name}">
+          <div class="pri-rank">#${idx + 1}</div>
+          <div class="pri-acct-info">
+            <div class="pri-acct-name">${a.name}</div>
+            <div class="pri-acct-meta">
+              <span>${a.industry}</span>
+              <span class="pri-acct-meta-tag">${a.segment}</span>
+              <span class="pri-acct-meta-tag ${typeClass}">${a.type}</span>
+              ${dormant ? '<span class="pri-acct-meta-tag dormant">Dormant</span>' : ''}
+            </div>
+            ${a.signals.length > 0 ? `
+              <div class="pri-signals-row">
+                ${a.signals.map(s => `<span class="pri-signal-badge">${s.icon} ${s.label}</span>`).join('')}
+              </div>
+            ` : ''}
+          </div>
+          <div class="pri-stat">
+            <div class="pri-stat-value">${lastActivityDisplay}</div>
+            <div class="pri-stat-label">Last Activity</div>
+          </div>
+          <div class="pri-stat">
+            <div class="pri-stat-value">${spendDisplay}</div>
+            <div class="pri-stat-label">ARR</div>
+          </div>
+          <div class="pri-score ${scoreClass}">${a.score}</div>
+          <div class="pri-chevron">▼</div>
+
+          <div class="pri-detail">
+            <div class="pri-detail-grid">
+              <div class="pri-detail-section">
+                <h5>📊 ICP Fit Breakdown</h5>
+                <div class="pri-score-bar">
+                  <span class="pri-score-bar-label">Industry</span>
+                  <div class="pri-score-bar-track"><div class="pri-score-bar-fill" style="width: ${(a.breakdown.industry / 25) * 100}%"></div></div>
+                  <span class="pri-score-bar-value">${a.breakdown.industry}/25</span>
+                </div>
+                <div class="pri-score-bar">
+                  <span class="pri-score-bar-label">Company Size</span>
+                  <div class="pri-score-bar-track"><div class="pri-score-bar-fill" style="width: ${(a.breakdown.size / 20) * 100}%"></div></div>
+                  <span class="pri-score-bar-value">${a.breakdown.size}/20</span>
+                </div>
+                <div class="pri-score-bar">
+                  <span class="pri-score-bar-label">Buying Signals</span>
+                  <div class="pri-score-bar-track"><div class="pri-score-bar-fill" style="width: ${(a.breakdown.signals / 25) * 100}%"></div></div>
+                  <span class="pri-score-bar-value">${a.breakdown.signals}/25</span>
+                </div>
+                <div class="pri-score-bar">
+                  <span class="pri-score-bar-label">Engagement</span>
+                  <div class="pri-score-bar-track"><div class="pri-score-bar-fill" style="width: ${(a.breakdown.engagement / 15) * 100}%"></div></div>
+                  <span class="pri-score-bar-value">${a.breakdown.engagement}/15</span>
+                </div>
+                <div class="pri-score-bar">
+                  <span class="pri-score-bar-label">Tech Fit</span>
+                  <div class="pri-score-bar-track"><div class="pri-score-bar-fill" style="width: ${(a.breakdown.techFit / 15) * 100}%"></div></div>
+                  <span class="pri-score-bar-value">${a.breakdown.techFit}/15</span>
+                </div>
+              </div>
+              <div class="pri-detail-section">
+                <h5>💡 Why It Fits</h5>
+                <div class="pri-fits-text">${a.whyItFits}</div>
+              </div>
+            </div>
+            <div class="pri-detail-actions">
+              <button class="demo-action-btn primary" onclick="event.stopPropagation();">Find Decision Makers →</button>
+              <button class="demo-action-btn" onclick="event.stopPropagation();">Generate POV</button>
+              <button class="demo-action-btn" onclick="event.stopPropagation();">View in Salesforce</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Wire up row expansion
+    container.querySelectorAll('.pri-account-row').forEach(row => {
+      row.addEventListener('click', () => {
+        row.classList.toggle('expanded');
+      });
+    });
+  }
+
+  // Wire up filters
+  ['pri-search', 'pri-filter-type', 'pri-filter-score', 'pri-filter-segment', 'pri-sort'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener(el.tagName === 'INPUT' ? 'input' : 'change', renderPriList);
+  });
 </script>
 </body>
 </html>
