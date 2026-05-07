@@ -645,15 +645,15 @@
   }
   .case-three-up {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
     margin-bottom: 40px;
   }
   .case-three-up-card {
     background: var(--surface);
     border: 1.5px solid var(--border);
     border-radius: 16px;
-    padding: 28px 22px;
+    padding: 24px 18px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -672,16 +672,19 @@
   .case-three-up-card:nth-child(3)::before {
     background: linear-gradient(90deg, var(--green), var(--cyan));
   }
+  .case-three-up-card:nth-child(4)::before {
+    background: linear-gradient(90deg, var(--orange, #f59e0b), var(--magenta));
+  }
   .case-three-up-card:hover {
     transform: translateY(-2px);
     border-color: var(--magenta-border);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
   }
   .case-three-up-num {
-    font-size: 56px;
+    font-size: 44px;
     font-weight: 800;
     line-height: 1;
-    letter-spacing: -2px;
+    letter-spacing: -1.5px;
     margin-bottom: 8px;
     background: linear-gradient(135deg, var(--magenta), var(--purple));
     -webkit-background-clip: text;
@@ -700,20 +703,27 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  .case-three-up-card:nth-child(4) .case-three-up-num {
+    background: linear-gradient(135deg, #f59e0b, var(--magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .case-three-up-num .num-suffix {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
-    letter-spacing: -1px;
+    letter-spacing: -0.8px;
   }
   .case-three-up-headline {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--text);
     margin-bottom: 6px;
     letter-spacing: -0.1px;
+    line-height: 1.3;
   }
   .case-three-up-sub {
-    font-size: 12.5px;
+    font-size: 11.5px;
     color: var(--text-muted);
     line-height: 1.5;
   }
@@ -846,7 +856,10 @@
     line-height: 1.5;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 1100px) {
+    .case-three-up { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 700px) {
     .case-three-up { grid-template-columns: 1fr; }
     .case-detail-grid { grid-template-columns: 1fr; }
     .case-impact-bar-headline { font-size: 26px; }
@@ -5960,7 +5973,7 @@
       <div class="case-headline-intro">
         <div class="case-headline-tag">The Business Case</div>
         <h1>An Everything Sales Agent <br>Pays for Itself in <span class="accent">Quarter One</span></h1>
-        <p>Five hard metrics that make the case. The first three are the headline numbers. The last two compound year over year.</p>
+        <p>Eight hard metrics that make the case. The first four are the headline numbers. The rest compound over time or mitigate risk leadership can't see today.</p>
       </div>
 
       <!-- Three big numbers across the top -->
@@ -5977,8 +5990,13 @@
         </div>
         <div class="case-three-up-card">
           <div class="case-three-up-num">$3-6<span class="num-suffix">M+</span></div>
-          <div class="case-three-up-headline">Run-rate ARR from dormant accounts</div>
-          <div class="case-three-up-sub">8x more accounts in motion (from &lt;10% to ~70% coverage). Year 3 run-rate from a previously untouched book.</div>
+          <div class="case-three-up-headline">Year 3 ARR from dormant prospects</div>
+          <div class="case-three-up-sub">8x more dormant accounts in motion. New logos from a previously untouched book.</div>
+        </div>
+        <div class="case-three-up-card">
+          <div class="case-three-up-num">$2-3<span class="num-suffix">M+</span></div>
+          <div class="case-three-up-headline">Year 1 ARR from existing customer whitespace</div>
+          <div class="case-three-up-sub">Tier 2 and Tier 3 customers AEs can't proactively work today. Expansion at scale.</div>
         </div>
       </div>
 
@@ -6018,6 +6036,16 @@
         <!-- Metric 4 -->
         <div class="case-detail-card">
           <div class="case-detail-num">Metric 4</div>
+          <h3><span class="num-pop">$2-3M+</span> Year 1 ARR from existing customer whitespace</h3>
+          <p>Tier 1 customers are actively worked &mdash; AEs know the buying committee and pursue obvious whitespace. The opportunity is in <strong>Tier 2 and Tier 3</strong>, where AEs have too many accounts to proactively work each one and ~70% of the book gets passive-renewal motion only.</p>
+          <p>The agent surfaces qualified expansion opportunities in that 70% &mdash; powered by CSM signals, usage patterns, and customer-grounded triggers that today never reach an AE in time to act on.</p>
+          <div class="case-math">~7,000 mid-market + SMB customers underworked × ~15% reply × ~30% close rate ≈ 75 expansions/yr</div>
+          <div class="case-tagline">Existing customers convert 5-10x better than cold prospects. Year 3 cumulative: ~$8-12M.</div>
+        </div>
+
+        <!-- Metric 5 -->
+        <div class="case-detail-card">
+          <div class="case-detail-num">Metric 5</div>
           <h3><span class="num-pop">3-5x LTV expansion</span> on every land deal</h3>
           <p>The land SKUs are deliberately priced low ($5K minimums) as door-openers. Each landed customer typically expands 3-5x in 24 months as they roll out additional products and use cases.</p>
           <p>This is the multiplier that turns Metric 3's small new-logo bookings into a much larger ARR run-rate over time. A $15K land becomes a $50K+ customer in 24 months.</p>
@@ -6025,18 +6053,28 @@
           <div class="case-tagline">This is how a $5K SKU becomes a 7-figure customer over time.</div>
         </div>
 
-        <!-- Metric 5 (full width) -->
+        <!-- Metric 6 -->
+        <div class="case-detail-card">
+          <div class="case-detail-num">Metric 6</div>
+          <h3><span class="num-pop">Higher win rates</span> in competitive deals</h3>
+          <p>When AEs show up with deeper account context, signal-grounded POVs, and faster response time on inbound replies, they win more deals against competitors. Industry data backs this up: buyer-specific POVs improve stage-to-stage conversion 1.4-1.6x baseline (Gartner).</p>
+          <p>Better discovery, sharper follow-up, less ghosted pipeline. Especially impactful in head-to-head deals against Medallia, SurveyMonkey, and the long tail of point-solution competitors.</p>
+          <div class="case-math">~10-15% win rate uplift in competitive deals · compounds with every metric above</div>
+          <div class="case-tagline">It's not just about volume. It's about winning the ones we're already in.</div>
+        </div>
+
+        <!-- Metric 7 (full width) -->
         <div class="case-detail-card span-2">
-          <div class="case-detail-num">Metric 5</div>
+          <div class="case-detail-num">Metric 7</div>
           <h3>Faster ramp + higher retention <span class="num-pop">compound year over year</span></h3>
           <p>SDR turnover runs 30-40% annually across the industry. A big chunk of that is burnout from low-leverage repetitive work — exactly what the agent automates. If the agent reduces SDR turnover by even 5 points and accelerates ramp by a month, the math compounds.</p>
           <div class="case-math">Lower turnover + faster ramp ≈ $4M in saved hiring and ramp loss · grows every year</div>
           <div class="case-tagline">Reps stay longer. Ramp faster. Compounds with every cohort.</div>
         </div>
 
-        <!-- Metric 6 (full width) - Shadow IT / Security -->
+        <!-- Metric 8 (full width) - Shadow IT / Security -->
         <div class="case-detail-card risk span-2">
-          <div class="case-detail-num">Metric 6 · Risk Mitigation</div>
+          <div class="case-detail-num">Metric 8 · Risk Mitigation</div>
           <h3>Closes the <span class="num-pop">AI shadow IT gap</span> already open across the sales org</h3>
           <p>Reps are already using personal ChatGPT, Claude, Clay, Apollo, Lavender, and a long tail of browser extensions to do the work the agent will automate. They have to — the productivity gain is too big to give up. But every time a rep pastes prospect data, account notes, or call content into a personal account, that data leaves Qualtrics' security perimeter with no audit trail.</p>
           <p>A sanctioned agent that's <strong>better than the shadow alternatives</strong> is the only realistic way to get this risk under control. Lock-down policies don't work — reps just get sneakier. Replacing the shadow stack with a governed, integrated tool removes the incentive to go around IT in the first place.</p>
@@ -6049,8 +6087,8 @@
       <!-- Combined impact bar -->
       <div class="case-impact-bar">
         <div class="case-impact-bar-tag">Year 1 Defensible Business Impact</div>
-        <div class="case-impact-bar-headline"><span class="num">$40-55M+</span></div>
-        <div class="case-impact-bar-sub">Plus <strong style="color: white;">$3-6M+ run-rate ARR by Year 3</strong> from dormant book activation, compounding with each cohort. Even at 50% of every assumption, the case still pays for itself in the first quarter.</div>
+        <div class="case-impact-bar-headline"><span class="num">$42-58M+</span></div>
+        <div class="case-impact-bar-sub">Plus <strong style="color: white;">$9-16M+ run-rate ARR by Year 3</strong> from dormant prospects + existing customer whitespace, compounding with each cohort. Even at 50% of every assumption, the case still pays for itself in the first quarter.</div>
       </div>
 
     </div>
