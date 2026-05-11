@@ -1032,6 +1032,216 @@
   }
   .arch-intro strong { color: var(--text); font-weight: 600; }
 
+  /* ── DATA FLOW CHART ── */
+  .dataflow-section {
+    max-width: 1100px;
+    margin: 0 auto 64px;
+  }
+  .dataflow-section-intro {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .dataflow-section-intro h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    margin-bottom: 8px;
+  }
+  .dataflow-section-intro p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+  .dataflow-diagram {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 28px;
+    position: relative;
+  }
+  .dataflow-layer {
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 2;
+  }
+  .dataflow-layer:last-child { margin-bottom: 0; }
+  .dataflow-layer-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+  }
+  .dataflow-layer-tag.ui { color: var(--magenta); border-color: var(--magenta-border); background: var(--magenta-glow); }
+  .dataflow-layer-tag.agent { color: var(--purple); border-color: var(--purple-border, #c4b5fd); background: var(--purple-glow, #f5f3ff); }
+  .dataflow-layer-tag.skill { color: var(--cyan); border-color: var(--cyan-border, #67e8f9); background: var(--cyan-glow, #ecfeff); }
+  .dataflow-layer-tag.context { color: var(--blue); border-color: var(--blue-border, #93c5fd); background: var(--blue-glow, #eff6ff); }
+  .dataflow-layer-tag.compute { color: var(--green); border-color: var(--green-border); background: var(--green-glow); }
+  .dataflow-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .dataflow-row + .dataflow-row { margin-top: 10px; }
+  .dataflow-box {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    min-width: 130px;
+    max-width: 180px;
+    text-align: center;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+    flex: 1 1 130px;
+  }
+  .dataflow-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  }
+  .dataflow-box.ui {
+    border-color: var(--magenta);
+    background: linear-gradient(135deg, var(--surface), var(--magenta-glow));
+    min-width: 280px;
+    max-width: 360px;
+    flex: 0 1 320px;
+  }
+  .dataflow-box.agent {
+    border-color: var(--purple);
+    background: linear-gradient(135deg, var(--surface), #faf5ff);
+    min-width: 280px;
+    max-width: 360px;
+    flex: 0 1 320px;
+  }
+  .dataflow-box.skill {
+    border-color: var(--cyan-border, #67e8f9);
+  }
+  .dataflow-box.skill:hover { border-color: var(--cyan); }
+  .dataflow-box.context {
+    border-color: var(--blue-border, #93c5fd);
+  }
+  .dataflow-box.context:hover { border-color: var(--blue); }
+  .dataflow-box.compute {
+    border-color: var(--green-border);
+  }
+  .dataflow-box.compute:hover { border-color: var(--green); }
+  .dataflow-box-icon {
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .dataflow-box-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.1px;
+    line-height: 1.25;
+  }
+  .dataflow-box-meta {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    line-height: 1.35;
+  }
+  .dataflow-box.ui .dataflow-box-name,
+  .dataflow-box.agent .dataflow-box-name { font-size: 13px; }
+  .dataflow-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 28px;
+    position: relative;
+    margin: -2px 0;
+  }
+  .dataflow-arrow-line {
+    width: 2px;
+    flex: 1;
+    background: var(--text-dim);
+    opacity: 0.35;
+  }
+  .dataflow-arrow-tip {
+    color: var(--text-dim);
+    opacity: 0.55;
+    font-size: 10px;
+    line-height: 1;
+    margin-top: -2px;
+  }
+  .dataflow-arrow-label {
+    position: absolute;
+    left: calc(50% + 16px);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--magenta);
+    background: var(--surface);
+    border: 1px solid var(--magenta-border);
+    border-radius: 999px;
+    padding: 2px 7px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Memory feedback loop callout */
+  .dataflow-memory {
+    margin-top: 24px;
+    background: linear-gradient(135deg, #f5f3ff, var(--surface));
+    border: 1.5px dashed var(--purple, #8b5cf6);
+    border-radius: 14px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .dataflow-memory-icon {
+    width: 44px; height: 44px;
+    background: var(--purple, #8b5cf6);
+    color: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .dataflow-memory-content { flex: 1; }
+  .dataflow-memory-tag {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--purple, #8b5cf6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+  .dataflow-memory-content h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px 0;
+  }
+  .dataflow-memory-content p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .dataflow-memory-content p strong { color: var(--text); font-weight: 700; }
+
+  @media (max-width: 700px) {
+    .dataflow-diagram { padding: 22px 14px; }
+    .dataflow-box { min-width: 110px; }
+    .dataflow-box.ui, .dataflow-box.agent { min-width: 200px; }
+  }
+
   .arch-flow {
     max-width: 880px;
     margin: 0 auto;
@@ -7389,6 +7599,197 @@
 
     <!-- INTRO -->
     <p class="arch-intro">A rep opens a chat and says what they need. Find contacts. Prep for a demo. Write a cold call script. Draft a follow-up. Respond to an RFP. The agent handles it — grounded in <strong>every sales conversation Qualtrics has ever recorded</strong>, every closed-won deal, every approved piece of content. The architecture below shows the prospecting flow as one example, but the same infrastructure powers every part of a rep's day.</p>
+
+    <!-- ═════════════════════════════════════════════════════ -->
+    <!-- DATA FLOW DIAGRAM                                       -->
+    <!-- ═════════════════════════════════════════════════════ -->
+    <div class="dataflow-section">
+      <div class="dataflow-section-intro">
+        <h2>How Data Flows Through the Agent</h2>
+        <p>From the rep's first message to the rendered output — and back into memory for the next conversation.</p>
+      </div>
+
+      <div class="dataflow-diagram">
+
+        <!-- ─── LAYER 1: UI INPUT ─── -->
+        <div class="dataflow-layer">
+          <div class="dataflow-layer-tag ui">Layer 1 · UI</div>
+          <div class="dataflow-row">
+            <div class="dataflow-box ui">
+              <div class="dataflow-box-icon">💬</div>
+              <div class="dataflow-box-name">Chatbot Interface</div>
+              <div class="dataflow-box-meta">Rep types in plain language or taps a quick action</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dataflow-arrow">
+          <div class="dataflow-arrow-line"></div>
+          <div class="dataflow-arrow-tip">▼</div>
+        </div>
+
+        <!-- ─── LAYER 2: AGENTIC ROUTER ─── -->
+        <div class="dataflow-layer">
+          <div class="dataflow-layer-tag agent">Layer 2 · Agentic Routing</div>
+          <div class="dataflow-row">
+            <div class="dataflow-box agent">
+              <div class="dataflow-box-icon">🧠</div>
+              <div class="dataflow-box-name">LLM Decision Layer</div>
+              <div class="dataflow-box-meta">Parses intent, asks clarifying questions, routes to the right deterministic skill</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dataflow-arrow">
+          <div class="dataflow-arrow-line"></div>
+          <div class="dataflow-arrow-tip">▼</div>
+        </div>
+
+        <!-- ─── LAYER 3: SKILLS ─── -->
+        <div class="dataflow-layer">
+          <div class="dataflow-layer-tag skill">Layer 3 · Skills (Deterministic Workflows)</div>
+          <div class="dataflow-row">
+            <div class="dataflow-box skill">
+              <div class="dataflow-box-icon">⭐</div>
+              <div class="dataflow-box-name">Account Prioritization</div>
+            </div>
+            <div class="dataflow-box skill">
+              <div class="dataflow-box-icon">🎯</div>
+              <div class="dataflow-box-name">Contact Miner</div>
+            </div>
+            <div class="dataflow-box skill">
+              <div class="dataflow-box-icon">📡</div>
+              <div class="dataflow-box-name">Signal Scraper</div>
+            </div>
+            <div class="dataflow-box skill">
+              <div class="dataflow-box-icon">💡</div>
+              <div class="dataflow-box-name">POV Generator</div>
+            </div>
+            <div class="dataflow-box skill">
+              <div class="dataflow-box-icon">✉️</div>
+              <div class="dataflow-box-name">Response Generator</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dataflow-arrow">
+          <div class="dataflow-arrow-line"></div>
+          <div class="dataflow-arrow-tip">▼</div>
+        </div>
+
+        <!-- ─── LAYER 4: CONTEXT ─── -->
+        <div class="dataflow-layer">
+          <div class="dataflow-layer-tag context">Layer 4 · Context Layer · Grounded Data Sources</div>
+          <div class="dataflow-row">
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">☁️</div>
+              <div class="dataflow-box-name">Salesforce</div>
+              <div class="dataflow-box-meta">Accounts, opps, activity, contacts</div>
+            </div>
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">📊</div>
+              <div class="dataflow-box-name">Tableau Territory Explorer</div>
+              <div class="dataflow-box-meta">Whitespace + book signals</div>
+            </div>
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">🎙️</div>
+              <div class="dataflow-box-name">Kaia Recordings</div>
+              <div class="dataflow-box-meta">Call transcripts, objections, win patterns</div>
+            </div>
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">🤖</div>
+              <div class="dataflow-box-name">Ask AI</div>
+              <div class="dataflow-box-meta">Internal Qualtrics knowledge layer</div>
+            </div>
+          </div>
+          <div class="dataflow-row">
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">📚</div>
+              <div class="dataflow-box-name">Highspot</div>
+              <div class="dataflow-box-meta">Playbooks, sales plays, approved messaging</div>
+            </div>
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">📄</div>
+              <div class="dataflow-box-name">Support Docs</div>
+              <div class="dataflow-box-meta">Product reference, integrations, FAQs</div>
+            </div>
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">🔍</div>
+              <div class="dataflow-box-name">Clay Research</div>
+              <div class="dataflow-box-meta">Fallback enrichment when context isn't already on file</div>
+            </div>
+            <div class="dataflow-box context">
+              <div class="dataflow-box-icon">👥</div>
+              <div class="dataflow-box-name">ZoomInfo</div>
+              <div class="dataflow-box-meta">Contact + firmographic data</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dataflow-arrow">
+          <div class="dataflow-arrow-line"></div>
+          <div class="dataflow-arrow-tip">▼</div>
+        </div>
+
+        <!-- ─── LAYER 5: ORCHESTRATION ─── -->
+        <div class="dataflow-layer">
+          <div class="dataflow-layer-tag compute">Layer 5 · Orchestration · Compute + Cleanup</div>
+          <div class="dataflow-row">
+            <div class="dataflow-box compute">
+              <div class="dataflow-box-icon">⚡</div>
+              <div class="dataflow-box-name">Code</div>
+              <div class="dataflow-box-meta">Deterministic logic, data validation</div>
+            </div>
+            <div class="dataflow-box compute">
+              <div class="dataflow-box-icon">🧠</div>
+              <div class="dataflow-box-name">LLM</div>
+              <div class="dataflow-box-meta">Reasoning, synthesis, copy generation</div>
+            </div>
+            <div class="dataflow-box compute">
+              <div class="dataflow-box-icon">🏗️</div>
+              <div class="dataflow-box-name">Clay</div>
+              <div class="dataflow-box-meta">Enrichment + waterfall workflows</div>
+            </div>
+            <div class="dataflow-box compute">
+              <div class="dataflow-box-icon">🔄</div>
+              <div class="dataflow-box-name">n8n</div>
+              <div class="dataflow-box-meta">Connector glue (where needed)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dataflow-arrow">
+          <div class="dataflow-arrow-line"></div>
+          <div class="dataflow-arrow-tip">▼</div>
+          <div class="dataflow-arrow-label">JSON</div>
+        </div>
+
+        <!-- ─── LAYER 6: UI OUTPUT ─── -->
+        <div class="dataflow-layer">
+          <div class="dataflow-layer-tag ui">Layer 6 · UI · Rendered Output</div>
+          <div class="dataflow-row">
+            <div class="dataflow-box ui">
+              <div class="dataflow-box-icon">🎨</div>
+              <div class="dataflow-box-name">Chatbot Renderer</div>
+              <div class="dataflow-box-meta">JSON → polished widgets (account cards, contact lists, sequences, POVs)</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Memory feedback loop callout -->
+      <div class="dataflow-memory">
+        <div class="dataflow-memory-icon">↻</div>
+        <div class="dataflow-memory-content">
+          <div class="dataflow-memory-tag">Memory Feedback Loop</div>
+          <h4>Every interaction feeds back into the agent's memory</h4>
+          <p>Conversation state, prior decisions, and rendered outputs flow back into a <strong>per-user memory store</strong> — accessible to the agentic router on the next turn. The agent remembers what was discussed in the current chat, what workflows were run, and carries context across conversations so reps never have to re-explain who they are or what they're working on.</p>
+        </div>
+      </div>
+
+    </div>
+    <!-- /dataflow-section -->
 
     <!-- ARCHITECTURE FLOW -->
     <div class="arch-flow">
