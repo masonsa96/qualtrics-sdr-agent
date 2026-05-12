@@ -594,6 +594,7 @@
   .nav-tab[data-view="ai"].active { color: var(--purple); }
   .nav-tab[data-view="context"].active { color: var(--cyan); }
   .nav-tab[data-view="arch"].active { color: var(--green); }
+  .nav-tab[data-view="build"].active { color: var(--orange, #f59e0b); }
   .nav-tab[data-view="demo"].active { color: var(--magenta); }
   .nav-tab[data-view="wireframe"].active { color: var(--slate); }
 
@@ -1032,6 +1033,341 @@
   }
   .arch-intro strong { color: var(--text); font-weight: 600; }
 
+  /* ── BUILD PLAN ── */
+  .build-section {
+    max-width: 1100px;
+    margin: 0 auto 56px;
+  }
+  .build-poc-card {
+    background: linear-gradient(135deg, #fef3c7, var(--surface));
+    border: 2px solid #f59e0b;
+    border-radius: 18px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .build-poc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #f59e0b, #ef4444, var(--magenta));
+  }
+  .build-poc-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .build-poc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #f59e0b;
+    background: white;
+    border: 1.5px solid #f59e0b;
+    border-radius: 999px;
+    padding: 5px 12px;
+  }
+  .build-poc-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: #f59e0b;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .build-poc-card h2 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.4px;
+  }
+  .build-poc-card > p {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    line-height: 1.55;
+  }
+  .build-poc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .build-poc-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .build-poc-cell-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: #f59e0b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+  }
+  .build-poc-cell-content {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.45;
+  }
+  .build-poc-cell-content strong { font-weight: 700; }
+  .build-poc-tagline {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed #f59e0b;
+    font-size: 13px;
+    color: var(--text);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .build-roadmap-intro {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .build-roadmap-intro h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .build-roadmap-intro p {
+    font-size: 14px;
+    color: var(--text-muted);
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  .build-phases {
+    position: relative;
+    padding-left: 36px;
+  }
+  .build-phases::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    bottom: 16px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--cyan), var(--blue), var(--green), var(--magenta));
+    opacity: 0.4;
+  }
+  .build-phase {
+    position: relative;
+    margin-bottom: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .build-phase:hover {
+    border-color: var(--magenta-border);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  }
+  .build-phase:last-child { margin-bottom: 0; }
+  .build-phase::before {
+    content: '';
+    position: absolute;
+    left: -29px;
+    top: 22px;
+    width: 16px; height: 16px;
+    background: var(--surface);
+    border: 3px solid var(--cyan);
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .build-phase.foundation::before { border-color: var(--cyan); }
+  .build-phase.expansion::before { border-color: var(--blue); }
+  .build-phase.rollout::before { border-color: var(--green); }
+  .build-phase.beyond::before { border-color: var(--magenta); }
+  .build-phase-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .build-phase-num {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1.5px solid;
+    background: white;
+    flex-shrink: 0;
+  }
+  .build-phase.foundation .build-phase-num { color: var(--cyan); border-color: var(--cyan); }
+  .build-phase.expansion .build-phase-num { color: var(--blue); border-color: var(--blue); }
+  .build-phase.rollout .build-phase-num { color: var(--green); border-color: var(--green); }
+  .build-phase.beyond .build-phase-num { color: var(--magenta); border-color: var(--magenta); }
+  .build-phase-duration {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 10px;
+    flex-shrink: 0;
+  }
+  .build-phase-title { flex: 1; min-width: 0; }
+  .build-phase-title h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    margin-bottom: 3px;
+    line-height: 1.25;
+  }
+  .build-phase-title p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .build-phase-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  .build-phase-block { }
+  .build-phase-block-label {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 7px;
+  }
+  .build-phase-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .build-phase-tag {
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-muted);
+  }
+  .build-phase-tag.skill { color: var(--cyan); border-color: #67e8f9; background: #ecfeff; }
+  .build-phase-tag.data { color: var(--blue); border-color: #93c5fd; background: #eff6ff; }
+  .build-phase-tag.skill.new { font-weight: 800; color: var(--magenta); border-color: var(--magenta); background: var(--magenta-glow); }
+  .build-phase-tag.data.new { font-weight: 800; color: var(--magenta); border-color: var(--magenta); background: var(--magenta-glow); }
+  .build-phase-block-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .build-phase-block-list li {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+    padding-left: 14px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .build-phase-block-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+    font-weight: 700;
+  }
+  .build-phase-success {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    font-size: 11.5px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .build-phase-success strong {
+    color: var(--text);
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  .build-endstate {
+    margin-top: 48px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a1f2a 100%);
+    color: white;
+    border-radius: 18px;
+    padding: 32px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .build-endstate::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 80% 30%, rgba(219, 39, 119, 0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .build-endstate-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .build-endstate h3 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .build-endstate h3 .accent {
+    background: linear-gradient(135deg, #f9a8d4, #c4b5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .build-endstate p {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+    max-width: 760px;
+  }
+  .build-endstate p strong { color: white; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .build-poc-grid { grid-template-columns: 1fr; }
+    .build-phase-body { grid-template-columns: 1fr; }
+  }
+
   /* ── DATA FLOW CHART ── */
   .dataflow-section {
     max-width: 1100px;
@@ -1053,6 +1389,189 @@
     max-width: 640px;
     margin: 0 auto;
     line-height: 1.55;
+  }
+
+  /* Unified flow stage card */
+  .flow-stage {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 22px 24px;
+    margin-bottom: 0;
+    position: relative;
+    transition: border-color 0.15s, box-shadow 0.2s;
+  }
+  .flow-stage:hover {
+    border-color: var(--magenta-border);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+  .flow-stage-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .flow-stage-num {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .flow-stage.ui .flow-stage-num { background: var(--magenta); }
+  .flow-stage.agent .flow-stage-num { background: var(--purple, #8b5cf6); }
+  .flow-stage.skills .flow-stage-num { background: var(--cyan); }
+  .flow-stage.context .flow-stage-num { background: var(--blue); }
+  .flow-stage.compute .flow-stage-num { background: var(--green); }
+  .flow-stage.output .flow-stage-num { background: linear-gradient(135deg, var(--magenta), #f59e0b); }
+  .flow-stage-headline {
+    flex: 1;
+    min-width: 0;
+  }
+  .flow-stage-tag {
+    display: inline-block;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 2px 9px;
+    border-radius: 999px;
+    border: 1px solid;
+    margin-bottom: 5px;
+  }
+  .flow-stage.ui .flow-stage-tag { color: var(--magenta); border-color: var(--magenta-border); background: var(--magenta-glow); }
+  .flow-stage.agent .flow-stage-tag { color: var(--purple, #8b5cf6); border-color: #c4b5fd; background: #f5f3ff; }
+  .flow-stage.skills .flow-stage-tag { color: var(--cyan); border-color: #67e8f9; background: #ecfeff; }
+  .flow-stage.context .flow-stage-tag { color: var(--blue); border-color: #93c5fd; background: #eff6ff; }
+  .flow-stage.compute .flow-stage-tag { color: var(--green); border-color: var(--green-border); background: var(--green-glow); }
+  .flow-stage.output .flow-stage-tag { color: var(--magenta); border-color: var(--magenta-border); background: var(--magenta-glow); }
+  .flow-stage-headline h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 3px;
+    letter-spacing: -0.3px;
+    line-height: 1.25;
+  }
+  .flow-stage-headline > p {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .flow-stage-visual {
+    margin: 14px 0;
+    padding: 12px;
+    background: var(--surface-2);
+    border-radius: 12px;
+  }
+  .flow-stage-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .flow-stage-detail.full { grid-template-columns: 1fr; }
+  .flow-stage-detail-block { }
+  .flow-stage-detail-label {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 6px;
+  }
+  .flow-stage-detail-content {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .flow-stage-detail-content strong { font-weight: 700; }
+  .flow-stage-detail-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 4px;
+  }
+  .flow-stage-detail-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .flow-stage-handoff {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: linear-gradient(135deg, var(--surface-2), var(--surface));
+    border-left: 3px solid;
+    border-radius: 6px;
+    font-size: 11.5px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .flow-stage.ui .flow-stage-handoff { border-left-color: var(--magenta); }
+  .flow-stage.agent .flow-stage-handoff { border-left-color: var(--purple, #8b5cf6); }
+  .flow-stage.skills .flow-stage-handoff { border-left-color: var(--cyan); }
+  .flow-stage.context .flow-stage-handoff { border-left-color: var(--blue); }
+  .flow-stage.compute .flow-stage-handoff { border-left-color: var(--green); }
+  .flow-stage.output .flow-stage-handoff { border-left-color: var(--magenta); }
+  .flow-stage-handoff strong {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 800;
+    display: inline-block;
+    margin-right: 8px;
+  }
+  .flow-stage.ui .flow-stage-handoff strong { color: var(--magenta); }
+  .flow-stage.agent .flow-stage-handoff strong { color: var(--purple, #8b5cf6); }
+  .flow-stage.skills .flow-stage-handoff strong { color: var(--cyan); }
+  .flow-stage.context .flow-stage-handoff strong { color: var(--blue); }
+  .flow-stage.compute .flow-stage-handoff strong { color: var(--green); }
+  .flow-stage.output .flow-stage-handoff strong { color: var(--magenta); }
+
+  .flow-arrow-between {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0;
+    color: var(--text-dim);
+    position: relative;
+  }
+  .flow-arrow-between-line {
+    width: 2px;
+    height: 28px;
+    background: var(--text-dim);
+    opacity: 0.3;
+  }
+  .flow-arrow-between-tip {
+    font-size: 12px;
+    opacity: 0.45;
+    margin-top: -3px;
+  }
+  .flow-arrow-between-label {
+    position: absolute;
+    left: calc(50% + 18px);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 9.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    background: var(--surface);
+    border: 1px solid var(--magenta-border);
+    color: var(--magenta);
+    border-radius: 999px;
+    padding: 2px 8px;
+    white-space: nowrap;
   }
   .dataflow-diagram {
     background: var(--surface-2);
@@ -1400,14 +1919,14 @@
     border-radius: 18px;
     padding: 28px 32px;
     box-shadow: var(--card-shadow);
-    max-width: 880px;
+    max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
   }
 
   /* ── SALESFORCE FIELDS DETAIL ── */
   .sfdc-fields-detail {
-    max-width: 880px;
+    max-width: 1100px;
     margin: 32px auto 0;
     background: var(--surface);
     border: 1.5px solid var(--blue-border);
@@ -6159,6 +6678,7 @@
         <button class="nav-tab" data-view="ai">AI-Automated</button>
         <button class="nav-tab" data-view="context">Context Engine</button>
         <button class="nav-tab" data-view="arch">Architecture</button>
+        <button class="nav-tab" data-view="build">Build Plan</button>
         <button class="nav-tab" data-view="wireframe">Wireframe</button>
         <button class="nav-tab" data-view="demo">Live Demo</button>
       </div>
@@ -7598,22 +8118,25 @@
     </div>
 
     <!-- INTRO -->
-    <p class="arch-intro">A rep opens a chat and says what they need. Find contacts. Prep for a demo. Write a cold call script. Draft a follow-up. Respond to an RFP. The agent handles it — grounded in <strong>every sales conversation Qualtrics has ever recorded</strong>, every closed-won deal, every approved piece of content. The architecture below shows the prospecting flow as one example, but the same infrastructure powers every part of a rep's day.</p>
+    <p class="arch-intro">A rep opens a chat and says what they need. Find contacts. Prep for a demo. Write a cold call script. Draft a follow-up. Respond to an RFP. The agent handles it — grounded in <strong>every sales conversation Qualtrics has ever recorded</strong>, every closed-won deal, every approved piece of content. <strong>Here's how data moves through it</strong> — every stage, every tool, every handoff, from the rep's first message to rendered output and back into memory.</p>
 
     <!-- ═════════════════════════════════════════════════════ -->
-    <!-- DATA FLOW DIAGRAM                                       -->
+    <!-- UNIFIED DATA FLOW + ARCHITECTURE                        -->
     <!-- ═════════════════════════════════════════════════════ -->
     <div class="dataflow-section">
-      <div class="dataflow-section-intro">
-        <h2>How Data Flows Through the Agent</h2>
-        <p>From the rep's first message to the rendered output — and back into memory for the next conversation.</p>
-      </div>
 
-      <div class="dataflow-diagram">
+      <!-- ─── STAGE 01: UI INPUT ─── -->
+      <div class="flow-stage ui">
+        <div class="flow-stage-meta">
+          <div class="flow-stage-num">01</div>
+          <div class="flow-stage-headline">
+            <div class="flow-stage-tag">UI · Input</div>
+            <h3>The Chat Interface</h3>
+            <p>Where the rep engages with the system. One entry point for every part of their day &mdash; outbound, inbound, prep, research, content, RFPs.</p>
+          </div>
+        </div>
 
-        <!-- ─── LAYER 1: UI INPUT ─── -->
-        <div class="dataflow-layer">
-          <div class="dataflow-layer-tag ui">Layer 1 · UI</div>
+        <div class="flow-stage-visual">
           <div class="dataflow-row">
             <div class="dataflow-box ui">
               <div class="dataflow-box-icon">💬</div>
@@ -7623,68 +8146,157 @@
           </div>
         </div>
 
-        <div class="dataflow-arrow">
-          <div class="dataflow-arrow-line"></div>
-          <div class="dataflow-arrow-tip">▼</div>
+        <div class="flow-stage-detail">
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">What happens here</div>
+            <div class="flow-stage-detail-content">Reps describe what they need in their own words, or tap a pre-configured quick action. The agent asks clarifying questions when intent is ambiguous. No forms, no menus to memorize.</div>
+          </div>
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">Common use cases</div>
+            <div class="flow-stage-detail-pills">
+              <span class="flow-stage-detail-pill">💬 Prospect an account</span>
+              <span class="flow-stage-detail-pill">📞 Build a cold call script</span>
+              <span class="flow-stage-detail-pill">🎯 Prep for a meeting</span>
+              <span class="flow-stage-detail-pill">✉️ Write a cold email</span>
+              <span class="flow-stage-detail-pill">📋 Respond to an RFP</span>
+              <span class="flow-stage-detail-pill">📥 Handle an inbound reply</span>
+              <span class="flow-stage-detail-pill">🛡️ Handle an objection</span>
+              <span class="flow-stage-detail-pill">🎓 Research an account</span>
+            </div>
+          </div>
         </div>
 
-        <!-- ─── LAYER 2: AGENTIC ROUTER ─── -->
-        <div class="dataflow-layer">
-          <div class="dataflow-layer-tag agent">Layer 2 · Agentic Routing</div>
+        <div class="flow-stage-handoff">
+          <strong>Hands off ↓</strong> User intent (free-form text) + optional quick-action selection &nbsp;<em>+ memory context from prior turns</em>
+        </div>
+      </div>
+
+      <div class="flow-arrow-between">
+        <div class="flow-arrow-between-line"></div>
+        <div class="flow-arrow-between-tip">▼</div>
+      </div>
+
+      <!-- ─── STAGE 02: AGENTIC ROUTING ─── -->
+      <div class="flow-stage agent">
+        <div class="flow-stage-meta">
+          <div class="flow-stage-num">02</div>
+          <div class="flow-stage-headline">
+            <div class="flow-stage-tag">Agentic Routing</div>
+            <h3>LLM Decision Layer</h3>
+            <p>The "smart" part of the agent. Parses intent, asks clarifying questions, picks the right deterministic skill to invoke. Does <strong>not</strong> touch real data &mdash; only routes.</p>
+          </div>
+        </div>
+
+        <div class="flow-stage-visual">
           <div class="dataflow-row">
             <div class="dataflow-box agent">
               <div class="dataflow-box-icon">🧠</div>
               <div class="dataflow-box-name">LLM Decision Layer</div>
-              <div class="dataflow-box-meta">Parses intent, asks clarifying questions, routes to the right deterministic skill</div>
+              <div class="dataflow-box-meta">Intent parsing · skill routing · clarifying questions</div>
             </div>
           </div>
         </div>
 
-        <div class="dataflow-arrow">
-          <div class="dataflow-arrow-line"></div>
-          <div class="dataflow-arrow-tip">▼</div>
+        <div class="flow-stage-detail">
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">What happens here</div>
+            <div class="flow-stage-detail-content">Combines current message with memory from prior turns. Maps intent to one of the deterministic skills. Asks follow-up questions if it doesn't have enough to invoke a skill confidently. <strong>This is the only layer where the LLM is asked to "decide"</strong> &mdash; everything past this point is deterministic.</div>
+          </div>
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">Tools</div>
+            <div class="flow-stage-detail-pills">
+              <span class="flow-stage-detail-pill">🧠 Claude / GPT-4 class LLM</span>
+              <span class="flow-stage-detail-pill">📝 Per-conversation memory</span>
+              <span class="flow-stage-detail-pill">🗂️ Cross-conversation memory</span>
+            </div>
+          </div>
         </div>
 
-        <!-- ─── LAYER 3: SKILLS ─── -->
-        <div class="dataflow-layer">
-          <div class="dataflow-layer-tag skill">Layer 3 · Skills (Deterministic Workflows)</div>
+        <div class="flow-stage-handoff">
+          <strong>Hands off ↓</strong> Skill name + structured parameters &nbsp;<em>e.g., RunAccountPrioritization(icp=&ldquo;FSI&rdquo;, count=5)</em>
+        </div>
+      </div>
+
+      <div class="flow-arrow-between">
+        <div class="flow-arrow-between-line"></div>
+        <div class="flow-arrow-between-tip">▼</div>
+      </div>
+
+      <!-- ─── STAGE 03: SKILLS ─── -->
+      <div class="flow-stage skills">
+        <div class="flow-stage-meta">
+          <div class="flow-stage-num">03</div>
+          <div class="flow-stage-headline">
+            <div class="flow-stage-tag">Skills · Deterministic Workflows</div>
+            <h3>Pre-built skills the agent can invoke</h3>
+            <p>Pre-built, deterministic workflows. Same input &rarr; same output. <strong>No hallucinations.</strong> Each skill knows exactly which context sources to query and which compute to invoke.</p>
+          </div>
+        </div>
+
+        <div class="flow-stage-visual">
           <div class="dataflow-row">
             <div class="dataflow-box skill">
               <div class="dataflow-box-icon">⭐</div>
               <div class="dataflow-box-name">Account Prioritization</div>
+              <div class="dataflow-box-meta">Score book against ICP</div>
             </div>
             <div class="dataflow-box skill">
               <div class="dataflow-box-icon">🎯</div>
               <div class="dataflow-box-name">Contact Miner</div>
+              <div class="dataflow-box-meta">Find verified DMs by persona</div>
             </div>
             <div class="dataflow-box skill">
               <div class="dataflow-box-icon">📡</div>
               <div class="dataflow-box-name">Signal Scraper</div>
+              <div class="dataflow-box-meta">Surface news, hiring, intent</div>
             </div>
             <div class="dataflow-box skill">
               <div class="dataflow-box-icon">💡</div>
               <div class="dataflow-box-name">POV Generator</div>
+              <div class="dataflow-box-meta">Account-specific point of view</div>
             </div>
             <div class="dataflow-box skill">
               <div class="dataflow-box-icon">✉️</div>
               <div class="dataflow-box-name">Response Generator</div>
+              <div class="dataflow-box-meta">Draft replies, objection handlers</div>
             </div>
           </div>
         </div>
 
-        <div class="dataflow-arrow">
-          <div class="dataflow-arrow-line"></div>
-          <div class="dataflow-arrow-tip">▼</div>
+        <div class="flow-stage-detail full">
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">Why this matters</div>
+            <div class="flow-stage-detail-content">By gating every data-touching action behind a deterministic skill, we keep the agent <strong>accurate, grounded, and auditable</strong>. The rep is always in the loop. The LLM decides which skill to run, but the skill itself runs as code &mdash; the same way every time. As we ship more skills, the agent does more without the platform getting more risky.</div>
+          </div>
         </div>
 
-        <!-- ─── LAYER 4: CONTEXT ─── -->
-        <div class="dataflow-layer">
-          <div class="dataflow-layer-tag context">Layer 4 · Context Layer · Grounded Data Sources</div>
+        <div class="flow-stage-handoff">
+          <strong>Hands off ↓</strong> Queries to context sources &nbsp;<em>each skill knows what it needs &mdash; SFDC accounts, Kaia recordings, Highspot pages, ZoomInfo contacts, etc.</em>
+        </div>
+      </div>
+
+      <div class="flow-arrow-between">
+        <div class="flow-arrow-between-line"></div>
+        <div class="flow-arrow-between-tip">▼</div>
+      </div>
+
+      <!-- ─── STAGE 04: CONTEXT ─── -->
+      <div class="flow-stage context">
+        <div class="flow-stage-meta">
+          <div class="flow-stage-num">04</div>
+          <div class="flow-stage-headline">
+            <div class="flow-stage-tag">Context Layer · Grounded Data Sources</div>
+            <h3>Where the data actually lives</h3>
+            <p>Skills query these sources as needed. The agent doesn't guess &mdash; it <strong>grounds every output in real data</strong>. Some sources are real-time, some cached, some retrieved via fallback enrichment.</p>
+          </div>
+        </div>
+
+        <div class="flow-stage-visual">
           <div class="dataflow-row">
             <div class="dataflow-box context">
               <div class="dataflow-box-icon">☁️</div>
               <div class="dataflow-box-name">Salesforce</div>
-              <div class="dataflow-box-meta">Accounts, opps, activity, contacts</div>
+              <div class="dataflow-box-meta">Accounts, opps, activity, contacts, contracts</div>
             </div>
             <div class="dataflow-box context">
               <div class="dataflow-box-icon">📊</div>
@@ -7716,7 +8328,7 @@
             <div class="dataflow-box context">
               <div class="dataflow-box-icon">🔍</div>
               <div class="dataflow-box-name">Clay Research</div>
-              <div class="dataflow-box-meta">Fallback enrichment when context isn't already on file</div>
+              <div class="dataflow-box-meta">Fallback when data isn't already on file</div>
             </div>
             <div class="dataflow-box context">
               <div class="dataflow-box-icon">👥</div>
@@ -7726,19 +8338,44 @@
           </div>
         </div>
 
-        <div class="dataflow-arrow">
-          <div class="dataflow-arrow-line"></div>
-          <div class="dataflow-arrow-tip">▼</div>
+        <div class="flow-stage-detail">
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">Internal sources</div>
+            <div class="flow-stage-detail-content"><strong>Salesforce</strong> for account state, opps, history. <strong>Kaia</strong> for real call transcripts and win patterns. <strong>Highspot + Ask AI</strong> for approved messaging, playbooks, and product positioning. <strong>Tableau Territory Explorer</strong> for whitespace and book signals.</div>
+          </div>
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">External sources</div>
+            <div class="flow-stage-detail-content"><strong>ZoomInfo</strong> for verified contacts and firmographics. <strong>Clay Research</strong> as a fallback for accounts that don't have full enrichment on file. News, LinkedIn, earnings calls, funding events all flow in via Clay waterfalls and Ask AI.</div>
+          </div>
         </div>
 
-        <!-- ─── LAYER 5: ORCHESTRATION ─── -->
-        <div class="dataflow-layer">
-          <div class="dataflow-layer-tag compute">Layer 5 · Orchestration · Compute + Cleanup</div>
+        <div class="flow-stage-handoff">
+          <strong>Returns ↓</strong> Raw context data &nbsp;<em>records, transcripts, page content, contact records, signal events</em>
+        </div>
+      </div>
+
+      <div class="flow-arrow-between">
+        <div class="flow-arrow-between-line"></div>
+        <div class="flow-arrow-between-tip">▼</div>
+      </div>
+
+      <!-- ─── STAGE 05: ORCHESTRATION ─── -->
+      <div class="flow-stage compute">
+        <div class="flow-stage-meta">
+          <div class="flow-stage-num">05</div>
+          <div class="flow-stage-headline">
+            <div class="flow-stage-tag">Orchestration · Compute + Cleanup</div>
+            <h3>Where raw data becomes a structured output</h3>
+            <p>Raw context data gets cleaned, validated, synthesized, and formatted into structured JSON. <strong>Code handles deterministic logic. LLMs handle reasoning and synthesis.</strong> The right tool for the right job.</p>
+          </div>
+        </div>
+
+        <div class="flow-stage-visual">
           <div class="dataflow-row">
             <div class="dataflow-box compute">
               <div class="dataflow-box-icon">⚡</div>
               <div class="dataflow-box-name">Code</div>
-              <div class="dataflow-box-meta">Deterministic logic, data validation</div>
+              <div class="dataflow-box-meta">Deterministic logic, data validation, scoring</div>
             </div>
             <div class="dataflow-box compute">
               <div class="dataflow-box-icon">🧠</div>
@@ -7758,24 +8395,68 @@
           </div>
         </div>
 
-        <div class="dataflow-arrow">
-          <div class="dataflow-arrow-line"></div>
-          <div class="dataflow-arrow-tip">▼</div>
-          <div class="dataflow-arrow-label">JSON</div>
+        <div class="flow-stage-detail">
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">Deterministic side</div>
+            <div class="flow-stage-detail-content"><strong>Code</strong> does the things that need to be exactly the same every time: filtering, scoring, dedup, ICP matching, contact validation. <strong>Clay</strong> handles enrichment waterfalls (ZoomInfo &rarr; LinkedIn &rarr; fallback to Apollo, etc.). <strong>n8n</strong> glues connectors where direct integrations aren't built.</div>
+          </div>
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">LLM side</div>
+            <div class="flow-stage-detail-content"><strong>LLM</strong> does the things that need reasoning: synthesizing signals into a coherent POV, drafting personalized opener language pulling from real Kaia call patterns, summarizing 20 pages of context into a 3-line brief. Bounded by deterministic guardrails before and after.</div>
+          </div>
         </div>
 
-        <!-- ─── LAYER 6: UI OUTPUT ─── -->
-        <div class="dataflow-layer">
-          <div class="dataflow-layer-tag ui">Layer 6 · UI · Rendered Output</div>
+        <div class="flow-stage-handoff">
+          <strong>Hands off ↓</strong> Clean structured JSON &nbsp;<em>e.g., 5 ranked accounts with scores, signals, and recommended product fit</em>
+        </div>
+      </div>
+
+      <div class="flow-arrow-between">
+        <div class="flow-arrow-between-line"></div>
+        <div class="flow-arrow-between-tip">▼</div>
+        <div class="flow-arrow-between-label">JSON</div>
+      </div>
+
+      <!-- ─── STAGE 06: UI OUTPUT + WRITEBACK ─── -->
+      <div class="flow-stage output">
+        <div class="flow-stage-meta">
+          <div class="flow-stage-num">06</div>
+          <div class="flow-stage-headline">
+            <div class="flow-stage-tag">UI · Rendered Output + Writeback</div>
+            <h3>JSON → polished widgets · plus SFDC + Outreach writeback</h3>
+            <p>JSON gets rendered into polished UI widgets in the chat. <strong>Same step also writes enriched data back to source systems</strong> &mdash; account/contact records to SFDC, contacts pushed to Outreach sequences, no manual entry.</p>
+          </div>
+        </div>
+
+        <div class="flow-stage-visual">
           <div class="dataflow-row">
             <div class="dataflow-box ui">
               <div class="dataflow-box-icon">🎨</div>
               <div class="dataflow-box-name">Chatbot Renderer</div>
-              <div class="dataflow-box-meta">JSON → polished widgets (account cards, contact lists, sequences, POVs)</div>
+              <div class="dataflow-box-meta">JSON → account cards, contact lists, sequences, POVs</div>
+            </div>
+            <div class="dataflow-box ui" style="border-color: #f59e0b; background: linear-gradient(135deg, var(--surface), #fef3c7);">
+              <div class="dataflow-box-icon">↗</div>
+              <div class="dataflow-box-name">Writeback</div>
+              <div class="dataflow-box-meta">→ SFDC records · → Outreach sequences</div>
             </div>
           </div>
         </div>
 
+        <div class="flow-stage-detail">
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">Renders to rep</div>
+            <div class="flow-stage-detail-content">Structured JSON renders as visually polished widgets in the chat &mdash; account cards with signals and fit recommendations, contact lists with sequences attached, POV briefs, draft responses. The rep takes one tap to act on what they see.</div>
+          </div>
+          <div class="flow-stage-detail-block">
+            <div class="flow-stage-detail-label">Writes back automatically</div>
+            <div class="flow-stage-detail-content">Same step pushes enriched data to <strong>Salesforce</strong> (account creation, contact creation, territory routing, audit trail) and <strong>Outreach</strong> (sequence enrollment with AI-generated personalized copy). <strong>No manual CRM entry. No duplicate records.</strong></div>
+          </div>
+        </div>
+
+        <div class="flow-stage-handoff">
+          <strong>Loops back ↑</strong> The rep's next message or action triggers the cycle again &mdash; with everything from this turn now stored in memory for the next.
+        </div>
       </div>
 
       <!-- Memory feedback loop callout -->
@@ -7784,144 +8465,12 @@
         <div class="dataflow-memory-content">
           <div class="dataflow-memory-tag">Memory Feedback Loop</div>
           <h4>Every interaction feeds back into the agent's memory</h4>
-          <p>Conversation state, prior decisions, and rendered outputs flow back into a <strong>per-user memory store</strong> — accessible to the agentic router on the next turn. The agent remembers what was discussed in the current chat, what workflows were run, and carries context across conversations so reps never have to re-explain who they are or what they're working on.</p>
+          <p>Conversation state, prior decisions, and rendered outputs flow back into a <strong>per-user memory store</strong> &mdash; accessible to the agentic router (Stage 02) on the next turn. The agent remembers what was discussed in the current chat, what workflows were run, what contacts were enrolled. Memory persists across conversations too, so reps never have to re-explain who they are or what they're working on.</p>
         </div>
       </div>
 
     </div>
-    <!-- /dataflow-section -->
-
-    <!-- ARCHITECTURE FLOW -->
-    <div class="arch-flow">
-
-      <!-- Layer 01: Input -->
-      <div class="arch-layer">
-        <div class="arch-layer-header">
-          <div class="arch-num">01</div>
-          <div>
-            <h3>Input Layer — The Chat Interface</h3>
-            <div class="arch-sub">Where the rep engages with the system</div>
-          </div>
-        </div>
-        <p>Reps type in plain language or tap a quick action. The agent asks clarifying questions when it needs more info. Whatever the task — outbound, inbound, prep, research, content — this is the single entry point.</p>
-        <div class="arch-actions">
-          <span class="arch-action-pill">💬 Prospect an Account</span>
-          <span class="arch-action-pill">📞 Build a Cold Call Script</span>
-          <span class="arch-action-pill">🎯 Prep for a Meeting</span>
-          <span class="arch-action-pill">✉️ Write a Cold Email</span>
-          <span class="arch-action-pill">📋 Respond to an RFP</span>
-          <span class="arch-action-pill">📥 Answer an Inbound</span>
-          <span class="arch-action-pill">🔁 Draft a Follow-Up</span>
-          <span class="arch-action-pill">🛡️ Handle an Objection</span>
-          <span class="arch-action-pill">🎓 Research an Account</span>
-        </div>
-      </div>
-
-      <div class="arch-connector">▼</div>
-
-      <!-- Layer 02: Research -->
-      <div class="arch-layer">
-        <div class="arch-layer-header">
-          <div class="arch-num">02</div>
-          <div>
-            <h3>Research Layer — Multi-Source Data Pull</h3>
-            <div class="arch-sub">The system pulls context before it writes a single word</div>
-          </div>
-        </div>
-        <p>Every prompt triggers parallel research across our internal systems and the open web. The agent doesn't guess — it grounds every output in real data.</p>
-        <div class="arch-nodes">
-          <div class="arch-node">
-            <div class="arch-node-label">Internal</div>
-            <div class="arch-node-title">Salesforce</div>
-            <p class="arch-node-desc">Account context, full conversation and activity history, opportunity records, and customer spend.</p>
-          </div>
-          <div class="arch-node">
-            <div class="arch-node-label">Internal</div>
-            <div class="arch-node-title">Ask AI</div>
-            <p class="arch-node-desc">Engineering's tool that plugs into Highspot, support docs, and other internal context.</p>
-          </div>
-          <div class="arch-node">
-            <div class="arch-node-label">Internal</div>
-            <div class="arch-node-title">Context Database</div>
-            <p class="arch-node-desc">Win stories, Kaia transcripts, historical email performance, product info.</p>
-          </div>
-          <div class="arch-node">
-            <div class="arch-node-label">External</div>
-            <div class="arch-node-title">Web Research</div>
-            <p class="arch-node-desc">News, LinkedIn, earnings calls, funding events, regulatory signals.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="arch-connector">▼</div>
-
-      <!-- Layer 03: Enrichment -->
-      <div class="arch-layer">
-        <div class="arch-layer-header">
-          <div class="arch-num">03</div>
-          <div>
-            <h3>Enrichment Layer — Clay Integration</h3>
-            <div class="arch-sub">Contact discovery and data enrichment</div>
-          </div>
-        </div>
-        <p>Clay identifies the right personas at the target account (VoC Program Managers, CX Leaders, HR Business Partners, whatever the play calls for) and enriches them with firmographic, technographic, and persona-level data. What comes back is a clean, complete record ready to load.</p>
-      </div>
-
-      <div class="arch-connector">▼</div>
-
-      <!-- Layer 04: CRM Writeback -->
-      <div class="arch-layer">
-        <div class="arch-layer-header">
-          <div class="arch-num">04</div>
-          <div>
-            <h3>CRM Layer — Salesforce Write-Back</h3>
-            <div class="arch-sub">Everything lands where it needs to</div>
-          </div>
-        </div>
-        <p>Enriched records flow back into SFDC: account creation, contact creation, territory routing, owner assignment, and a full audit trail of where the data came from. No manual CRM entry. No duplicate records.</p>
-      </div>
-
-      <div class="arch-connector">▼</div>
-
-      <!-- Layer 05: Sequencing -->
-      <div class="arch-layer">
-        <div class="arch-layer-header">
-          <div class="arch-num">05</div>
-          <div>
-            <h3>Sequencing Layer — Outreach + AI Messaging</h3>
-            <div class="arch-sub">Where the agent-generated messaging actually lives</div>
-          </div>
-        </div>
-        <p>Prospects are enrolled in the appropriate Outreach sequence. Every email in that sequence is <strong>AI-generated uniquely for each prospect</strong> — drawing from persona, account signals, recent news, and historical winning patterns from the context engine. Not a template with a first-name merge field. Actually personalized.</p>
-      </div>
-
-      <div class="arch-connector">▼</div>
-
-      <!-- Layer 06: Execution -->
-      <div class="arch-layer">
-        <div class="arch-layer-header">
-          <div class="arch-num">06</div>
-          <div>
-            <h3>Execution Layer — Human or Auto</h3>
-            <div class="arch-sub">Two modes depending on the rep's preference and account tier</div>
-          </div>
-        </div>
-        <p>The rep chooses how much control they want. High-value accounts get reviewed. Long-tail volume can run on autopilot with audit logs.</p>
-        <div class="arch-branches">
-          <div class="arch-branch human">
-            <div class="arch-branch-icon">👤</div>
-            <h4>Human-in-the-Loop</h4>
-            <p>Rep reviews and approves each send. Higher quality, slower throughput. Default for Strategic and Tier 1 accounts.</p>
-          </div>
-          <div class="arch-branch auto">
-            <div class="arch-branch-icon">🤖</div>
-            <h4>Fully Automated</h4>
-            <p>System runs without intervention. Full audit logs preserved. Default for cold targets and long-tail TAM where volume matters more than perfection.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <!-- /unified data flow -->
 
     <!-- SFDC FIELDS DETAIL -->
     <div class="sfdc-fields-detail">
@@ -8107,6 +8656,250 @@
       <div class="agent-pitch">
         <p>A rep at Qualtrics shouldn't have to <strong>remember every win story, search five tools, or write from a blank page</strong>. The agent does that. It pulls from every Kaia call, every Salesforce thread, and every piece of approved content via Ask AI — so reps spend their time on the conversations and decisions only humans can make.</p>
       </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- BUILD PLAN MODE                                          -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="mode-view" id="view-build">
+
+    <!-- HERO -->
+    <div class="business-hero">
+      <div class="badge" style="color:#f59e0b; background:#fef3c7; border-color:#fcd34d;">Build Plan</div>
+      <h1>How We <span style="background: linear-gradient(135deg, #f59e0b, var(--magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Actually Build This</span></h1>
+      <p class="subtitle">Skill by skill, data source by data source. From hackathon POC to a fully-realized Everything Sales Agent.</p>
+    </div>
+
+    <p class="arch-intro">This is a substantial build — but it's not all-at-once. We prove the pattern with a single skill at the hackathon, ship a working pilot in months, then expand skill-by-skill and integration-by-integration until reps have a single agent that can do everything their job requires, in one place. Each phase ships something usable and proves out the next investment.</p>
+
+    <div class="build-section">
+
+      <!-- ─── PHASE 0: POC ─── -->
+      <div class="build-poc-card">
+        <div class="build-poc-header">
+          <div>
+            <div class="build-poc-badge">Phase 0 · Hackathon POC · Starting Now</div>
+            <h2>Contact Miner as our proof of concept</h2>
+          </div>
+        </div>
+        <p>One workflow. One data source. End-to-end working demo. The goal isn't to build the full agent — it's to <strong>prove the agentic pattern works</strong> and get leadership the confidence to fund the full build.</p>
+
+        <div class="build-poc-grid">
+          <div class="build-poc-cell">
+            <div class="build-poc-cell-label">What we build</div>
+            <div class="build-poc-cell-content"><strong>Contact Miner skill</strong> — given a company and a persona, return verified decision makers with emails and phone numbers, ready to push to Outreach.</div>
+          </div>
+          <div class="build-poc-cell">
+            <div class="build-poc-cell-label">Data sources</div>
+            <div class="build-poc-cell-content">ZoomInfo · LinkedIn · basic Salesforce read · Clay for enrichment fallback</div>
+          </div>
+          <div class="build-poc-cell">
+            <div class="build-poc-cell-label">Stack</div>
+            <div class="build-poc-cell-content">Lightweight chat UI · LLM router · code-based deterministic logic · push to SFDC + Outreach</div>
+          </div>
+        </div>
+
+        <div class="build-poc-tagline">If we can show a working Contact Miner that produces a usable list and pushes to Outreach in under 60 seconds, the full case writes itself.</div>
+      </div>
+
+      <!-- ─── ROADMAP INTRO ─── -->
+      <div class="build-roadmap-intro">
+        <h2>The Phased Build, Once Prioritized</h2>
+        <p>Each phase ships a working product reps can use. Each phase adds new skills and new context sources on top of the previous foundation. By Phase 4, we have an Everything Sales Agent.</p>
+      </div>
+
+      <!-- ─── PHASES ─── -->
+      <div class="build-phases">
+
+        <!-- Phase 1 -->
+        <div class="build-phase foundation">
+          <div class="build-phase-header">
+            <span class="build-phase-num">Phase 1 · Foundation</span>
+            <span class="build-phase-duration">3-4 months</span>
+            <div class="build-phase-title">
+              <h3>Core agent shell + first wave of skills</h3>
+              <p>Build the platform foundation and ship 3 skills the FSI SDR team can use in production. Pilot with a small group, prove productivity gains, validate the architecture.</p>
+            </div>
+          </div>
+          <div class="build-phase-body">
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">Skills shipped</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag skill new">+ Contact Miner</span>
+                <span class="build-phase-tag skill new">+ Signal Scraper</span>
+                <span class="build-phase-tag skill new">+ Account Prioritization</span>
+              </div>
+              <div class="build-phase-block-label" style="margin-top: 14px;">Context sources added</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag data new">+ Salesforce (full)</span>
+                <span class="build-phase-tag data new">+ ZoomInfo</span>
+                <span class="build-phase-tag data new">+ LinkedIn</span>
+                <span class="build-phase-tag data new">+ Outreach (push)</span>
+              </div>
+            </div>
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">What reps can do at end of phase</div>
+              <ul class="build-phase-block-list">
+                <li>Prioritize their book by ICP fit in under 30 seconds</li>
+                <li>Pull verified decision makers for any account</li>
+                <li>Push enriched contacts straight to Outreach sequences</li>
+                <li>See basic signal data (new roles, news mentions, hiring)</li>
+                <li>Carry conversation context within a single chat session</li>
+              </ul>
+            </div>
+          </div>
+          <div class="build-phase-success">
+            <strong>Success criteria:</strong> 10-20 FSI SDRs report ≥2 hours/day saved. Reply rates up 20%+ on agent-generated sequences. NPS from pilot reps &gt; 50.
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="build-phase expansion">
+          <div class="build-phase-header">
+            <span class="build-phase-num">Phase 2 · Expansion</span>
+            <span class="build-phase-duration">3-4 months</span>
+            <div class="build-phase-title">
+              <h3>Full prospecting lifecycle + Qualtrics context layer</h3>
+              <p>Add the skills that handle the full prospecting motion (POV generation, inbound response handling). Connect the deeper Qualtrics context layer — call recordings, sales plays, internal knowledge. Expand pilot to the broader FSI vertical.</p>
+            </div>
+          </div>
+          <div class="build-phase-body">
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">Skills added</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag skill new">+ POV Generator</span>
+                <span class="build-phase-tag skill new">+ Response Generator</span>
+                <span class="build-phase-tag skill">Contact Miner</span>
+                <span class="build-phase-tag skill">Signal Scraper</span>
+                <span class="build-phase-tag skill">Account Prioritization</span>
+              </div>
+              <div class="build-phase-block-label" style="margin-top: 14px;">Context sources added</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag data new">+ Kaia Recordings</span>
+                <span class="build-phase-tag data new">+ Highspot (via Ask AI)</span>
+                <span class="build-phase-tag data new">+ Tableau Territory Explorer</span>
+                <span class="build-phase-tag data">Salesforce</span>
+                <span class="build-phase-tag data">ZoomInfo</span>
+              </div>
+            </div>
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">What reps can do at end of phase</div>
+              <ul class="build-phase-block-list">
+                <li>Generate signal-grounded POVs in under 2 minutes</li>
+                <li>Get drafted responses to inbound replies pulling from win patterns</li>
+                <li>Hear &ldquo;why this account&rdquo; backed by real Kaia call data</li>
+                <li>See whitespace opportunities surfaced from Territory Explorer</li>
+                <li>Memory persists across conversations — agent remembers who you're working on</li>
+              </ul>
+            </div>
+          </div>
+          <div class="build-phase-success">
+            <strong>Success criteria:</strong> Pilot expands to 50+ reps across FSI. Win rate uplift visible in head-to-head deals. Pipeline velocity 25%+ faster.
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="build-phase rollout">
+          <div class="build-phase-header">
+            <span class="build-phase-num">Phase 3 · Sales-wide Rollout</span>
+            <span class="build-phase-duration">3-4 months</span>
+            <div class="build-phase-title">
+              <h3>Deploy across all SDRs and AEs at Qualtrics</h3>
+              <p>Production-grade infrastructure. Manager dashboards and analytics. Continuous learning loop based on rep feedback. Roll out across every sales team in the company.</p>
+            </div>
+          </div>
+          <div class="build-phase-body">
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">Skills hardened</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag skill">All 5 prospecting skills</span>
+                <span class="build-phase-tag skill new">+ Manager Analytics</span>
+                <span class="build-phase-tag skill new">+ Continuous Learning</span>
+              </div>
+              <div class="build-phase-block-label" style="margin-top: 14px;">Context sources added</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag data new">+ Support Docs (RAG)</span>
+                <span class="build-phase-tag data new">+ Clay (fallback enrichment)</span>
+                <span class="build-phase-tag data new">+ n8n (connector glue)</span>
+                <span class="build-phase-tag data">Salesforce</span>
+                <span class="build-phase-tag data">Kaia</span>
+                <span class="build-phase-tag data">Highspot</span>
+                <span class="build-phase-tag data">Ask AI</span>
+              </div>
+            </div>
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">What reps can do at end of phase</div>
+              <ul class="build-phase-block-list">
+                <li>Every SDR and AE at Qualtrics has the agent in their workflow</li>
+                <li>Managers see usage, productivity, and skill-adoption analytics</li>
+                <li>Agent retrieves from the full Qualtrics knowledge graph</li>
+                <li>Rep feedback continuously improves messaging and signal detection</li>
+                <li>Year 1 metrics from the business case start materializing in real data</li>
+              </ul>
+            </div>
+          </div>
+          <div class="build-phase-success">
+            <strong>Success criteria:</strong> 1,000+ reps using the agent daily. Hours-saved tracking validated in real data. ROI projections from business case showing up in actuals.
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="build-phase beyond">
+          <div class="build-phase-header">
+            <span class="build-phase-num">Phase 4 · Everything Sales Agent</span>
+            <span class="build-phase-duration">Ongoing</span>
+            <div class="build-phase-title">
+              <h3>Beyond prospecting — the full sales lifecycle</h3>
+              <p>Once the prospecting motion is solved, expand to every other part of a rep's day: call prep, demos, negotiation, renewals, expansion, RFP responses. Eventually serves AEs, CSMs, and customer-facing teams equally.</p>
+            </div>
+          </div>
+          <div class="build-phase-body">
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">Skills added over time</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag skill new">+ Call Prep</span>
+                <span class="build-phase-tag skill new">+ Demo Brief</span>
+                <span class="build-phase-tag skill new">+ Negotiation Support</span>
+                <span class="build-phase-tag skill new">+ Renewal Insights</span>
+                <span class="build-phase-tag skill new">+ Expansion Plays</span>
+                <span class="build-phase-tag skill new">+ RFP Responder</span>
+                <span class="build-phase-tag skill new">+ CSM Workflows</span>
+              </div>
+              <div class="build-phase-block-label" style="margin-top: 14px;">Context expansions</div>
+              <div class="build-phase-tags">
+                <span class="build-phase-tag data new">+ Customer Success Data</span>
+                <span class="build-phase-tag data new">+ Product Usage</span>
+                <span class="build-phase-tag data new">+ Renewal Health</span>
+                <span class="build-phase-tag data new">+ Marketing Attribution</span>
+              </div>
+            </div>
+            <div class="build-phase-block">
+              <div class="build-phase-block-label">What the org gets at this stage</div>
+              <ul class="build-phase-block-list">
+                <li>One agent for the full rep lifecycle — prospect to renewal</li>
+                <li>CSMs and AEs share the same agent for coordinated motion</li>
+                <li>Every interaction with the customer feeds back into the agent's knowledge</li>
+                <li>The agent becomes the institutional memory of how Qualtrics actually sells</li>
+                <li>Compounding value: every new skill makes every existing skill smarter</li>
+              </ul>
+            </div>
+          </div>
+          <div class="build-phase-success">
+            <strong>Success criteria:</strong> Net Revenue Retention improvement. Sales cycle compression across the board. Reps describe the agent as essential to their workflow.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- End-state vision -->
+      <div class="build-endstate">
+        <div class="build-endstate-tag">The End State</div>
+        <h3>An agent that does <span class="accent">everything a rep's job requires</span> — in one place</h3>
+        <p>Not a prospecting tool. Not a single AI feature bolted onto an existing platform. <strong>One agent</strong> that knows every customer, every play, every win, every objection — and uses that knowledge to make every rep at Qualtrics measurably better at their job. The build path is long but each phase ships something reps use immediately. By the end, this is the operating system for Qualtrics sales.</p>
+      </div>
+
     </div>
 
   </div>
@@ -10046,13 +10839,14 @@
     el.classList.add('tab', 'active-' + color);
   }
 
-  // Mode toggle (Business Case / Manual / AI / Context / Architecture / Wireframe / Demo)
+  // Mode toggle (Business Case / Manual / AI / Context / Architecture / Build / Wireframe / Demo)
   const navTabs = document.querySelectorAll('.nav-tab');
   const viewBusiness = document.getElementById('view-business');
   const viewManual = document.getElementById('view-manual');
   const viewAi = document.getElementById('view-ai');
   const viewContext = document.getElementById('view-context');
   const viewArch = document.getElementById('view-arch');
+  const viewBuild = document.getElementById('view-build');
   const viewWireframe = document.getElementById('view-wireframe');
   const viewDemo = document.getElementById('view-demo');
 
@@ -10068,6 +10862,7 @@
       viewAi.classList.remove('active');
       viewContext.classList.remove('active');
       viewArch.classList.remove('active');
+      if (viewBuild) viewBuild.classList.remove('active');
       viewWireframe.classList.remove('active');
       viewDemo.classList.remove('active');
 
@@ -10076,6 +10871,7 @@
       else if (view === 'ai') viewAi.classList.add('active');
       else if (view === 'context') viewContext.classList.add('active');
       else if (view === 'arch') viewArch.classList.add('active');
+      else if (view === 'build' && viewBuild) viewBuild.classList.add('active');
       else if (view === 'wireframe') viewWireframe.classList.add('active');
       else if (view === 'demo') viewDemo.classList.add('active');
 
