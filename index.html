@@ -5567,20 +5567,191 @@
   .skill-widget-meta { font-size: 10px; color: rgba(255,255,255,0.85); font-weight: 500; }
   .skill-widget-body { padding: 15px; }
 
+  /* ── EXPANDABLE CARD SYSTEM (shared across account/contact/signal/transcript) ── */
+  .skill-card-row {
+    cursor: pointer;
+    user-select: none;
+  }
+  .skill-card-expand-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px 4px 11px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: -0.1px;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    align-self: center;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  .skill-card-expand-toggle::before {
+    content: 'Details';
+  }
+  .skill-card.expanded .skill-card-expand-toggle::before {
+    content: 'Hide';
+  }
+  .skill-card-expand-toggle:hover {
+    color: var(--magenta);
+    background: var(--magenta-glow);
+    border-color: var(--magenta-border);
+    transform: scale(1.04);
+  }
+  .skill-card-expand-toggle iconify-icon {
+    font-size: 11px;
+    transition: transform 0.25s ease;
+  }
+  .skill-card.expanded .skill-card-expand-toggle iconify-icon {
+    transform: rotate(180deg);
+  }
+  .skill-card.expanded .skill-card-expand-toggle {
+    color: var(--magenta);
+    background: var(--magenta-glow);
+    border-color: var(--magenta-border);
+  }
+  /* Subtle pulse on the toggle to draw the eye when first rendered */
+  @keyframes detailsHint {
+    0%, 100% { box-shadow: 0 0 0 0 var(--magenta-border); }
+    50% { box-shadow: 0 0 0 4px var(--magenta-glow); }
+  }
+  .skill-card:not(.expanded) .skill-card-expand-toggle {
+    animation: detailsHint 2.4s ease-in-out 0.6s 2;
+  }
+  .skill-card-expanded {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.25s ease, opacity 0.25s ease;
+    opacity: 0;
+    background: var(--surface);
+    border-top: 0 solid var(--border);
+    padding: 0 14px;
+  }
+  .skill-card.expanded .skill-card-expanded {
+    max-height: 1500px;
+    opacity: 1;
+    padding: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  /* SECTIONED EXPANDED CONTENT — each section is its own bordered sub-card */
+  .skill-card-expanded-section {
+    margin-bottom: 10px;
+    padding: 12px 13px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+  }
+  .skill-card-expanded-section:last-child { margin-bottom: 0; }
+  .skill-card-expanded-label {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--magenta);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .skill-card-expanded-label::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 11px;
+    background: var(--magenta);
+    border-radius: 999px;
+  }
+  .skill-card-expanded-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+  }
+  .skill-card-expanded-prop {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 7px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+  }
+  .skill-card-expanded-prop-label {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .skill-card-expanded-prop-value {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.35;
+  }
+  .skill-card-expanded-prop-value iconify-icon {
+    font-size: 11px;
+    color: var(--green);
+    margin-left: 3px;
+    vertical-align: -1px;
+  }
+  .skill-card-expanded-text {
+    font-size: 11.5px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .skill-card-expanded-text strong { font-weight: 700; color: var(--magenta); }
+  .skill-card-expanded-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .skill-card-expanded-list-item {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.45;
+    padding: 7px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+  }
+  .skill-card-expanded-list-item iconify-icon {
+    color: var(--magenta);
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .skill-card-expanded-list-item strong { font-weight: 700; }
+
   /* Account card */
   .skill-account {
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 13px;
     margin-bottom: 7px;
     transition: all 0.15s;
+    overflow: hidden;
+  }
+  .skill-account-row {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr auto auto;
     gap: 13px;
     align-items: start;
+    padding: 13px;
+    cursor: pointer;
+    user-select: none;
   }
-  .skill-account:hover { border-color: var(--magenta-border); background: var(--surface); }
+  .skill-account.expanded,
+  .skill-account-row:hover ~ .skill-account-row,
+  .skill-account:hover { border-color: var(--magenta-border); }
+  .skill-account-row:hover { background: var(--surface); }
   .skill-account:last-child { margin-bottom: 0; }
   .skill-account-rank {
     width: 26px; height: 26px;
@@ -5613,15 +5784,22 @@
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 11px 13px;
     margin-bottom: 6px;
+    transition: all 0.15s;
+    overflow: hidden;
+  }
+  .skill-contact-row {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr auto auto;
     gap: 12px;
     align-items: center;
-    transition: all 0.15s;
+    padding: 11px 13px;
+    cursor: pointer;
+    user-select: none;
   }
-  .skill-contact:hover { border-color: var(--magenta-border); background: var(--surface); }
+  .skill-contact.expanded,
+  .skill-contact:hover { border-color: var(--magenta-border); }
+  .skill-contact-row:hover { background: var(--surface); }
   .skill-contact:last-child { margin-bottom: 0; }
   .skill-contact-avatar {
     width: 32px; height: 32px;
@@ -5651,14 +5829,22 @@
 
   /* Signal timeline */
   .skill-signal {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 13px;
-    padding: 9px 0;
     border-bottom: 1px dashed var(--border);
+    overflow: hidden;
+    transition: background 0.15s;
   }
-  .skill-signal:last-child { border-bottom: none; padding-bottom: 0; }
-  .skill-signal:first-child { padding-top: 0; }
+  .skill-signal-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 13px;
+    padding: 11px 9px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 7px;
+    align-items: start;
+  }
+  .skill-signal-row:hover { background: var(--surface-2); }
+  .skill-signal:last-child { border-bottom: none; }
   .skill-signal-when { font-size: 10px; color: var(--text-muted); font-weight: 600; white-space: nowrap; padding-top: 2px; }
   .skill-signal-content { min-width: 0; }
   .skill-signal-headline { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.35; margin-bottom: 3px; }
@@ -5715,9 +5901,19 @@
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 11px 13px;
     margin-bottom: 7px;
+    overflow: hidden;
+    transition: all 0.15s;
   }
+  .skill-transcript.expanded,
+  .skill-transcript:hover { border-color: var(--magenta-border); }
+  .skill-transcript-row {
+    padding: 11px 13px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+  .skill-transcript-row:hover { background: var(--surface); }
   .skill-transcript:last-child { margin-bottom: 0; }
   .skill-transcript-header {
     display: flex; align-items: center; justify-content: space-between;
@@ -5736,6 +5932,60 @@
   }
   .skill-transcript-context { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
   .skill-transcript-context strong { color: var(--text); font-weight: 700; }
+  .skill-transcript-toggle {
+    position: absolute;
+    top: 11px; right: 13px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    width: 22px; height: 22px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 999px;
+    padding: 0;
+    transition: transform 0.25s ease, color 0.15s, background 0.15s;
+  }
+  .skill-transcript-toggle:hover { color: var(--magenta); background: var(--magenta-glow); }
+  .skill-transcript.expanded .skill-transcript-toggle { transform: rotate(180deg); color: var(--magenta); }
+  .skill-transcript-title { padding-right: 26px; }
+
+  /* Transcript dialogue lines (in expanded view) */
+  .skill-transcript-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .skill-transcript-line {
+    padding: 8px 11px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    border-left: 3px solid transparent;
+  }
+  .skill-transcript-line.highlight {
+    background: var(--magenta-glow);
+    border-left-color: var(--magenta);
+  }
+  .skill-transcript-speaker {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .skill-transcript-line.highlight .skill-transcript-speaker {
+    color: var(--magenta);
+  }
+  .skill-transcript-line-text {
+    font-size: 11.5px;
+    color: var(--text);
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .skill-transcript-line.highlight .skill-transcript-line-text {
+    font-weight: 600;
+    font-style: normal;
+  }
 
   /* Widget footer */
   .skill-widget-footer {
@@ -5767,6 +6017,168 @@
     box-shadow: 0 4px 12px rgba(31,69,255,0.25);
     color: white;
     background: linear-gradient(135deg, var(--magenta), var(--blue));
+  }
+  /* When a chain button has been clicked, dim it visually so the user sees what they used */
+  .skill-widget-cta.chain-clicked {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .skill-widget-cta.chain-clicked::after {
+    content: ' ✓';
+    font-size: 10px;
+    margin-left: 2px;
+  }
+
+  /* ── BATCHED DM GROUPS (group by account in skill widget body) ── */
+  .skill-account-group {
+    margin-bottom: 12px;
+  }
+  .skill-account-group:last-child { margin-bottom: 0; }
+  .skill-account-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 0 7px;
+    border-bottom: 1px dashed var(--border);
+    margin-bottom: 7px;
+  }
+  .skill-account-group-name {
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.1px;
+  }
+  .skill-account-group-play {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--magenta);
+    background: var(--magenta-glow);
+    border: 1px solid var(--magenta-border);
+    border-radius: 999px;
+    padding: 2px 8px;
+    text-transform: none;
+    letter-spacing: -0.1px;
+  }
+
+  /* ── CONFIRMATION WIDGET (action result) ── */
+  .skill-widget-confirm .skill-widget-header-success {
+    background: linear-gradient(135deg, #0EA672, #047857);
+  }
+
+  .skill-confirm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 13px;
+  }
+  .skill-confirm-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    animation: confirmIn 0.4s ease backwards;
+  }
+  @keyframes confirmIn {
+    from { opacity: 0; transform: translateX(-6px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .skill-confirm-check {
+    color: var(--green);
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .skill-confirm-item-text {
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.1px;
+  }
+  .skill-confirm-item-status {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--green-glow);
+    border: 1px solid var(--green-border);
+    border-radius: 999px;
+    padding: 2px 8px;
+  }
+
+  /* Confirmation detail rows (sequence, send time, etc.) */
+  .skill-confirm-detail {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .skill-confirm-detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 11px;
+  }
+  .skill-confirm-label {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 9.5px;
+    letter-spacing: 0.5px;
+  }
+  .skill-confirm-value {
+    color: var(--text);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  /* Summary card (icon + label + value rows for single-action confirmations) */
+  .skill-confirm-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .skill-confirm-summary-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    animation: confirmIn 0.4s ease backwards;
+  }
+  .skill-confirm-summary-row:nth-child(1) { animation-delay: 0.05s; }
+  .skill-confirm-summary-row:nth-child(2) { animation-delay: 0.13s; }
+  .skill-confirm-summary-row:nth-child(3) { animation-delay: 0.21s; }
+  .skill-confirm-summary-row:nth-child(4) { animation-delay: 0.29s; }
+  .skill-confirm-summary-row:nth-child(5) { animation-delay: 0.37s; }
+  .skill-confirm-summary-row iconify-icon {
+    font-size: 18px;
+    color: var(--magenta);
+    flex-shrink: 0;
+  }
+  .skill-confirm-summary-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .skill-confirm-summary-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.1px;
+    line-height: 1.3;
   }
 
   /* Input area */
@@ -5844,6 +6256,580 @@
     .chat-quick-actions { justify-content: flex-start; }
     .skill-account, .skill-contact { grid-template-columns: 1fr; }
   }
+
+  /* ═════════════════════════════════════════════════════════════════════ */
+  /* LIVE DEMO — "CONNECTED INTELLIGENCE" DESIGN SYSTEM                     */
+  /* Scoped overrides to make the Live Chat experience feel premium SaaS    */
+  /* ═════════════════════════════════════════════════════════════════════ */
+  #view-demo {
+    /* SaaS color tokens */
+    --ci-blue: #006FEF;
+    --ci-blue-deep: #005BD8;
+    --ci-violet: #695CE8;
+    --ci-violet-light: #7567F0;
+    --ci-mint: #5CF2C8;
+    --ci-mint-deep: #2EE5B7;
+    --ci-mint-soft: rgba(92, 242, 200, 0.14);
+    --ci-blue-soft: rgba(0, 111, 239, 0.08);
+    --ci-surface: #FFFFFF;
+    --ci-bg: #F5F7FA;
+    --ci-bg-deep: #EEF1F5;
+    --ci-text: #111827;
+    --ci-text-muted: #5F6673;
+    --ci-text-dim: #8B92A3;
+    --ci-border: #E4E8EE;
+
+    /* Remap the global pink/magenta tokens to blue inside the demo */
+    /* This catches every remaining var(--magenta*) reference without touching other tabs */
+    --magenta: #006FEF;
+    --magenta-glow: rgba(0, 111, 239, 0.08);
+    --magenta-border: rgba(0, 111, 239, 0.25);
+  }
+
+  /* Chat app container — premium, floating */
+  #view-demo .chat-app {
+    border-radius: 24px;
+    border: 1px solid var(--ci-bg-deep);
+    background: var(--ci-surface);
+    box-shadow:
+      0 24px 60px -12px rgba(0, 111, 239, 0.10),
+      0 8px 20px -8px rgba(15, 23, 42, 0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Chat conversation — clean background */
+  #view-demo .chat-conversation {
+    background: var(--ci-bg);
+    position: relative;
+  }
+  #view-demo .chat-welcome,
+  #view-demo .chat-messages {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header — refined and spacious */
+  #view-demo .chat-app-header {
+    background: var(--ci-surface);
+    border-bottom: 1px solid var(--ci-bg-deep);
+    padding: 18px 24px;
+  }
+  #view-demo .chat-app-avatar {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    font-size: 13px; font-weight: 700;
+    box-shadow: 0 4px 12px -2px rgba(0, 111, 239, 0.35);
+  }
+  #view-demo .chat-app-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ci-text);
+    letter-spacing: -0.2px;
+  }
+  #view-demo .chat-app-title-pulse {
+    background: var(--ci-mint-deep);
+    box-shadow: 0 0 0 4px var(--ci-mint-soft);
+  }
+  #view-demo .chat-app-meta {
+    color: var(--ci-text-muted);
+    font-size: 11.5px;
+  }
+  #view-demo .chat-app-reset {
+    border-radius: 999px;
+    padding: 7px 15px;
+    border: 1px solid var(--ci-border);
+    color: var(--ci-text-muted);
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+  #view-demo .chat-app-reset:hover {
+    color: var(--ci-blue);
+    border-color: var(--ci-blue);
+    background: var(--ci-blue-soft);
+  }
+
+  /* Welcome state — premium intro */
+  #view-demo .chat-welcome-icon {
+    width: 76px; height: 76px;
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    box-shadow:
+      0 16px 32px -8px rgba(0, 111, 239, 0.35),
+      0 0 0 8px rgba(0, 111, 239, 0.05);
+    margin-bottom: 28px;
+  }
+  #view-demo .chat-welcome h2 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.9px;
+    color: var(--ci-text);
+  }
+  #view-demo .chat-welcome h2 .accent {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  #view-demo .chat-welcome > p {
+    font-size: 14.5px;
+    color: var(--ci-text-muted);
+    line-height: 1.65;
+    max-width: 500px;
+  }
+  #view-demo .chat-welcome-tip {
+    color: var(--ci-text-dim);
+    font-size: 11.5px;
+    margin-top: 28px;
+  }
+
+  /* Agent avatar — gradient orb */
+  #view-demo .chat-msg.agent .chat-msg-avatar {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    box-shadow: 0 2px 8px -2px rgba(0, 111, 239, 0.4);
+  }
+
+  /* User bubble — confident solid blue */
+  #view-demo .chat-msg.user .chat-msg-bubble {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    color: white;
+    border-bottom-right-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px -4px rgba(0, 111, 239, 0.3);
+  }
+  /* Agent bubble — clean white card */
+  #view-demo .chat-msg.agent .chat-msg-bubble {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    color: var(--ci-text);
+    border-bottom-left-radius: 8px;
+    box-shadow: 0 2px 8px -4px rgba(15, 23, 42, 0.06);
+  }
+
+  /* Skill widgets — floating insight cards */
+  #view-demo .skill-widget {
+    border-radius: 18px;
+    border: 1px solid var(--ci-border);
+    background: var(--ci-surface);
+    box-shadow:
+      0 8px 24px -8px rgba(0, 111, 239, 0.10),
+      0 2px 6px -2px rgba(15, 23, 42, 0.05);
+    overflow: hidden;
+  }
+  #view-demo .skill-widget-header {
+    padding: 16px 20px;
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    color: white;
+  }
+  #view-demo .skill-widget-header-icon {
+    width: 30px; height: 30px;
+    background: rgba(255,255,255,0.22);
+    font-size: 14px;
+  }
+  #view-demo .skill-widget-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: -0.15px;
+  }
+  #view-demo .skill-widget-meta {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.88);
+    font-weight: 500;
+  }
+  /* Success header on confirmation widgets — mint instead of green */
+  #view-demo .skill-widget-confirm .skill-widget-header-success {
+    background: linear-gradient(135deg, #0EA672 0%, var(--ci-mint-deep) 100%);
+  }
+
+  /* Skill widget body — more breathing room */
+  #view-demo .skill-widget-body {
+    padding: 18px;
+    background: var(--ci-surface);
+  }
+
+  /* Skill widget footer — clean CTA strip */
+  #view-demo .skill-widget-footer {
+    background: var(--ci-bg);
+    border-top: 1px solid var(--ci-border);
+    padding: 12px 18px;
+  }
+  #view-demo .skill-widget-cta {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    color: var(--ci-text);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 11px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    transition: all 0.2s ease;
+  }
+  #view-demo .skill-widget-cta:hover {
+    border-color: var(--ci-blue);
+    color: var(--ci-blue);
+    background: var(--ci-surface);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px -4px rgba(0, 111, 239, 0.2);
+  }
+  #view-demo .skill-widget-cta.primary {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 4px 12px -4px rgba(0, 111, 239, 0.4);
+  }
+  #view-demo .skill-widget-cta.primary:hover {
+    background: linear-gradient(135deg, var(--ci-blue-deep) 0%, var(--ci-violet) 100%);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -6px rgba(0, 111, 239, 0.45);
+  }
+
+  /* Cards inside widgets — soft white surfaces */
+  #view-demo .skill-account,
+  #view-demo .skill-contact,
+  #view-demo .skill-transcript {
+    background: var(--ci-bg);
+    border: 1px solid var(--ci-border);
+    border-radius: 12px;
+  }
+  #view-demo .skill-account:hover,
+  #view-demo .skill-contact:hover,
+  #view-demo .skill-transcript:hover {
+    border-color: var(--ci-blue);
+    background: var(--ci-surface);
+    box-shadow: 0 4px 12px -4px rgba(0, 111, 239, 0.10);
+  }
+  #view-demo .skill-account-rank {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    color: var(--ci-blue);
+    font-weight: 800;
+  }
+  #view-demo .skill-contact-avatar,
+  #view-demo .skill-account-rank.gradient {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+  }
+  #view-demo .skill-contact-signal {
+    background: var(--ci-blue-soft);
+    border-color: rgba(0, 111, 239, 0.18);
+    color: var(--ci-blue);
+    font-weight: 600;
+  }
+
+  /* Score colors — mint for top tier, blue for high, muted for med */
+  #view-demo .skill-account-score-num,
+  #view-demo .skill-contact-score {
+    color: var(--ci-mint-deep);
+  }
+  #view-demo .skill-account-score-num.med,
+  #view-demo .skill-contact-score.med {
+    color: var(--ci-blue);
+  }
+  #view-demo .skill-account-score-num.low,
+  #view-demo .skill-contact-score.low {
+    color: var(--ci-text-muted);
+  }
+
+  /* Expand toggle pill — match design system */
+  #view-demo .skill-card-expand-toggle {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    color: var(--ci-text-muted);
+  }
+  #view-demo .skill-card-expand-toggle:hover {
+    border-color: var(--ci-blue);
+    color: var(--ci-blue);
+    background: var(--ci-blue-soft);
+  }
+  #view-demo .skill-card.expanded .skill-card-expand-toggle {
+    background: var(--ci-blue-soft);
+    border-color: var(--ci-blue);
+    color: var(--ci-blue);
+  }
+  #view-demo .skill-card-expanded-label {
+    color: var(--ci-blue);
+  }
+  #view-demo .skill-card-expanded-label::before {
+    background: var(--ci-blue);
+  }
+  #view-demo .skill-card-expanded-prop,
+  #view-demo .skill-card-expanded-list-item {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+  }
+  #view-demo .skill-card-expanded-section {
+    background: var(--ci-bg);
+    border: 1px solid var(--ci-border);
+  }
+  #view-demo .skill-card-expanded-text strong {
+    color: var(--ci-blue);
+  }
+  #view-demo .skill-card-expanded-list-item iconify-icon {
+    color: var(--ci-blue);
+  }
+
+  /* Quick action pills — premium floating buttons on a single line */
+  #view-demo .chat-input-area {
+    padding: 12px 18px 16px;
+    background: var(--ci-surface);
+    border-top: 1px solid var(--ci-bg-deep);
+  }
+  /* Wrap the quick actions in a fade-edge container so cut-off buttons are obviously scrollable */
+  #view-demo .chat-quick-actions {
+    position: relative;
+    margin-bottom: 10px;
+    background: transparent;
+    padding: 0;
+    border-bottom: none;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: visible;
+    justify-content: flex-start;
+    gap: 5px;
+    /* Mask fade-out at the edges to signal "more to scroll" */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 2px 4px;
+  }
+  #view-demo .chat-quick-actions::-webkit-scrollbar { display: none; }
+  #view-demo .chat-quick-action {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    color: var(--ci-text-muted);
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 10px;
+    letter-spacing: -0.1px;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    gap: 4px;
+  }
+  #view-demo .chat-quick-action:hover {
+    border-color: var(--ci-blue);
+    color: var(--ci-blue);
+    background: var(--ci-surface);
+    transform: translateY(-1px);
+  }
+  #view-demo .chat-quick-action iconify-icon {
+    color: var(--ci-blue);
+    font-size: 11px;
+  }
+  #view-demo .chat-quick-action .qa-icon {
+    gap: 4px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Input bar — pill-shaped, premium */
+  #view-demo .chat-input {
+    background: var(--ci-bg);
+    border: 1.5px solid var(--ci-border);
+    border-radius: 999px;
+    padding: 5px 5px 5px 18px;
+    transition: all 0.2s ease;
+  }
+  #view-demo .chat-input:focus-within {
+    background: var(--ci-surface);
+    border-color: var(--ci-blue);
+    box-shadow: 0 0 0 4px var(--ci-blue-soft);
+  }
+  #view-demo .chat-input input {
+    font-size: 13.5px;
+    color: var(--ci-text);
+  }
+  #view-demo .chat-input input::placeholder {
+    color: var(--ci-text-dim);
+  }
+  #view-demo .chat-send {
+    width: 38px; height: 38px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    box-shadow: 0 4px 10px -2px rgba(0, 111, 239, 0.4);
+  }
+  #view-demo .chat-send:hover {
+    background: linear-gradient(135deg, var(--ci-blue-deep) 0%, var(--ci-violet) 100%);
+    transform: scale(1.08);
+    box-shadow: 0 6px 14px -2px rgba(0, 111, 239, 0.5);
+  }
+
+  /* Sub-tabs above the chat — premium pill-tab style */
+  #view-demo .demo-subtabs {
+    padding: 6px;
+    background: var(--ci-bg);
+    border-radius: 14px;
+    border: 1px solid var(--ci-bg-deep);
+    gap: 2px;
+  }
+  #view-demo .demo-subtab {
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-weight: 600;
+    color: var(--ci-text-muted);
+    transition: all 0.2s ease;
+  }
+  #view-demo .demo-subtab:hover {
+    color: var(--ci-blue);
+    background: rgba(0, 111, 239, 0.05);
+  }
+  #view-demo .demo-subtab.active {
+    background: var(--ci-surface);
+    color: var(--ci-blue);
+    box-shadow: 0 2px 6px -2px rgba(0, 111, 239, 0.18);
+  }
+
+  /* Demo form intro section heading */
+  #view-demo .demo-form-intro h3 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    color: var(--ci-text);
+  }
+  #view-demo .demo-form-intro p {
+    color: var(--ci-text-muted);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  /* Chat form inputs (inside form-first quick actions) */
+  #view-demo .chat-form {
+    border-radius: 16px;
+    border: 1px solid var(--ci-border);
+    box-shadow: 0 4px 14px -4px rgba(0, 111, 239, 0.10);
+  }
+  #view-demo .chat-form-header {
+    background: var(--ci-bg);
+    border-bottom: 1px solid var(--ci-border);
+  }
+  #view-demo .chat-form-header-icon {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+  }
+  #view-demo .chat-form-submit {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    border-radius: 999px;
+    box-shadow: 0 4px 12px -4px rgba(0, 111, 239, 0.35);
+  }
+  #view-demo .chat-form-submit:hover {
+    background: linear-gradient(135deg, var(--ci-blue-deep) 0%, var(--ci-violet) 100%);
+    box-shadow: 0 6px 16px -4px rgba(0, 111, 239, 0.45);
+  }
+  #view-demo .chat-form-pill.active {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+  }
+  #view-demo .chat-form-radio.active {
+    background: var(--ci-blue-soft);
+    color: var(--ci-blue);
+    border-color: var(--ci-blue);
+  }
+  #view-demo .chat-form-input:focus,
+  #view-demo .chat-form-select:focus,
+  #view-demo .chat-form-textarea:focus {
+    border-color: var(--ci-blue);
+    background: var(--ci-surface);
+    box-shadow: 0 0 0 3px var(--ci-blue-soft);
+  }
+
+  /* Confirmation widget — clean check-list with mint accent */
+  #view-demo .skill-confirm-check {
+    color: var(--ci-mint-deep);
+  }
+  #view-demo .skill-confirm-item-status {
+    background: var(--ci-mint-soft);
+    border-color: rgba(46, 229, 183, 0.3);
+    color: #047857;
+  }
+  #view-demo .skill-confirm-item,
+  #view-demo .skill-confirm-detail,
+  #view-demo .skill-confirm-summary-row {
+    background: var(--ci-bg);
+    border: 1px solid var(--ci-border);
+  }
+  #view-demo .skill-confirm-summary-row iconify-icon {
+    color: var(--ci-blue);
+  }
+  #view-demo .skill-confirm-label {
+    color: var(--ci-text-dim);
+  }
+  #view-demo .skill-confirm-value {
+    color: var(--ci-text);
+  }
+  #view-demo .skill-confirm-summary-label {
+    color: var(--ci-text-dim);
+  }
+  #view-demo .skill-confirm-summary-value {
+    color: var(--ci-text);
+  }
+
+  /* POV / Signal / Transcript label colors */
+  #view-demo .skill-pov-label,
+  #view-demo .skill-pov-text strong,
+  #view-demo .skill-signal-why,
+  #view-demo .skill-signal-why strong,
+  #view-demo .skill-account-group-name,
+  #view-demo .skill-account-group-play {
+    color: var(--ci-blue);
+  }
+  #view-demo .skill-signal-why {
+    background: var(--ci-blue-soft);
+    border-left-color: var(--ci-blue);
+  }
+  #view-demo .skill-account-group-play {
+    background: var(--ci-blue-soft);
+    border-color: rgba(0, 111, 239, 0.18);
+  }
+  #view-demo .skill-email {
+    background: var(--ci-bg);
+    border-color: var(--ci-border);
+  }
+  #view-demo .skill-email-why {
+    background: var(--ci-blue-soft);
+    color: var(--ci-blue);
+  }
+  #view-demo .skill-transcript-quote {
+    background: var(--ci-surface);
+    border-left-color: var(--ci-blue);
+  }
+  #view-demo .skill-pov-section {
+    border-bottom-color: var(--ci-border);
+  }
+  #view-demo .skill-account-reason strong {
+    color: var(--ci-blue);
+  }
+
+  /* Form-intro spacing for the live chat tab */
+  #view-demo .demo-form-intro {
+    margin-bottom: 22px;
+  }
+
+  /* Catch any remaining pink shadows / gradients inside the demo */
+  #view-demo .demo-hero .gradient-magenta {
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  #view-demo .chat-tool-block,
+  #view-demo .chat-tool-panel,
+  #view-demo .chat-confirm-cta {
+    box-shadow: 0 4px 14px -4px rgba(0, 111, 239, 0.12);
+  }
+  #view-demo .chat-tool-block,
+  #view-demo .chat-tool-panel {
+    border-color: var(--ci-blue);
+  }
+  #view-demo .chat-tool-block-icon,
+  #view-demo .chat-confirm-cta-tag,
+  #view-demo .chat-tool-block-info strong,
+  #view-demo .chat-confirm-cta-title {
+    color: var(--ci-blue);
+  }
+  #view-demo .chat-confirm-cta {
+    border-color: var(--ci-blue);
+    background: linear-gradient(135deg, var(--ci-blue-soft), var(--ci-bg));
+  }
+  /* Any class that uses var(--magenta) directly will already pick up the remap above —
+     these are extra safety nets for hardcoded pink/rose hex values. */
 
   /* ── DEMO SUB-TABS ── */
   .demo-subtabs {
@@ -15057,59 +16043,280 @@ Mason`;
     function renderPrioritize() {
       const accounts = [
         { rank: 1, name: 'Truist Financial', meta: 'Regional Bank · $10-50B · NAM · Tier 1', score: 94,
-          reason: '<strong>Recent NPS hire</strong> · dormant 60 days · recommended <strong>VoC Modernization</strong>' },
+          reason: '<strong>Recent NPS hire</strong> · dormant 60 days · recommended <strong>VoC Modernization</strong>',
+          details: {
+            revenue: '$23.4B (FY2025)', employees: '~52,000', hq: 'Charlotte, NC',
+            subVertical: 'Regional Banking · Retail + Commercial',
+            existingRelationship: 'No active deal · 2 past Pulse demos in 2023',
+            recentNews: 'New Chief Customer Officer (Sarah Chen, ex-Capital One) named Oct 14, 2025. CCO charter explicitly includes "rebuilding voice-of-customer measurement."',
+            topContacts: 'Sarah Chen (SVP CX) · David Kumar (VP Digital Banking) · Michael Torres (Dir CX Insights)',
+            lastTouched: 'No outbound activity in 58 days · last touch was a Pulse demo invite, ignored',
+            outreachWindow: 'Tue 9-11am ET · CCO posts on LinkedIn Tue mornings · 78% reply rate at that window'
+          }
+        },
         { rank: 2, name: 'PenFed Credit Union', meta: 'Credit Union · $1-5B · NAM · Tier 2', score: 91,
-          reason: '<strong>Posted RFI for CX platform 8 days ago</strong> · recommended <strong>Closed-Loop CX</strong>' },
+          reason: '<strong>Posted RFI for CX platform 8 days ago</strong> · recommended <strong>Closed-Loop CX</strong>',
+          details: {
+            revenue: '$3.2B (2025)', employees: '~3,400', hq: 'McLean, VA',
+            subVertical: 'Credit Union · Mid-size · Military / federal affinity',
+            existingRelationship: 'Closed-lost in 2023 vs Medallia · "price + lack of branch-level workflow" cited',
+            recentNews: 'RFI published Nov 17 for "unified member experience platform." Medallia and Qualtrics named as referenced solutions.',
+            topContacts: 'Jennifer Park (Head of Member Experience) · Maria Santos (Dir VoC) · Carlos Rivera (VP Member Services)',
+            lastTouched: 'AE last touched 22 days ago · gave price feedback, no follow-up scheduled',
+            outreachWindow: 'Wed 10am-12pm ET · members of CX team most active mid-week'
+          }
+        },
         { rank: 3, name: 'Citizens Financial', meta: 'Regional Bank · $10-50B · NAM · Tier 1', score: 88,
-          reason: '<strong>New CX leader joined 3 weeks ago</strong> · reactivated · recommended <strong>Digital Banking CX</strong>' },
+          reason: '<strong>New CX leader joined 3 weeks ago</strong> · reactivated · recommended <strong>Digital Banking CX</strong>',
+          details: {
+            revenue: '$10.6B (FY2025)', employees: '~17,800', hq: 'Providence, RI',
+            subVertical: 'Regional Banking · 1,100 branches · Eastern US',
+            existingRelationship: 'Active Qualtrics customer · VoC deployed 2024 · expansion conversation paused',
+            recentNews: 'Rachel Thompson promoted to Director CX Strategy 21 days ago · backfilling team',
+            topContacts: 'Rachel Thompson (Dir CX Strategy) · James Wong (VP Customer Operations)',
+            lastTouched: 'CSM touchpoint 9 days ago · positive · expansion not yet on the table',
+            outreachWindow: 'Mon 1-3pm ET · post-weekend planning window · 64% reply rate'
+          }
+        },
         { rank: 4, name: 'USAA', meta: 'Insurance/Banking · $50B+ · NAM · Tier 1', score: 85,
-          reason: 'Q1 earnings flagged <strong>customer retention as top priority</strong> · recommended <strong>VoC Modernization</strong>' },
+          reason: 'Q1 earnings flagged <strong>customer retention as top priority</strong> · recommended <strong>VoC Modernization</strong>',
+          details: {
+            revenue: '$42B (FY2025)', employees: '~37,000', hq: 'San Antonio, TX',
+            subVertical: 'Diversified FS · Insurance + Banking · Military affinity',
+            existingRelationship: 'Active Qualtrics customer · CX deployed 2022 · multi-year contract through 2027',
+            recentNews: 'Q1 2026 earnings call: "Customer retention is our number one priority for 2026." CEO repeated 4x.',
+            topContacts: 'Priya Patel (Director Member Services) · Tom O\'Brien (VP Member Insights)',
+            lastTouched: 'QBR last quarter · strong relationship · expansion ask not yet made',
+            outreachWindow: 'Tue/Thu 10am-12pm CT · low meeting load · best for executive outreach'
+          }
+        },
         { rank: 5, name: 'Pacific Western Bank', meta: 'Regional Bank · $5-10B · NAM · Tier 1', score: 82,
-          reason: '<strong>8 open CX-related job postings</strong> · aggressive build phase · recommended <strong>Survey Essentials</strong>' },
+          reason: '<strong>8 open CX-related job postings</strong> · aggressive build phase · recommended <strong>Survey Essentials</strong>',
+          details: {
+            revenue: '$7.8B (FY2025)', employees: '~2,300', hq: 'Los Angeles, CA',
+            subVertical: 'Regional Banking · West Coast · commercial-heavy',
+            existingRelationship: 'No prior relationship · cold account',
+            recentNews: '8 CX/insights roles posted in last 30 days. Pattern indicates new program being stood up. CFO mentioned "voice of customer initiative" in Q4 earnings.',
+            topContacts: 'Linda Wu (Dir Member Insights) · Aisha Williams (Dir CX Strategy)',
+            lastTouched: 'Never touched · pure whitespace · suggest Survey Essentials as entry SKU',
+            outreachWindow: 'Wed 8-10am PT · early morning · West Coast pattern · 71% reply rate'
+          }
+        },
       ];
+
+      function buildExpanded(d) {
+        return '<div class="skill-card-expanded">' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Company</div>' +
+          '<div class="skill-card-expanded-grid">' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Revenue</div><div class="skill-card-expanded-prop-value">' + d.revenue + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Employees</div><div class="skill-card-expanded-prop-value">' + d.employees + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">HQ</div><div class="skill-card-expanded-prop-value">' + d.hq + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Sub-vertical</div><div class="skill-card-expanded-prop-value">' + d.subVertical + '</div></div>' +
+          '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Existing relationship</div>' +
+          '<div class="skill-card-expanded-text">' + d.existingRelationship + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Recent news</div>' +
+          '<div class="skill-card-expanded-text">' + d.recentNews + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Top contacts to engage</div>' +
+          '<div class="skill-card-expanded-text">' + d.topContacts + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Activity history</div>' +
+          '<div class="skill-card-expanded-text">' + d.lastTouched + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Best outreach window</div>' +
+          '<div class="skill-card-expanded-text">' + d.outreachWindow + '</div></div>' +
+          '</div>';
+      }
+
       const cards = accounts.map(a =>
-        '<div class="skill-account"><div class="skill-account-rank">' + a.rank + '</div>' +
-        '<div class="skill-account-info"><div class="skill-account-name">' + a.name + '</div>' +
+        '<div class="skill-account skill-card">' +
+        '<div class="skill-account-row skill-card-row">' +
+        '<div class="skill-account-rank">' + a.rank + '</div>' +
+        '<div class="skill-account-info">' +
+        '<div class="skill-account-name">' + a.name + '</div>' +
         '<div class="skill-account-meta">' + a.meta + '</div>' +
         '<div class="skill-account-reason">' + a.reason + '</div></div>' +
-        '<div class="skill-account-score"><div class="skill-account-score-num ' + scoreClass(a.score) + '">' + a.score + '</div>' +
-        '<div class="skill-account-score-label">Score</div></div></div>'
+        '<div class="skill-account-score">' +
+        '<div class="skill-account-score-num ' + scoreClass(a.score) + '">' + a.score + '</div>' +
+        '<div class="skill-account-score-label">Score</div></div>' +
+        '<button class="skill-card-expand-toggle" aria-label="Expand"><iconify-icon icon="ph:caret-down"></iconify-icon></button>' +
+        '</div>' +
+        buildExpanded(a.details) +
+        '</div>'
       ).join('');
       return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:star"></iconify-icon></div>' +
         '<div class="skill-widget-title">Account Prioritization</div>' +
-        '<div class="skill-widget-meta">Top 5 of 73 accounts</div></div>' +
+        '<div class="skill-widget-meta">Top 5 of 73 accounts · tap any row to expand</div></div>' +
         '<div class="skill-widget-body">' + cards + '</div>' +
-        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Find DMs at top 3</button>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="dm-from-prioritize">Find DMs at top 3</button>' +
         '<button class="skill-widget-cta">See full ranking</button>' +
-        '<button class="skill-widget-cta">Export to Outreach</button></div></div>';
+        '<button class="skill-widget-cta" data-chain="export-prioritize">Export to Outreach</button></div></div>';
     }
 
     function renderFindDMs() {
       const contacts = [
         { initials: 'JP', name: 'Jennifer Park', title: 'Head of Member Experience · PenFed CU',
-          signal: 'Posted on closed-loop feedback 6 days ago', score: 91 },
+          signal: 'Posted on closed-loop feedback 6 days ago', score: 91,
+          details: {
+            email: 'jpark@penfed.org', emailStatus: 'verified',
+            phone: '+1 (703) 555-0142', phoneStatus: 'verified',
+            linkedin: '/in/jenniferpark-cx',
+            tenure: '3.2 years at PenFed · 14 years in financial services',
+            previous: 'Capital One (Director, Customer Insights) · 5 years',
+            recentActivity: [
+              'Posted: "Closed-loop feedback is the difference between a survey program and a retention program" · 6d ago',
+              'Liked Qualtrics LinkedIn post on NPS modernization · 12d ago',
+              'Spoke at Credit Union CX Forum 2025 · 35d ago'
+            ],
+            reportsTo: 'Carlos Rivera, VP Member Services',
+            directReports: '4 (CX Analyst, VoC Manager, Closed-Loop Specialist, Insights Lead)',
+            mutualConnections: '7 Qualtrics employees · including 2 in your direct network',
+            bestOutreachTime: 'Wed 10am-12pm ET · responds to direct, metric-anchored messages',
+            tonePreference: 'Direct, data-driven · responds best to specific numbers and concrete outcomes'
+          }
+        },
         { initials: 'MS', name: 'Maria Santos', title: 'Director, Voice of Customer · PenFed CU',
-          signal: 'Speaking at CX Connect next month', score: 88 },
+          signal: 'Speaking at CX Connect next month', score: 88,
+          details: {
+            email: 'msantos@penfed.org', emailStatus: 'verified',
+            phone: '+1 (703) 555-0188', phoneStatus: 'unverified',
+            linkedin: '/in/mariasantos-voc',
+            tenure: '1.5 years at PenFed · 9 years in CX',
+            previous: 'USAA (Manager, Voice of Customer) · 4 years',
+            recentActivity: [
+              'Announced CX Connect 2026 speaking slot: "Building a member-centric CX program from scratch" · 8d ago',
+              'Engaged with Forrester report on closed-loop · 19d ago',
+              'Posted on Slack community (CX Professionals) about NPS vs CSAT debate · 24d ago'
+            ],
+            reportsTo: 'Jennifer Park, Head of Member Experience',
+            directReports: '2 (CX Analyst, Survey Specialist)',
+            mutualConnections: '4 Qualtrics employees · 1 mutual on her team from USAA',
+            bestOutreachTime: 'Thu 9-11am ET · most active mornings',
+            tonePreference: 'Warm, collaborative · responds to outreach that references her speaking content'
+          }
+        },
         { initials: 'CR', name: 'Carlos Rivera', title: 'VP Member Services · PenFed CU',
-          signal: 'Hiring CX Analytics Manager · 14 days ago', score: 85 },
+          signal: 'Hiring CX Analytics Manager · 14 days ago', score: 85,
+          details: {
+            email: 'crivera@penfed.org', emailStatus: 'verified',
+            phone: '+1 (703) 555-0166', phoneStatus: 'verified',
+            linkedin: '/in/carlosrivera-vp',
+            tenure: '7 years at PenFed · 20 years in member services',
+            previous: 'Navy Federal Credit Union (Director, Member Operations) · 8 years',
+            recentActivity: [
+              'Posted job: CX Analytics Manager · 14d ago · indicates funded program',
+              'Attended Credit Union Executives Society conference · 28d ago',
+              'Engaged with Bain client experience report · 45d ago'
+            ],
+            reportsTo: 'CEO (direct report)',
+            directReports: '6 (including Jennifer Park, Maria Santos)',
+            mutualConnections: '11 Qualtrics employees · including FSI Account Director who briefed him in 2023',
+            bestOutreachTime: 'Tue 1-3pm ET · prefers afternoon meetings',
+            tonePreference: 'Executive, strategic · responds best to ROI framing and peer-customer references'
+          }
+        },
         { initials: 'AW', name: 'Aisha Williams', title: 'Director, CX Strategy · PenFed CU',
-          signal: 'Followed Qualtrics on LinkedIn last week', score: 82 },
+          signal: 'Followed Qualtrics on LinkedIn last week', score: 82,
+          details: {
+            email: 'awilliams@penfed.org', emailStatus: 'verified',
+            phone: '+1 (703) 555-0201', phoneStatus: 'unverified',
+            linkedin: '/in/aishawilliams-cx',
+            tenure: '2 years at PenFed · 11 years in CX strategy consulting',
+            previous: 'McKinsey (Engagement Manager, Customer Practice) · 3 years',
+            recentActivity: [
+              'Followed Qualtrics company page · 7d ago',
+              'Posted on member feedback maturity models · 17d ago',
+              'Engaged with Forrester Wave for VoC platforms · 31d ago'
+            ],
+            reportsTo: 'Carlos Rivera, VP Member Services',
+            directReports: '1 (CX Program Manager)',
+            mutualConnections: '5 Qualtrics employees · including 2 McKinsey alums',
+            bestOutreachTime: 'Mon-Wed 10am-12pm ET',
+            tonePreference: 'Analytical, framework-driven · responds to strategy-led outreach over feature-led'
+          }
+        },
         { initials: 'LW', name: 'Linda Wu', title: 'Director, Member Insights · PenFed CU',
-          signal: 'Joined PenFed 4 months ago', score: 74 },
+          signal: 'Joined PenFed 4 months ago', score: 74,
+          details: {
+            email: 'lwu@penfed.org', emailStatus: 'verified',
+            phone: '—', phoneStatus: 'not found',
+            linkedin: '/in/lindawu-insights',
+            tenure: '4 months at PenFed · 12 years in member insights',
+            previous: 'TIAA (Sr Manager, Member Insights) · 6 years',
+            recentActivity: [
+              'No major LinkedIn activity in last 30 days · still ramping at PenFed',
+              'Joined PenFed announcement post received 240 reactions · 116d ago',
+              'TIAA alumni group active · 60d ago'
+            ],
+            reportsTo: 'Jennifer Park, Head of Member Experience',
+            directReports: '2',
+            mutualConnections: '3 Qualtrics employees · including 1 TIAA alum',
+            bestOutreachTime: 'Unknown · new hire · best to engage indirectly via Jennifer Park',
+            tonePreference: 'Unknown · suggest welcoming, low-pressure first touch'
+          }
+        },
       ];
+
+      function buildContactExpanded(d) {
+        const activityList = d.recentActivity.map(a =>
+          '<div class="skill-card-expanded-list-item"><iconify-icon icon="ph:lightning"></iconify-icon><div>' + a + '</div></div>'
+        ).join('');
+        const verifyIcon = '<iconify-icon icon="ph:check-circle-fill"></iconify-icon>';
+        const emailVal = d.email + (d.emailStatus === 'verified' ? ' ' + verifyIcon : '');
+        const phoneVal = d.phone + (d.phoneStatus === 'verified' ? ' ' + verifyIcon : '');
+        return '<div class="skill-card-expanded">' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Contact info</div>' +
+          '<div class="skill-card-expanded-grid">' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Email</div><div class="skill-card-expanded-prop-value">' + emailVal + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Phone</div><div class="skill-card-expanded-prop-value">' + phoneVal + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">LinkedIn</div><div class="skill-card-expanded-prop-value">linkedin.com' + d.linkedin + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Tenure</div><div class="skill-card-expanded-prop-value">' + d.tenure + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Previous role</div><div class="skill-card-expanded-prop-value">' + d.previous + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Mutual connections</div><div class="skill-card-expanded-prop-value">' + d.mutualConnections + '</div></div>' +
+          '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Recent activity</div>' +
+          '<div class="skill-card-expanded-list">' + activityList + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Reporting structure</div>' +
+          '<div class="skill-card-expanded-grid">' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Reports to</div><div class="skill-card-expanded-prop-value">' + d.reportsTo + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Direct reports</div><div class="skill-card-expanded-prop-value">' + d.directReports + '</div></div>' +
+          '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">How to engage</div>' +
+          '<div class="skill-card-expanded-grid">' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Best outreach window</div><div class="skill-card-expanded-prop-value">' + d.bestOutreachTime + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Tone preference</div><div class="skill-card-expanded-prop-value">' + d.tonePreference + '</div></div>' +
+          '</div></div>' +
+          '</div>';
+      }
+
       const cards = contacts.map(c =>
-        '<div class="skill-contact"><div class="skill-contact-avatar">' + c.initials + '</div>' +
-        '<div class="skill-contact-info"><div class="skill-contact-name">' + c.name + '</div>' +
+        '<div class="skill-contact skill-card">' +
+        '<div class="skill-contact-row skill-card-row">' +
+        '<div class="skill-contact-avatar">' + c.initials + '</div>' +
+        '<div class="skill-contact-info">' +
+        '<div class="skill-contact-name">' + c.name + '</div>' +
         '<div class="skill-contact-title">' + c.title + '</div>' +
         '<span class="skill-contact-signal">' + c.signal + '</span></div>' +
-        '<div class="skill-contact-score ' + scoreClass(c.score) + '">' + c.score + '</div></div>'
+        '<div class="skill-contact-score ' + scoreClass(c.score) + '">' + c.score + '</div>' +
+        '<button class="skill-card-expand-toggle" aria-label="Expand"><iconify-icon icon="ph:caret-down"></iconify-icon></button>' +
+        '</div>' +
+        buildContactExpanded(c.details) +
+        '</div>'
       ).join('');
       return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:target"></iconify-icon></div>' +
         '<div class="skill-widget-title">Decision Makers · PenFed Credit Union</div>' +
-        '<div class="skill-widget-meta">5 verified contacts for Closed-Loop CX</div></div>' +
+        '<div class="skill-widget-meta">5 verified contacts · tap to expand</div></div>' +
         '<div class="skill-widget-body">' + cards + '</div>' +
-        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Push all to Outreach</button>' +
-        '<button class="skill-widget-cta">Draft cold emails</button>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="push-dms-outreach">Push all to Outreach</button>' +
+        '<button class="skill-widget-cta" data-chain="response-from-dm">Draft cold emails</button>' +
         '<button class="skill-widget-cta">Add 3 more contacts</button></div></div>';
     }
 
@@ -15117,32 +16324,100 @@ Mason`;
       const signals = [
         { when: '2 days ago', headline: 'Truist names new Chief Customer Officer',
           source: 'Reuters · CXO leadership change',
-          why: '<strong>New executive in CX seat</strong> typically reviews vendor stack within 60-90 days. Window to engage opens now.' },
+          why: '<strong>New executive in CX seat</strong> typically reviews vendor stack within 60-90 days. Window to engage opens now.',
+          details: {
+            fullText: 'Truist Financial today named Sarah Chen as Chief Customer Officer, effective immediately. Chen joins from Capital One, where she served as SVP of Customer Insights. The newly-created role reports directly to CEO Bill Rogers and will oversee the bank\'s "voice of customer transformation" initiative announced in Q1 earnings.',
+            sourceUrl: 'reuters.com/business/finance/truist-cco-2025',
+            relatedSignals: 'Truist Q1 earnings (voice of customer mention) · 4 CX team job postings · $50M tech commitment',
+            comparable: 'Citizens Financial hired Rachel Thompson as Dir CX Strategy 21 days ago — same playbook, same vendor evaluation window opening',
+            recommendedAction: 'Send congratulatory note this week (Tuesday window). Reference her Capital One work on closed-loop. Position Qualtrics as the partner she\'ll need in her first 90 days.'
+          }
+        },
         { when: '5 days ago', headline: 'Truist Q1 earnings call mentions "voice of customer transformation" as 2026 priority',
           source: 'SeekingAlpha · Q1 2026 earnings transcript',
-          why: 'CEO-level mention puts <strong>VoC modernization on the funded roadmap</strong>. POV should reference the exact phrasing.' },
+          why: 'CEO-level mention puts <strong>VoC modernization on the funded roadmap</strong>. POV should reference the exact phrasing.',
+          details: {
+            fullText: 'CEO Bill Rogers, in response to an analyst question on retention: "We are committed to a voice of customer transformation in 2026 that will fundamentally change how we measure and respond to the member experience. This is one of our three named priorities for the year, alongside digital banking modernization and credit growth in commercial."',
+            sourceUrl: 'seekingalpha.com/article/truist-q1-2026-earnings',
+            relatedSignals: '$50M tech commitment announcement · CCO hire · NPS-related job postings',
+            comparable: 'USAA used identical "voice of customer transformation" phrasing in Q4 2023 earnings, signed Qualtrics 4 months later',
+            recommendedAction: 'Use the exact phrase "voice of customer transformation" in your POV opener. Quote the CEO. Anchor the close to the three named priorities.'
+          }
+        },
         { when: '8 days ago', headline: 'Truist posts 4 job listings: Director of CX Insights, VoC Analyst, NPS Manager, CX Strategy Lead',
           source: 'LinkedIn Jobs',
-          why: '<strong>Team build-out</strong> indicates funded program. Timing is right for vendor evaluation conversations.' },
+          why: '<strong>Team build-out</strong> indicates funded program. Timing is right for vendor evaluation conversations.',
+          details: {
+            fullText: 'Four roles posted within 5 days: Director CX Insights (Charlotte, NC), VoC Analyst (Charlotte), NPS Manager (remote), CX Strategy Lead (Charlotte). All four mention "platform consolidation" or "unified measurement" in the JD. Salary bands suggest senior-leaning team.',
+            sourceUrl: 'linkedin.com/jobs/truist-cx',
+            relatedSignals: 'CCO hire (this is her team build-out) · Q1 earnings VoC mention · $50M commitment',
+            comparable: 'Citizens went from 3 CX job posts → signed Qualtrics in 11 weeks (2023). Same shape.',
+            recommendedAction: 'Reach the hiring manager (Sarah Chen). Offer Qualtrics resources for the new hires: onboarding playbook, role descriptions. Position as her platform partner before she\'s done hiring.'
+          }
+        },
         { when: '14 days ago', headline: 'Sarah Chen (SVP CX, Truist) shared post: "Why our NPS strategy needs a reset"',
           source: 'LinkedIn',
-          why: 'Direct messaging hook. Reference the post in opener; speak to <strong>her stated pain</strong>.' },
+          why: 'Direct messaging hook. Reference the post in opener; speak to <strong>her stated pain</strong>.',
+          details: {
+            fullText: 'Post excerpt: "Three platforms. Three vendors. Three definitions of \'detractor.\' We have all the data we could want and none of the insight we need. The pattern isn\'t unique to Truist, but the path forward has to be." 240 reactions, 31 comments, 18 reposts. Comments include 4 from prospect-relevant titles at other FSI firms.',
+            sourceUrl: 'linkedin.com/posts/sarahchen-cx-truist',
+            relatedSignals: 'CCO hire (same person) · Q1 earnings VoC mention · 4 job postings',
+            comparable: 'When BMO\'s Director of CX posted similar "three platforms" complaint in 2024, Qualtrics closed the deal in 6 months',
+            recommendedAction: 'Open the cold email with: "Saw your post about three platforms, three definitions of detractor." Drop the buzzwords. Speak her language.'
+          }
+        },
         { when: '28 days ago', headline: 'Truist announces $50M tech modernization commitment for FY26',
           source: 'PR Newswire',
-          why: 'Budget is allocated. CX is named in the press release as one of three priority workstreams.' },
+          why: 'Budget is allocated. CX is named in the press release as one of three priority workstreams.',
+          details: {
+            fullText: 'Press release excerpt: "Truist Financial today announced a $50M technology modernization investment for fiscal year 2026, focused on three workstreams: (1) digital banking platform consolidation, (2) voice of customer infrastructure, (3) commercial credit decisioning. The bank expects to begin vendor evaluation for the VoC workstream in Q1."',
+            sourceUrl: 'prnewswire.com/news-releases/truist-50m-tech-2026',
+            relatedSignals: 'Q1 earnings call · CCO hire · job postings · LinkedIn post (all roll up to this)',
+            comparable: 'When BB&T announced their $40M modernization budget in 2018, they signed a VoC platform within 7 months',
+            recommendedAction: 'In your POV, anchor to the $50M number and name the three workstreams. Show you read the press release. Specifically mention the Q1 vendor evaluation timeline.'
+          }
+        },
       ];
+
+      function buildSignalExpanded(d) {
+        return '<div class="skill-card-expanded">' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Full source content</div>' +
+          '<div class="skill-card-expanded-text">' + d.fullText + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Source</div>' +
+          '<div class="skill-card-expanded-text">' + d.sourceUrl + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Related signals at this account</div>' +
+          '<div class="skill-card-expanded-text">' + d.relatedSignals + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Comparable customer parallel</div>' +
+          '<div class="skill-card-expanded-text">' + d.comparable + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Recommended next action</div>' +
+          '<div class="skill-card-expanded-text"><strong>' + d.recommendedAction + '</strong></div></div>' +
+          '</div>';
+      }
+
       const items = signals.map(s =>
-        '<div class="skill-signal"><div class="skill-signal-when">' + s.when + '</div>' +
-        '<div class="skill-signal-content"><div class="skill-signal-headline">' + s.headline + '</div>' +
+        '<div class="skill-signal skill-card">' +
+        '<div class="skill-signal-row skill-card-row">' +
+        '<div class="skill-signal-when">' + s.when + '</div>' +
+        '<div class="skill-signal-content">' +
+        '<div class="skill-signal-headline">' + s.headline + '</div>' +
         '<div class="skill-signal-source">' + s.source + '</div>' +
-        '<div class="skill-signal-why"><strong>Why this matters:</strong> ' + s.why + '</div></div></div>'
+        '<div class="skill-signal-why"><strong>Why this matters:</strong> ' + s.why + '</div></div>' +
+        '<button class="skill-card-expand-toggle" aria-label="Expand"><iconify-icon icon="ph:caret-down"></iconify-icon></button>' +
+        '</div>' +
+        buildSignalExpanded(s.details) +
+        '</div>'
       ).join('');
       return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:broadcast"></iconify-icon></div>' +
         '<div class="skill-widget-title">Recent Signals · Truist Financial</div>' +
-        '<div class="skill-widget-meta">Last 30 days · 5 high-relevance signals</div></div>' +
+        '<div class="skill-widget-meta">Last 30 days · 5 high-relevance signals · tap to expand</div></div>' +
         '<div class="skill-widget-body">' + items + '</div>' +
-        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Generate POV from signals</button>' +
-        '<button class="skill-widget-cta">Draft outreach</button>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="pov-from-signals">Generate POV from signals</button>' +
+        '<button class="skill-widget-cta" data-chain="response-from-signals">Draft outreach</button>' +
         '<button class="skill-widget-cta">See 12 more signals</button></div></div>';
     }
 
@@ -15163,9 +16438,9 @@ Mason`;
         '<div class="skill-widget-title">Point of View · Truist Financial</div>' +
         '<div class="skill-widget-meta">Sales play: VoC Modernization</div></div>' +
         '<div class="skill-widget-body">' + items + '</div>' +
-        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Use in cold email</button>' +
-        '<button class="skill-widget-cta">Save to Salesforce notes</button>' +
-        '<button class="skill-widget-cta">Try a different angle</button></div></div>';
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="response-from-pov">Use in cold email</button>' +
+        '<button class="skill-widget-cta" data-chain="save-sfdc">Save to Salesforce notes</button>' +
+        '<button class="skill-widget-cta" data-chain="retry-pov">Try a different angle</button></div></div>';
     }
 
     function renderResponse() {
@@ -15179,8 +16454,8 @@ Mason`;
         '<div class="skill-email-body">' + body + '</div>' +
         '<div class="skill-email-why"><strong>Why this works:</strong> Opens with her own LinkedIn language ("NPS strategy needs a reset"). References fresh signal (the $50M commitment). Anchors to a comparable customer (Citizens) with concrete outcomes. Low-commitment 30-min ask.</div>' +
         '</div></div>' +
-        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Send to Outreach</button>' +
-        '<button class="skill-widget-cta">Try a different angle</button>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="send-outreach">Send to Outreach</button>' +
+        '<button class="skill-widget-cta" data-chain="retry-response">Try a different angle</button>' +
         '<button class="skill-widget-cta">Edit draft</button></div></div>';
     }
 
@@ -15188,31 +16463,486 @@ Mason`;
       const moments = [
         { title: 'Citizens Financial · Discovery Call', time: 'Oct 14 · 12:42',
           quote: '"We had three different NPS tools running. By the time we saw a detractor, they were 3 weeks gone. That broke us into actually buying a unified platform."',
-          context: '<strong>Speaker:</strong> Citizens CX Director · <strong>Why surfaced:</strong> Same fragmented-measurement pain as Truist. Reuse this story in the Truist POV.' },
+          context: '<strong>Speaker:</strong> Citizens CX Director · <strong>Why surfaced:</strong> Same fragmented-measurement pain as Truist. Reuse this story in the Truist POV.',
+          details: {
+            extendedQuote: [
+              { speaker: 'Mason Anderson', text: 'Walk me through what was happening before you brought us in. What was the trigger?' },
+              { speaker: 'Citizens CX Director', text: 'Honestly, it was a slow build, and then it wasn\'t. We had three different NPS tools running. By the time we saw a detractor, they were 3 weeks gone. That broke us into actually buying a unified platform.', highlight: true },
+              { speaker: 'Mason Anderson', text: 'Three weeks gone meaning they\'d already churned, or they\'d already escalated?' },
+              { speaker: 'Citizens CX Director', text: 'Both. By 3 weeks, they\'ve either left or they\'ve told 5 friends. And we had no way to intercept either path. That was the breaking point.' },
+            ],
+            callTopics: 'NPS fragmentation, detractor recovery, closed-loop workflows, Salesforce integration',
+            callOutcome: 'Discovery completed · qualified · advanced to demo · closed-won in 11 weeks · $340K ACV',
+            otherMoments: '3 other surfaced moments from this call: "branch-level workflow" (16:08), "Service Cloud integration" (24:15), "executive dashboards" (33:40)',
+            callLength: '47 min · 3 stakeholders on the call'
+          }
+        },
         { title: 'USAA · Working Session', time: 'Nov 22 · 28:15',
           quote: '"Closed-loop is the unlock. The score on its own does nothing. The follow-up workflow is where retention actually moves."',
-          context: '<strong>Speaker:</strong> USAA VP Member Experience · <strong>Why surfaced:</strong> Validates the closed-loop pitch for any retention-focused FSI prospect.' },
+          context: '<strong>Speaker:</strong> USAA VP Member Experience · <strong>Why surfaced:</strong> Validates the closed-loop pitch for any retention-focused FSI prospect.',
+          details: {
+            extendedQuote: [
+              { speaker: 'AE (Tom Wilson)', text: 'Your retention numbers improved by what — 14% in 9 months? What changed?' },
+              { speaker: 'USAA VP Member Experience', text: 'Honestly, we had been measuring NPS for years. Score alone changed nothing. Closed-loop is the unlock. The score on its own does nothing. The follow-up workflow is where retention actually moves.', highlight: true },
+              { speaker: 'AE (Tom Wilson)', text: 'Tactically — what does the follow-up workflow look like at USAA?' },
+              { speaker: 'USAA VP Member Experience', text: 'Detractor score triggers a workflow within an hour. Branch manager gets a Slack ping, a script to use, and 48 hours to resolve. Resolution gets logged back to the record. That\'s the entire program.' },
+            ],
+            callTopics: 'Closed-loop workflow, branch-level response, retention metrics, ROI measurement',
+            callOutcome: 'Working session · existing customer · informed expansion conversation · $890K expansion signed Q1',
+            otherMoments: '4 other surfaced moments: "executive air cover" (12:08), "training the branch managers" (38:22), "Salesforce trigger setup" (44:11), "monthly KPI dashboard" (52:18)',
+            callLength: '58 min · 5 stakeholders'
+          }
+        },
         { title: 'PNC Bank · Negotiation Call', time: 'Jan 09 · 41:08',
           quote: '"The board wanted to see a 12-month projection of detractor recovery economics before they would sign. Once we built that, the deal moved in two weeks."',
-          context: '<strong>Speaker:</strong> Mason Anderson (you) · <strong>Why surfaced:</strong> Useful negotiation template. Detractor recovery economics is the unblocker for bank board approvals.' },
+          context: '<strong>Speaker:</strong> Mason Anderson (you) · <strong>Why surfaced:</strong> Useful negotiation template. Detractor recovery economics is the unblocker for bank board approvals.',
+          details: {
+            extendedQuote: [
+              { speaker: 'PNC Buyer', text: 'We\'re convinced. The board is the holdup. They want hard ROI math.' },
+              { speaker: 'Mason Anderson', text: 'The board wanted to see a 12-month projection of detractor recovery economics before they would sign. Once we built that, the deal moved in two weeks.', highlight: true },
+              { speaker: 'PNC Buyer', text: 'Walk me through the projection model. What inputs did you use?' },
+              { speaker: 'Mason Anderson', text: 'Three inputs: current detractor count from your NPS data, average LTV of a banking customer in your segment, and a 32% recovery rate which is the median across our deployments. We modeled the floor scenario at 15% and the ceiling at 45%. Board approved on the floor case.' },
+            ],
+            callTopics: 'Board approval process, ROI projection model, detractor economics, deal closure tactics',
+            callOutcome: 'Closed-won 2 weeks after this call · $580K ACV · case study available',
+            otherMoments: '2 other surfaced moments: "the 15-45% recovery rate model" (44:30), "monthly board reporting commitment" (49:12)',
+            callLength: '62 min · 4 stakeholders'
+          }
+        },
         { title: 'Truist · Discovery Call', time: 'Mar 18 · 19:50',
           quote: '"We are not sure if we need a platform yet — we are still figuring out what good measurement even looks like for our merged footprint."',
-          context: '<strong>Speaker:</strong> Truist CX Strategy Lead · <strong>Why surfaced:</strong> The prospect&#39;s own words. "What does good measurement look like" is the hook for the POV opener.' },
+          context: '<strong>Speaker:</strong> Truist CX Strategy Lead · <strong>Why surfaced:</strong> The prospect&#39;s own words. "What does good measurement look like" is the hook for the POV opener.',
+          details: {
+            extendedQuote: [
+              { speaker: 'Mason Anderson', text: 'What\'s the team\'s biggest open question right now on the CX side?' },
+              { speaker: 'Truist CX Strategy Lead', text: 'We are not sure if we need a platform yet — we are still figuring out what good measurement even looks like for our merged footprint. The BB&T and SunTrust systems measured things differently, and we have not aligned on a single source of truth.', highlight: true },
+              { speaker: 'Mason Anderson', text: 'So before "which platform" you need "what does good look like." Is that a Truist team exercise or are you looking for outside frameworks?' },
+              { speaker: 'Truist CX Strategy Lead', text: 'Honestly both. We\'d be open to a working session with someone who\'s done this before at scale. We don\'t need to be sold a platform — we need to be helped to frame the question.' },
+            ],
+            callTopics: 'Post-merger CX measurement, vendor evaluation timeline, working session interest',
+            callOutcome: 'Discovery completed · early-stage · no platform decision yet · follow-up scheduled · this is the active prospect',
+            otherMoments: '1 other surfaced moment: "we don\'t need to be sold a platform, we need to be helped to frame the question" (28:15) — direct quote into POV opener',
+            callLength: '42 min · 2 stakeholders'
+          }
+        },
       ];
+
+      function buildTranscriptExpanded(d) {
+        const quoteLines = d.extendedQuote.map(line =>
+          '<div class="skill-transcript-line ' + (line.highlight ? 'highlight' : '') + '">' +
+          '<div class="skill-transcript-speaker">' + line.speaker + '</div>' +
+          '<div class="skill-transcript-line-text">' + line.text + '</div></div>'
+        ).join('');
+
+        return '<div class="skill-card-expanded">' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Extended transcript</div>' +
+          '<div class="skill-transcript-lines">' + quoteLines + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Topics discussed</div>' +
+          '<div class="skill-card-expanded-text">' + d.callTopics + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Call outcome</div>' +
+          '<div class="skill-card-expanded-text">' + d.callOutcome + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Other relevant moments from this call</div>' +
+          '<div class="skill-card-expanded-text">' + d.otherMoments + '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Call metadata</div>' +
+          '<div class="skill-card-expanded-text">' + d.callLength + '</div></div>' +
+          '</div>';
+      }
+
       const items = moments.map(m =>
-        '<div class="skill-transcript"><div class="skill-transcript-header">' +
+        '<div class="skill-transcript skill-card">' +
+        '<div class="skill-transcript-row skill-card-row">' +
+        '<div class="skill-transcript-header">' +
         '<div class="skill-transcript-title">' + m.title + '</div>' +
         '<div class="skill-transcript-time">' + m.time + '</div></div>' +
         '<div class="skill-transcript-quote">' + m.quote + '</div>' +
-        '<div class="skill-transcript-context">' + m.context + '</div></div>'
+        '<div class="skill-transcript-context">' + m.context + '</div>' +
+        '<button class="skill-transcript-toggle skill-card-expand-toggle" aria-label="Expand"><iconify-icon icon="ph:caret-down"></iconify-icon></button>' +
+        '</div>' +
+        buildTranscriptExpanded(m.details) +
+        '</div>'
       ).join('');
       return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:microphone"></iconify-icon></div>' +
         '<div class="skill-widget-title">Call Transcript Search · "NPS modernization"</div>' +
-        '<div class="skill-widget-meta">4 of 23 matching moments from Kaia recordings</div></div>' +
+        '<div class="skill-widget-meta">4 of 23 matching moments · tap to expand</div></div>' +
         '<div class="skill-widget-body">' + items + '</div>' +
-        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Use these in POV</button>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="pov-from-transcripts">Use these in POV</button>' +
         '<button class="skill-widget-cta">See all 23 matches</button>' +
         '<button class="skill-widget-cta">Refine search</button></div></div>';
+    }
+
+    // ═════════════════════════════════════════════════════════
+    // CHAIN ACTION WIDGETS — secondary skills triggered from primary
+    // ═════════════════════════════════════════════════════════
+
+    // Top decision makers across the prioritized top 3 accounts
+    function renderDMsBatched() {
+      const groups = [
+        {
+          account: 'Truist Financial',
+          play: 'VoC Modernization',
+          contacts: [
+            { initials: 'SC', name: 'Sarah Chen', title: 'SVP, Customer Experience', signal: 'LinkedIn post: "Why our NPS strategy needs a reset" · 14d ago', score: 94,
+              brief: { email: 'sarah.chen@truist.com (verified)', tenure: 'Joined Oct 2025 from Capital One · new CCO role', activity: 'Posted "Why our NPS strategy needs a reset" 14d ago · 240 reactions, 31 comments' } },
+            { initials: 'DK', name: 'David Kumar', title: 'VP Digital Banking', signal: 'Speaking at FinXTech Summit · 21d', score: 88,
+              brief: { email: 'david.kumar@truist.com (verified)', tenure: '4 years at Truist · ex-JPMorgan Chase', activity: 'Speaking at FinXTech Summit 2026 on digital banking modernization · session preview shared 21d ago' } },
+            { initials: 'MT', name: 'Michael Torres', title: 'Director CX Insights', signal: 'Joined Truist 90 days ago from Capital One', score: 85,
+              brief: { email: 'm.torres@truist.com (verified)', tenure: '90 days at Truist · 7 years at Capital One (worked with Sarah Chen)', activity: 'Sharing onboarding learnings · engaged with 2 Qualtrics LinkedIn posts last month' } },
+          ],
+        },
+        {
+          account: 'PenFed Credit Union',
+          play: 'Closed-Loop CX',
+          contacts: [
+            { initials: 'JP', name: 'Jennifer Park', title: 'Head of Member Experience', signal: 'Posted on closed-loop feedback · 6d', score: 91,
+              brief: { email: 'jpark@penfed.org (verified)', tenure: '3 years at PenFed · 14 years in financial services', activity: 'Posted on closed-loop feedback 6d ago · liked Qualtrics post on NPS modernization 12d ago' } },
+            { initials: 'MS', name: 'Maria Santos', title: 'Director, Voice of Customer', signal: 'Speaking at CX Connect next month', score: 88,
+              brief: { email: 'msantos@penfed.org (verified)', tenure: '1.5 years at PenFed · ex-USAA VoC Manager', activity: 'Speaking at CX Connect 2026 on member-centric programs · session announced 8d ago' } },
+          ],
+        },
+        {
+          account: 'Citizens Financial',
+          play: 'Digital Banking CX',
+          contacts: [
+            { initials: 'RT', name: 'Rachel Thompson', title: 'Director CX Strategy', signal: 'Hiring CX Analytics Manager · 11d', score: 89,
+              brief: { email: 'rthompson@citizensbank.com (verified)', tenure: '4 years at Citizens · recently promoted to Director', activity: 'Posted CX Analytics Manager role 11d ago · indicates team expansion under new charter' } },
+            { initials: 'JW', name: 'James Wong', title: 'VP Customer Operations', signal: 'Recent quote in American Banker on retention', score: 84,
+              brief: { email: 'jwong@citizensbank.com (verified)', tenure: '6 years at Citizens · ex-Bank of America', activity: 'Quoted in American Banker on retention strategy 9d ago · "closed-loop is non-negotiable"' } },
+          ],
+        },
+      ];
+
+      function buildBriefExpanded(b) {
+        return '<div class="skill-card-expanded">' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-grid">' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Email</div><div class="skill-card-expanded-prop-value">' + b.email + '</div></div>' +
+          '<div class="skill-card-expanded-prop"><div class="skill-card-expanded-prop-label">Tenure</div><div class="skill-card-expanded-prop-value">' + b.tenure + '</div></div>' +
+          '</div></div>' +
+          '<div class="skill-card-expanded-section">' +
+          '<div class="skill-card-expanded-label">Recent signal</div>' +
+          '<div class="skill-card-expanded-text">' + b.activity + '</div></div>' +
+          '</div>';
+      }
+
+      const groupsHtml = groups.map(g => {
+        const cards = g.contacts.map(c =>
+          '<div class="skill-contact skill-card">' +
+          '<div class="skill-contact-row skill-card-row">' +
+          '<div class="skill-contact-avatar">' + c.initials + '</div>' +
+          '<div class="skill-contact-info">' +
+          '<div class="skill-contact-name">' + c.name + '</div>' +
+          '<div class="skill-contact-title">' + c.title + '</div>' +
+          '<span class="skill-contact-signal">' + c.signal + '</span></div>' +
+          '<div class="skill-contact-score ' + scoreClass(c.score) + '">' + c.score + '</div>' +
+          '<button class="skill-card-expand-toggle" aria-label="Expand"><iconify-icon icon="ph:caret-down"></iconify-icon></button>' +
+          '</div>' +
+          buildBriefExpanded(c.brief) +
+          '</div>'
+        ).join('');
+        return '<div class="skill-account-group">' +
+          '<div class="skill-account-group-header">' +
+          '<div class="skill-account-group-name">' + g.account + '</div>' +
+          '<div class="skill-account-group-play">' + g.play + '</div></div>' +
+          cards + '</div>';
+      }).join('');
+
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:target"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Decision Makers · Top 3 Accounts</div>' +
+        '<div class="skill-widget-meta">7 verified contacts · grouped by account · tap to expand</div></div>' +
+        '<div class="skill-widget-body">' + groupsHtml + '</div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="push-batched-outreach">Push all 7 to Outreach</button>' +
+        '<button class="skill-widget-cta" data-chain="response-from-dm">Draft cold emails</button>' +
+        '<button class="skill-widget-cta">Refine criteria</button></div></div>';
+    }
+
+    // Pushed-to-Outreach confirmation
+    function renderPushedToOutreach(opts) {
+      opts = opts || {};
+      const contacts = opts.contacts || [
+        'Jennifer Park — Head of Member Experience',
+        'Maria Santos — Director, Voice of Customer',
+        'Carlos Rivera — VP Member Services',
+        'Aisha Williams — Director, CX Strategy',
+        'Linda Wu — Director, Member Insights',
+      ];
+      const sequence = opts.sequence || 'Closed-Loop CX Outbound · PenFed';
+      const items = contacts.map((c, i) =>
+        '<div class="skill-confirm-item" style="animation-delay:' + (i * 0.08) + 's">' +
+        '<iconify-icon icon="ph:check-circle-fill" class="skill-confirm-check"></iconify-icon>' +
+        '<div class="skill-confirm-item-text">' + c + '</div>' +
+        '<div class="skill-confirm-item-status">Added</div></div>'
+      ).join('');
+
+      return '<div class="skill-widget skill-widget-confirm"><div class="skill-widget-header skill-widget-header-success">' +
+        '<div class="skill-widget-header-icon"><iconify-icon icon="ph:check-circle-fill"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Pushed to Outreach</div>' +
+        '<div class="skill-widget-meta">' + contacts.length + ' contacts · sequence started</div></div>' +
+        '<div class="skill-widget-body">' +
+        '<div class="skill-confirm-list">' + items + '</div>' +
+        '<div class="skill-confirm-detail">' +
+        '<div class="skill-confirm-detail-row"><span class="skill-confirm-label">Sequence</span><span class="skill-confirm-value">' + sequence + '</span></div>' +
+        '<div class="skill-confirm-detail-row"><span class="skill-confirm-label">First send</span><span class="skill-confirm-value">Tuesday 10:00 AM ET</span></div>' +
+        '<div class="skill-confirm-detail-row"><span class="skill-confirm-label">Cadence</span><span class="skill-confirm-value">5-touch · 14-day window</span></div>' +
+        '<div class="skill-confirm-detail-row"><span class="skill-confirm-label">Reply detection</span><span class="skill-confirm-value">Enabled · auto-pause on response</span></div>' +
+        '</div></div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">View sequence in Outreach</button>' +
+        '<button class="skill-widget-cta">Edit cadence</button></div></div>';
+    }
+
+    // Single email queued confirmation
+    function renderEmailQueued(opts) {
+      opts = opts || {};
+      const contact = opts.contact || 'Sarah Chen — SVP CX, Truist';
+      const sequence = opts.sequence || 'VoC Modernization Outbound · Truist';
+
+      return '<div class="skill-widget skill-widget-confirm"><div class="skill-widget-header skill-widget-header-success">' +
+        '<div class="skill-widget-header-icon"><iconify-icon icon="ph:check-circle-fill"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Email Queued in Outreach</div>' +
+        '<div class="skill-widget-meta">Send scheduled · reply tracking on</div></div>' +
+        '<div class="skill-widget-body">' +
+        '<div class="skill-confirm-summary">' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:envelope-simple"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Recipient</div><div class="skill-confirm-summary-value">' + contact + '</div></div></div>' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:queue"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Sequence</div><div class="skill-confirm-summary-value">' + sequence + '</div></div></div>' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:clock"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Send time</div><div class="skill-confirm-summary-value">Tuesday Nov 26 · 10:00 AM ET</div></div></div>' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:bell"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Notifications</div><div class="skill-confirm-summary-value">Slack DM on reply or open</div></div></div>' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:cloud-arrow-up"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Salesforce</div><div class="skill-confirm-summary-value">Activity logged on Sarah Chen contact record</div></div></div>' +
+        '</div></div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">View in Outreach</button>' +
+        '<button class="skill-widget-cta">Cancel send</button></div></div>';
+    }
+
+    // Saved-to-Salesforce confirmation
+    function renderSFDCSaved() {
+      return '<div class="skill-widget skill-widget-confirm"><div class="skill-widget-header skill-widget-header-success">' +
+        '<div class="skill-widget-header-icon"><iconify-icon icon="ph:check-circle-fill"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Saved to Salesforce</div>' +
+        '<div class="skill-widget-meta">POV synced · activity logged</div></div>' +
+        '<div class="skill-widget-body">' +
+        '<div class="skill-confirm-summary">' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:buildings"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Account</div><div class="skill-confirm-summary-value">Truist Financial</div></div></div>' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:note"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Saved as</div><div class="skill-confirm-summary-value">Note: "VoC Modernization POV · Q1 2026"</div></div></div>' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:user"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Linked contact</div><div class="skill-confirm-summary-value">Sarah Chen — SVP CX</div></div></div>' +
+        '<div class="skill-confirm-summary-row">' +
+        '<iconify-icon icon="ph:tag"></iconify-icon>' +
+        '<div><div class="skill-confirm-summary-label">Tagged</div><div class="skill-confirm-summary-value">VoC Modernization · CX Strategy · Active POV</div></div></div>' +
+        '</div></div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Open in Salesforce</button>' +
+        '<button class="skill-widget-cta">Share with AE</button></div></div>';
+    }
+
+    // Outreach export confirmation (for prioritized accounts list)
+    function renderOutreachExported() {
+      const accts = [
+        'Truist Financial',
+        'PenFed Credit Union',
+        'Citizens Financial',
+        'USAA',
+        'Pacific Western Bank',
+      ];
+      const items = accts.map((a, i) =>
+        '<div class="skill-confirm-item" style="animation-delay:' + (i * 0.08) + 's">' +
+        '<iconify-icon icon="ph:check-circle-fill" class="skill-confirm-check"></iconify-icon>' +
+        '<div class="skill-confirm-item-text">' + a + '</div>' +
+        '<div class="skill-confirm-item-status">Exported</div></div>'
+      ).join('');
+
+      return '<div class="skill-widget skill-widget-confirm"><div class="skill-widget-header skill-widget-header-success">' +
+        '<div class="skill-widget-header-icon"><iconify-icon icon="ph:check-circle-fill"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Exported to Outreach</div>' +
+        '<div class="skill-widget-meta">Top 5 prioritized accounts · new list created</div></div>' +
+        '<div class="skill-widget-body">' +
+        '<div class="skill-confirm-list">' + items + '</div>' +
+        '<div class="skill-confirm-detail">' +
+        '<div class="skill-confirm-detail-row"><span class="skill-confirm-label">List name</span><span class="skill-confirm-value">FSI Priority — Q1 2026 (auto)</span></div>' +
+        '<div class="skill-confirm-detail-row"><span class="skill-confirm-label">Visibility</span><span class="skill-confirm-value">Mason Anderson + FSI SDR team</span></div>' +
+        '<div class="skill-confirm-detail-row"><span class="skill-confirm-label">Refresh</span><span class="skill-confirm-value">Weekly · auto-rescore on new signals</span></div>' +
+        '</div></div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary">Open list in Outreach</button>' +
+        '<button class="skill-widget-cta" data-chain="dm-from-prioritize">Find DMs at top 3</button></div></div>';
+    }
+
+    // Variants of POV / Response for "different angle" and chain entries
+    function renderPOVAlt() {
+      const sections = [
+        { label: 'The Story', text: 'Three years ago, Citizens Financial sat exactly where Truist sits today. Three NPS platforms across business units. No closed-loop process. <strong>Member retention slipping 1.8% a year</strong> with no clear diagnosis.' },
+        { label: 'The Turning Point', text: 'Their new Chief Customer Officer made one decision: <strong>unify the measurement layer first</strong>, fix the closed-loop workflow second. Nothing else mattered until those two were in place.' },
+        { label: 'The Result', text: 'In 9 months, Citizens hit <strong>a 4-point NPS improvement</strong> and a <strong>12% drop in detractor escalations</strong>. By month 14, retention curve flipped positive. That decision is the inflection point in their 2024 annual report.' },
+        { label: 'The Parallel', text: 'Truist is at the same fork. New Chief Customer Officer. Three NPS platforms. Retention bleeding (2.3% YoY in retail). The <strong>same decision is on your desk right now</strong>.' },
+        { label: 'The Ask', text: '<strong>30 minutes with your CCO</strong> to walk through what Citizens did, what they wish they had done first, and how the architecture would translate to Truist&#39;s footprint.' },
+      ];
+      const items = sections.map(s =>
+        '<div class="skill-pov-section"><div class="skill-pov-label">' + s.label + '</div>' +
+        '<div class="skill-pov-text">' + s.text + '</div></div>'
+      ).join('');
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:lightbulb"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Point of View · Truist Financial</div>' +
+        '<div class="skill-widget-meta">Story-driven angle · same play</div></div>' +
+        '<div class="skill-widget-body">' + items + '</div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="response-from-pov">Use in cold email</button>' +
+        '<button class="skill-widget-cta" data-chain="save-sfdc">Save to Salesforce notes</button>' +
+        '<button class="skill-widget-cta" data-chain="retry-pov-2">Try yet another angle</button></div></div>';
+    }
+
+    function renderPOVFromTranscripts() {
+      const sections = [
+        { label: 'The Situation', text: 'Truist&#39;s CX Strategy Lead told us on the March discovery call: "We are not sure if we need a platform yet — we are still figuring out what good measurement even looks like." That&#39;s the entry point.' },
+        { label: 'The Pattern from Comparable Customers', text: 'Citizens&#39; Director told us on Oct 14: "By the time we saw a detractor, they were 3 weeks gone." That is the exact problem Truist is describing — they just don&#39;t have the language for it yet.' },
+        { label: 'The Closed-Loop Insight', text: 'USAA&#39;s VP Member Experience put it best in our Nov working session: "<strong>Closed-loop is the unlock. The score on its own does nothing.</strong>" That insight is the back-half of the Truist POV.' },
+        { label: 'The Recommendation', text: 'Position Qualtrics not as a measurement tool but as <strong>a closed-loop workflow engine that happens to include measurement</strong>. Reframe the value prop away from "score" toward "what you do with the score."' },
+        { label: 'The Ask', text: 'A 30-minute working session with the CX Strategy Lead to <strong>jointly define what good measurement looks like at Truist</strong> — using the Citizens and USAA patterns as starting points. Co-create, don&#39;t pitch.' },
+      ];
+      const items = sections.map(s =>
+        '<div class="skill-pov-section"><div class="skill-pov-label">' + s.label + '</div>' +
+        '<div class="skill-pov-text">' + s.text + '</div></div>'
+      ).join('');
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:lightbulb"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Point of View · Truist Financial</div>' +
+        '<div class="skill-widget-meta">Grounded in 3 Kaia call moments</div></div>' +
+        '<div class="skill-widget-body">' + items + '</div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="response-from-pov">Use in cold email</button>' +
+        '<button class="skill-widget-cta" data-chain="save-sfdc">Save to Salesforce notes</button>' +
+        '<button class="skill-widget-cta">Refine with more transcripts</button></div></div>';
+    }
+
+    function renderResponseAlt() {
+      const body = 'Sarah,\n\nQuick question. Your team is rebuilding measurement infrastructure after the merger. We helped Citizens through a similar moment in 2024 and they had one big regret: they wished they had wired the closed-loop workflow before unifying the NPS platforms, not after.\n\nWould 20 minutes be useful to walk through what they did differently the second time? Not a pitch, just the playbook.\n\nMason\nQualtrics · FSI';
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:envelope-simple"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Cold Email Draft · Sarah Chen, Truist</div>' +
+        '<div class="skill-widget-meta">Curious tone · shorter · no proof points</div></div>' +
+        '<div class="skill-widget-body"><div class="skill-email">' +
+        '<div class="skill-email-meta"><strong>To:</strong> sarah.chen@truist.com<br>' +
+        '<strong>Subject:</strong> The thing Citizens wished they did first</div>' +
+        '<div class="skill-email-body">' + body + '</div>' +
+        '<div class="skill-email-why"><strong>Why this works:</strong> Opens with a regret statement (creates curiosity, low-commitment). Replaces proof-stat-density with a single specific insight. 20-min ask is lower friction than 30. Subject line is a curiosity hook with no buzzwords.</div>' +
+        '</div></div>' +
+        '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="send-outreach">Send to Outreach</button>' +
+        '<button class="skill-widget-cta" data-chain="retry-response-2">Try yet another angle</button>' +
+        '<button class="skill-widget-cta">Edit draft</button></div></div>';
+    }
+
+    // ── Chain action handlers ──
+    // Each chain has: userText, agentIntro, widget renderer
+    const chainConfig = {
+      'dm-from-prioritize': {
+        userText: 'Find decision makers at my top 3 prioritized accounts.',
+        agentIntro: 'Pulled <strong>7 verified decision makers</strong> across Truist, PenFed, and Citizens. Each grouped by account and scored on recent signal strength:',
+        render: renderDMsBatched,
+      },
+      'export-prioritize': {
+        userText: 'Export my top 5 prioritized accounts to Outreach.',
+        agentIntro: 'Done. Created a new Outreach list and synced your top 5 prioritized accounts. The list will auto-refresh weekly as new signals come in:',
+        render: renderOutreachExported,
+      },
+      'push-dms-outreach': {
+        userText: 'Push all 5 contacts to my Outreach Closed-Loop CX sequence.',
+        agentIntro: 'Added all 5 contacts to the <strong>Closed-Loop CX Outbound · PenFed</strong> sequence. Reply detection is on — I&apos;ll surface any responses in your inbox and Slack:',
+        render: renderPushedToOutreach,
+      },
+      'push-batched-outreach': {
+        userText: 'Push all 7 contacts to Outreach.',
+        agentIntro: 'Added all 7 contacts to the right sequence per account. Truist contacts went to VoC Modernization, PenFed to Closed-Loop CX, Citizens to Digital Banking CX:',
+        render: function() {
+          return renderPushedToOutreach({
+            contacts: [
+              'Sarah Chen — SVP CX, Truist',
+              'David Kumar — VP Digital Banking, Truist',
+              'Michael Torres — Director CX Insights, Truist',
+              'Jennifer Park — Head of Member Experience, PenFed',
+              'Maria Santos — Director VoC, PenFed',
+              'Rachel Thompson — Director CX Strategy, Citizens',
+              'James Wong — VP Customer Operations, Citizens',
+            ],
+            sequence: '3 sequences · split by account',
+          });
+        },
+      },
+      'response-from-dm': {
+        userText: 'Draft a personalized cold email to the top contact.',
+        agentIntro: 'Drafted a cold email to <strong>Jennifer Park</strong> at PenFed (highest-scoring contact). Anchored to her recent closed-loop feedback post and the Closed-Loop CX play:',
+        render: renderResponse,
+      },
+      'pov-from-signals': {
+        userText: 'Build a POV from those signals for Truist on VoC Modernization.',
+        agentIntro: 'Built a signal-grounded POV. Wired in the CXO change, the Q1 earnings mention of "voice of customer transformation," and Sarah Chen&apos;s LinkedIn post:',
+        render: renderPOV,
+      },
+      'response-from-signals': {
+        userText: 'Draft a cold email using those signals.',
+        agentIntro: 'Drafted a cold email to Sarah Chen at Truist. Lead hook is her LinkedIn "NPS reset" post; second beat is the $50M tech commitment:',
+        render: renderResponse,
+      },
+      'response-from-pov': {
+        userText: 'Use this POV to draft a cold email to Sarah Chen.',
+        agentIntro: 'Drafted a cold email to Sarah Chen. Used the POV&apos;s argument structure: situation hook from her LinkedIn, Citizens comparable for proof, low-commitment ask:',
+        render: renderResponse,
+      },
+      'save-sfdc': {
+        userText: 'Save this POV to the Truist account in Salesforce.',
+        agentIntro: 'Saved. Tagged for searchability and linked to Sarah Chen on the contact record. Your AE will see it on the account next time they open it:',
+        render: renderSFDCSaved,
+      },
+      'retry-pov': {
+        userText: 'Try a different angle on that POV.',
+        agentIntro: 'Took a <strong>story-driven angle</strong> this time. Same evidence, but framed as a Citizens parallel rather than a Truist diagnosis. Could land differently with the CXO:',
+        render: renderPOVAlt,
+      },
+      'retry-pov-2': {
+        userText: 'One more angle.',
+        agentIntro: 'Switched to an <strong>insight-first angle</strong>, anchored more on Kaia call patterns than on Truist signals. See which version lands best with the CXO:',
+        render: renderPOVFromTranscripts,
+      },
+      'send-outreach': {
+        userText: 'Queue this email in Outreach.',
+        agentIntro: 'Queued. Send is scheduled for Tuesday 10:00 AM ET — that&apos;s your highest open-rate window for FSI based on the last 90 days of your activity:',
+        render: renderEmailQueued,
+      },
+      'retry-response': {
+        userText: 'Try a different angle.',
+        agentIntro: 'Took a <strong>curious tone</strong> this time. Shorter, no proof points, just a curiosity hook. Lower friction for a cold open:',
+        render: renderResponseAlt,
+      },
+      'retry-response-2': {
+        userText: 'Show me one more option.',
+        agentIntro: 'Reverted to the direct version. Sometimes the proof-point density is what unlocks the meeting. Up to you which to send:',
+        render: renderResponse,
+      },
+      'pov-from-transcripts': {
+        userText: 'Use those transcript insights to build a POV for Truist.',
+        agentIntro: 'Built a POV anchored to those Kaia call moments. The Citizens detractor quote and USAA closed-loop quote wire directly into the proof structure:',
+        render: renderPOVFromTranscripts,
+      },
+    };
+
+    function runChainAction(chainKey) {
+      const config = chainConfig[chainKey];
+      if (!config) return;
+      addUserMessage(config.userText);
+      addTypingIndicator();
+      setTimeout(() => {
+        removeTypingIndicator();
+        addAgentMessage('<div class="chat-msg-bubble">' + config.agentIntro + '</div>' + config.render());
+      }, 900);
     }
 
     // ── Shared form data ──
@@ -15714,6 +17444,31 @@ Mason`;
 
     quickActions.forEach(btn => {
       btn.addEventListener('click', () => runAction(btn.dataset.action));
+    });
+
+    // Chain action delegation — click any [data-chain] button inside a skill widget
+    messages.addEventListener('click', (e) => {
+      // Handle expand/collapse on card rows or toggle buttons
+      const toggle = e.target.closest('.skill-card-expand-toggle');
+      const cardRow = e.target.closest('.skill-card-row');
+      if (toggle || cardRow) {
+        // But don't toggle if user clicked a button inside the row (e.g., chain button)
+        const isInsideButton = e.target.closest('button:not(.skill-card-expand-toggle):not(.skill-card-row)');
+        if (toggle || (cardRow && !isInsideButton)) {
+          const card = (toggle || cardRow).closest('.skill-card');
+          if (card) {
+            card.classList.toggle('expanded');
+            return;
+          }
+        }
+      }
+
+      const chainBtn = e.target.closest('[data-chain]');
+      if (chainBtn) {
+        e.preventDefault();
+        chainBtn.classList.add('chain-clicked');
+        runChainAction(chainBtn.dataset.chain);
+      }
     });
 
     function handleSend() {
