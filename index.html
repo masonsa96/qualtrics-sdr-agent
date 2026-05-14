@@ -5911,13 +5911,16 @@
     padding: 11px 13px;
     cursor: pointer;
     user-select: none;
-    position: relative;
   }
   .skill-transcript-row:hover { background: var(--surface); }
   .skill-transcript:last-child { margin-bottom: 0; }
   .skill-transcript-header {
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 6px; gap: 10px;
+  }
+  .skill-transcript-header-right {
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
   }
   .skill-transcript-title { font-size: 11.5px; font-weight: 700; color: var(--text); letter-spacing: -0.1px; flex: 1; min-width: 0; }
   .skill-transcript-time { font-size: 9.5px; color: var(--text-dim); font-weight: 600; white-space: nowrap; }
@@ -5932,22 +5935,6 @@
   }
   .skill-transcript-context { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
   .skill-transcript-context strong { color: var(--text); font-weight: 700; }
-  .skill-transcript-toggle {
-    position: absolute;
-    top: 11px; right: 13px;
-    background: none;
-    border: none;
-    color: var(--text-dim);
-    cursor: pointer;
-    width: 22px; height: 22px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 999px;
-    padding: 0;
-    transition: transform 0.25s ease, color 0.15s, background 0.15s;
-  }
-  .skill-transcript-toggle:hover { color: var(--magenta); background: var(--magenta-glow); }
-  .skill-transcript.expanded .skill-transcript-toggle { transform: rotate(180deg); color: var(--magenta); }
-  .skill-transcript-title { padding-right: 26px; }
 
   /* Transcript dialogue lines (in expanded view) */
   .skill-transcript-lines {
@@ -6795,6 +6782,610 @@
   }
   #view-demo .skill-account-reason strong {
     color: var(--ci-blue);
+  }
+
+  /* ═════════════════════════════════════════════════════════ */
+  /* ENRICHMENT WIDGETS — Account / Contact full-profile cards   */
+  /* ═════════════════════════════════════════════════════════ */
+  #view-demo .enrich-section {
+    background: var(--ci-bg);
+    border: 1px solid var(--ci-border);
+    border-radius: 11px;
+    padding: 13px 14px;
+    margin-bottom: 11px;
+  }
+  #view-demo .enrich-section:last-child { margin-bottom: 0; }
+
+  #view-demo .enrich-section-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--ci-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  #view-demo .enrich-section-label iconify-icon {
+    font-size: 13px;
+    color: var(--ci-blue);
+  }
+
+  #view-demo .enrich-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  #view-demo .enrich-grid + .enrich-grid { margin-top: 8px; }
+  #view-demo .enrich-grid-stats {
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 10px;
+  }
+
+  #view-demo .enrich-prop {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 8px;
+    padding: 8px 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  #view-demo .enrich-prop-full {
+    grid-column: 1 / -1;
+  }
+  #view-demo .enrich-prop-label {
+    font-size: 9px;
+    font-weight: 800;
+    color: var(--ci-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  #view-demo .enrich-prop-value {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ci-text);
+    line-height: 1.35;
+  }
+  #view-demo .enrich-verified {
+    color: var(--ci-mint-deep);
+    font-size: 13px;
+    vertical-align: -2px;
+    margin-left: 3px;
+  }
+
+  /* Stat tiles (large bold metric numbers) */
+  #view-demo .enrich-stat {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 8px;
+    padding: 10px 11px;
+    text-align: center;
+  }
+  #view-demo .enrich-stat-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ci-blue);
+    letter-spacing: -0.4px;
+    line-height: 1.1;
+  }
+  #view-demo .enrich-stat-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--ci-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  /* Chips (tech stack, expertise, certifications) */
+  #view-demo .enrich-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  #view-demo .enrich-chip {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    color: var(--ci-text);
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 4px 9px;
+    border-radius: 999px;
+    letter-spacing: -0.1px;
+  }
+  #view-demo .enrich-chip-mint {
+    background: var(--ci-mint-soft);
+    border-color: rgba(46, 229, 183, 0.35);
+    color: #0a8a66;
+  }
+
+  /* List items (strategic priorities) */
+  #view-demo .enrich-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  #view-demo .enrich-list-item {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 8px;
+    padding: 8px 11px;
+    font-size: 11.5px;
+    color: var(--ci-text);
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    line-height: 1.4;
+  }
+  #view-demo .enrich-list-item iconify-icon {
+    color: var(--ci-blue);
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* News / recent activity items */
+  #view-demo .enrich-news {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  #view-demo .enrich-news-item {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 8px;
+    padding: 8px 11px;
+    display: flex;
+    gap: 11px;
+    align-items: center;
+    font-size: 11.5px;
+    color: var(--ci-text);
+    line-height: 1.4;
+  }
+  #view-demo .enrich-news-when {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--ci-blue);
+    background: var(--ci-blue-soft);
+    padding: 3px 8px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  #view-demo .enrich-news-text {
+    flex: 1;
+  }
+
+  /* Contact enrichment hero block (avatar + name + title) */
+  #view-demo .enrich-hero {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 4px 4px 14px;
+    margin-bottom: 11px;
+    border-bottom: 1px solid var(--ci-border);
+  }
+  #view-demo .enrich-hero-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px -4px rgba(0, 111, 239, 0.35);
+  }
+  #view-demo .enrich-hero-info {
+    flex: 1;
+    min-width: 0;
+  }
+  #view-demo .enrich-hero-name {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ci-text);
+    letter-spacing: -0.4px;
+    line-height: 1.2;
+    margin-bottom: 3px;
+  }
+  #view-demo .enrich-hero-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ci-text-muted);
+    margin-bottom: 4px;
+  }
+  #view-demo .enrich-hero-location {
+    font-size: 11px;
+    color: var(--ci-text-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  #view-demo .enrich-hero-location iconify-icon {
+    font-size: 12px;
+  }
+
+  /* Bio block in profile section */
+  #view-demo .enrich-bio {
+    font-size: 11.5px;
+    color: var(--ci-text);
+    line-height: 1.55;
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Hint text inside enrichment form */
+  #view-demo .chat-form-hint {
+    font-size: 11px;
+    color: var(--ci-text-muted);
+    line-height: 1.45;
+    margin-top: 8px;
+    padding: 8px 11px;
+    background: var(--ci-blue-soft);
+    border-left: 3px solid var(--ci-blue);
+    border-radius: 0 7px 7px 0;
+  }
+
+  /* ═════════════════════════════════════════════════════════ */
+  /* ACTIVITY HISTORY TIMELINE                                  */
+  /* ═════════════════════════════════════════════════════════ */
+  #view-demo .hist-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin-bottom: 14px;
+    padding: 11px;
+    background: var(--ci-bg);
+    border: 1px solid var(--ci-border);
+    border-radius: 10px;
+  }
+  #view-demo .hist-stat {
+    text-align: center;
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 8px;
+    padding: 8px 6px;
+  }
+  #view-demo .hist-stat-value {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--ci-blue);
+    letter-spacing: -0.4px;
+    line-height: 1;
+  }
+  #view-demo .hist-stat-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--ci-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-top: 4px;
+  }
+
+  #view-demo .hist-timeline {
+    display: flex;
+    flex-direction: column;
+  }
+  #view-demo .hist-event {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+  #view-demo .hist-event-rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  #view-demo .hist-event-dot {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--ci-surface);
+    border: 2px solid var(--ci-blue);
+    color: var(--ci-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px -2px rgba(0, 111, 239, 0.25);
+  }
+  #view-demo .hist-event-dot iconify-icon {
+    font-size: 13px;
+  }
+  #view-demo .hist-event-line {
+    flex: 1;
+    width: 2px;
+    background: var(--ci-border);
+    min-height: 12px;
+    margin-top: 4px;
+  }
+
+  #view-demo .hist-event-card {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 10px;
+    padding: 10px 13px;
+    transition: all 0.15s ease;
+  }
+  #view-demo .hist-event-card:hover {
+    border-color: var(--ci-blue);
+    box-shadow: 0 4px 12px -4px rgba(0, 111, 239, 0.12);
+  }
+  #view-demo .hist-event-meta {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    margin-bottom: 5px;
+    flex-wrap: wrap;
+  }
+  #view-demo .hist-event-date {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--ci-text);
+    letter-spacing: -0.1px;
+  }
+  #view-demo .hist-event-ago {
+    font-size: 9px;
+    color: var(--ci-text-dim);
+    font-weight: 600;
+  }
+  #view-demo .hist-event-tag {
+    font-size: 8.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--ci-bg);
+    color: var(--ci-text-muted);
+    padding: 2px 7px;
+    border-radius: 999px;
+    margin-left: auto;
+  }
+  #view-demo .hist-event-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ci-text);
+    line-height: 1.35;
+    margin-bottom: 3px;
+    letter-spacing: -0.1px;
+  }
+  #view-demo .hist-event-detail {
+    font-size: 11px;
+    color: var(--ci-text-muted);
+    line-height: 1.45;
+  }
+
+  /* Event type color variants */
+  #view-demo .hist-event-meeting .hist-event-dot { border-color: var(--ci-blue); color: var(--ci-blue); }
+  #view-demo .hist-event-email .hist-event-dot { border-color: var(--ci-violet); color: var(--ci-violet); }
+  #view-demo .hist-event-call .hist-event-dot { border-color: #F59E0B; color: #F59E0B; }
+  #view-demo .hist-event-opp .hist-event-dot { border-color: var(--ci-mint-deep); color: var(--ci-mint-deep); background: var(--ci-mint-soft); }
+  #view-demo .hist-event-task .hist-event-dot { border-color: var(--ci-text-dim); color: var(--ci-text-dim); }
+  #view-demo .hist-event-signal .hist-event-dot { border-color: var(--ci-violet); color: var(--ci-violet); background: rgba(105, 92, 232, 0.08); }
+
+  #view-demo .hist-event-opp .hist-event-card {
+    border-color: rgba(46, 229, 183, 0.4);
+    background: linear-gradient(to right, var(--ci-mint-soft), var(--ci-surface) 30%);
+  }
+  #view-demo .hist-event-signal .hist-event-card {
+    border-color: rgba(105, 92, 232, 0.3);
+  }
+
+  /* ═════════════════════════════════════════════════════════ */
+  /* COACH ME — sales coaching insights                         */
+  /* ═════════════════════════════════════════════════════════ */
+  #view-demo .coach-score {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, var(--ci-blue-soft), rgba(105, 92, 232, 0.06));
+    border: 1px solid var(--ci-blue);
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  #view-demo .coach-score-grade {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--ci-blue) 0%, var(--ci-violet) 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px -4px rgba(0, 111, 239, 0.4);
+  }
+  #view-demo .coach-score-info {
+    flex: 1;
+    min-width: 0;
+  }
+  #view-demo .coach-score-label {
+    font-size: 9.5px;
+    font-weight: 800;
+    color: var(--ci-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 4px;
+  }
+  #view-demo .coach-score-text {
+    font-size: 12px;
+    color: var(--ci-text);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  #view-demo .coach-section {
+    margin-bottom: 16px;
+  }
+  #view-demo .coach-section:last-child { margin-bottom: 0; }
+  #view-demo .coach-section-label {
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--ci-blue);
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  #view-demo .coach-section-label iconify-icon {
+    font-size: 13px;
+  }
+  #view-demo .coach-section-label-good {
+    color: var(--ci-mint-deep);
+  }
+  #view-demo .coach-section-label-warn {
+    color: #D97706;
+  }
+
+  /* MEDDIC bars */
+  #view-demo .coach-meddic {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--ci-bg);
+    border: 1px solid var(--ci-border);
+    border-radius: 10px;
+    padding: 11px 12px;
+  }
+  #view-demo .coach-meddic-row {
+    display: grid;
+    grid-template-columns: 22px 1fr 2fr 32px;
+    gap: 10px;
+    align-items: center;
+  }
+  #view-demo .coach-meddic-letter {
+    width: 22px; height: 22px;
+    border-radius: 5px;
+    background: var(--ci-blue);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  #view-demo .coach-meddic-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ci-text);
+  }
+  #view-demo .coach-meddic-bar {
+    height: 7px;
+    background: var(--ci-border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  #view-demo .coach-meddic-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ci-blue), var(--ci-violet));
+    border-radius: 999px;
+    transition: width 0.6s ease;
+  }
+  #view-demo .coach-meddic-fill-gap {
+    background: linear-gradient(90deg, #F59E0B, #DC2626);
+  }
+  #view-demo .coach-meddic-pct {
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--ci-text);
+    text-align: right;
+  }
+
+  /* Coaching insight cards */
+  #view-demo .coach-insights {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  #view-demo .coach-insight {
+    background: var(--ci-surface);
+    border: 1px solid var(--ci-border);
+    border-radius: 10px;
+    padding: 11px 13px;
+    border-left: 3px solid var(--ci-blue);
+  }
+  #view-demo .coach-insight-strength {
+    border-left-color: var(--ci-mint-deep);
+    background: linear-gradient(to right, var(--ci-mint-soft), var(--ci-surface) 50%);
+  }
+  #view-demo .coach-insight-gap {
+    border-left-color: #F59E0B;
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.08), var(--ci-surface) 50%);
+  }
+  #view-demo .coach-insight-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 6px;
+  }
+  #view-demo .coach-insight-header iconify-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  #view-demo .coach-insight-strength .coach-insight-header iconify-icon {
+    color: var(--ci-mint-deep);
+  }
+  #view-demo .coach-insight-gap .coach-insight-header iconify-icon {
+    color: #D97706;
+  }
+  #view-demo .coach-insight-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ci-text);
+    letter-spacing: -0.15px;
+  }
+  #view-demo .coach-insight-detail {
+    font-size: 11.5px;
+    color: var(--ci-text);
+    line-height: 1.5;
+    margin-bottom: 7px;
+  }
+  #view-demo .coach-insight-quote {
+    font-size: 11px;
+    color: var(--ci-text);
+    background: var(--ci-bg);
+    border: 1px solid var(--ci-border);
+    border-radius: 7px;
+    padding: 8px 10px;
+    font-style: italic;
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
+  #view-demo .coach-insight-rec {
+    font-size: 11px;
+    color: var(--ci-text);
+    background: var(--ci-blue-soft);
+    border: 1px solid rgba(0, 111, 239, 0.18);
+    border-radius: 7px;
+    padding: 8px 10px;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  #view-demo .coach-insight-rec strong {
+    color: var(--ci-blue);
+    font-weight: 700;
+  }
+  #view-demo .coach-insight-ref {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--ci-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
   }
 
   /* Form-intro spacing for the live chat tab */
@@ -11596,6 +12187,12 @@
                   <button class="chat-quick-action" data-action="signals">
                     <span class="qa-icon"><iconify-icon icon="ph:broadcast"></iconify-icon></span>Uncover signals
                   </button>
+                  <button class="chat-quick-action" data-action="enrich-account">
+                    <span class="qa-icon"><iconify-icon icon="ph:buildings"></iconify-icon></span>Enrich account
+                  </button>
+                  <button class="chat-quick-action" data-action="enrich-contact">
+                    <span class="qa-icon"><iconify-icon icon="ph:user-circle"></iconify-icon></span>Enrich contact
+                  </button>
                   <button class="chat-quick-action" data-action="pov">
                     <span class="qa-icon"><iconify-icon icon="ph:lightbulb"></iconify-icon></span>POV generator
                   </button>
@@ -11604,6 +12201,12 @@
                   </button>
                   <button class="chat-quick-action" data-action="transcripts">
                     <span class="qa-icon"><iconify-icon icon="ph:microphone"></iconify-icon></span>Search call transcripts
+                  </button>
+                  <button class="chat-quick-action" data-action="history">
+                    <span class="qa-icon"><iconify-icon icon="ph:clock-counter-clockwise"></iconify-icon></span>Activity history
+                  </button>
+                  <button class="chat-quick-action" data-action="coach">
+                    <span class="qa-icon"><iconify-icon icon="ph:graduation-cap"></iconify-icon></span>Coach me
                   </button>
                 </div>
                 <div class="chat-input">
@@ -16558,10 +17161,12 @@ Mason`;
         '<div class="skill-transcript-row skill-card-row">' +
         '<div class="skill-transcript-header">' +
         '<div class="skill-transcript-title">' + m.title + '</div>' +
-        '<div class="skill-transcript-time">' + m.time + '</div></div>' +
+        '<div class="skill-transcript-header-right">' +
+        '<div class="skill-transcript-time">' + m.time + '</div>' +
+        '<button class="skill-card-expand-toggle" aria-label="Expand"><iconify-icon icon="ph:caret-down"></iconify-icon></button>' +
+        '</div></div>' +
         '<div class="skill-transcript-quote">' + m.quote + '</div>' +
         '<div class="skill-transcript-context">' + m.context + '</div>' +
-        '<button class="skill-transcript-toggle skill-card-expand-toggle" aria-label="Expand"><iconify-icon icon="ph:caret-down"></iconify-icon></button>' +
         '</div>' +
         buildTranscriptExpanded(m.details) +
         '</div>'
@@ -16573,6 +17178,385 @@ Mason`;
         '<div class="skill-widget-footer"><button class="skill-widget-cta primary" data-chain="pov-from-transcripts">Use these in POV</button>' +
         '<button class="skill-widget-cta">See all 23 matches</button>' +
         '<button class="skill-widget-cta">Refine search</button></div></div>';
+    }
+
+    // ─── Account enrichment ──────────────────────────────────────────
+    function renderAccountEnrichment(opts) {
+      opts = opts || {};
+      const name = opts.name || 'Truist Financial Corporation';
+      const data = {
+        domain: 'truist.com',
+        hq: 'Charlotte, NC · US',
+        founded: '2019 (BB&T + SunTrust merger)',
+        ticker: 'NYSE: TFC',
+        industry: 'Regional Bank · Financial Services',
+        subVertical: 'Banking · Wealth Management · Insurance',
+        revenue: '$23.7B',
+        employees: '~37,000',
+        marketCap: '$48.2B',
+        customers: '~12M retail · ~700K business',
+        regions: 'US Southeast · Mid-Atlantic',
+        techStack: ['Salesforce', 'Snowflake', 'Adobe Experience Cloud', 'ServiceNow', 'MuleSoft', 'Microsoft Azure', 'Outreach', 'Gong'],
+        strategicPriorities: [
+          'Voice of Customer transformation (2026 priority)',
+          '$50M tech modernization commitment for FY26',
+          'Digital banking platform rebuild',
+          'Branch network optimization',
+        ],
+        certifications: ['SOC 2 Type II', 'PCI-DSS Level 1', 'FFIEC compliant'],
+        recentNews: [
+          { when: '2d', text: 'Named Sarah Chen as Chief Customer Officer' },
+          { when: '5d', text: 'Q1 earnings: VoC transformation cited as priority' },
+          { when: '14d', text: 'SVP CX shared post on NPS strategy reset' },
+          { when: '28d', text: '$50M FY26 tech commitment announced' },
+        ],
+      };
+
+      const stack = data.techStack.map(t => '<span class="enrich-chip">' + t + '</span>').join('');
+      const priorities = data.strategicPriorities.map(p =>
+        '<div class="enrich-list-item"><iconify-icon icon="ph:caret-right"></iconify-icon><div>' + p + '</div></div>'
+      ).join('');
+      const certs = data.certifications.map(c => '<span class="enrich-chip enrich-chip-mint">' + c + '</span>').join('');
+      const news = data.recentNews.map(n =>
+        '<div class="enrich-news-item"><div class="enrich-news-when">' + n.when + '</div><div class="enrich-news-text">' + n.text + '</div></div>'
+      ).join('');
+
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:buildings"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Account Enrichment · ' + name + '</div>' +
+        '<div class="skill-widget-meta">Pulled from ZoomInfo, Clay, public filings · refreshed today</div></div>' +
+        '<div class="skill-widget-body">' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:identification-card"></iconify-icon>Company Basics</div>' +
+        '<div class="enrich-grid">' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Domain</div><div class="enrich-prop-value">' + data.domain + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">HQ</div><div class="enrich-prop-value">' + data.hq + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Founded</div><div class="enrich-prop-value">' + data.founded + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Ticker</div><div class="enrich-prop-value">' + data.ticker + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Industry</div><div class="enrich-prop-value">' + data.industry + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Sub-vertical</div><div class="enrich-prop-value">' + data.subVertical + '</div></div>' +
+        '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:chart-line"></iconify-icon>Scale &amp; Footprint</div>' +
+        '<div class="enrich-grid enrich-grid-stats">' +
+        '<div class="enrich-stat"><div class="enrich-stat-value">' + data.revenue + '</div><div class="enrich-stat-label">Revenue (FY24)</div></div>' +
+        '<div class="enrich-stat"><div class="enrich-stat-value">' + data.employees + '</div><div class="enrich-stat-label">Employees</div></div>' +
+        '<div class="enrich-stat"><div class="enrich-stat-value">' + data.marketCap + '</div><div class="enrich-stat-label">Market Cap</div></div>' +
+        '</div>' +
+        '<div class="enrich-grid">' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Customers</div><div class="enrich-prop-value">' + data.customers + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Regions</div><div class="enrich-prop-value">' + data.regions + '</div></div>' +
+        '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:stack"></iconify-icon>Tech Stack</div>' +
+        '<div class="enrich-chips">' + stack + '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:flag"></iconify-icon>Strategic Priorities</div>' +
+        '<div class="enrich-list">' + priorities + '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:shield-check"></iconify-icon>Certifications &amp; Compliance</div>' +
+        '<div class="enrich-chips">' + certs + '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:newspaper"></iconify-icon>Recent Activity</div>' +
+        '<div class="enrich-news">' + news + '</div></div>' +
+
+        '</div>' +
+        '<div class="skill-widget-footer">' +
+        '<button class="skill-widget-cta primary" data-chain="dm-from-prioritize">Find decision makers</button>' +
+        '<button class="skill-widget-cta" data-chain="pov-from-signals">Build POV for this account</button>' +
+        '<button class="skill-widget-cta">Save to Salesforce</button></div></div>';
+    }
+
+    // ─── Contact enrichment ──────────────────────────────────────────
+    function renderContactEnrichment(opts) {
+      opts = opts || {};
+      const name = opts.name || 'Sarah Chen';
+      const data = {
+        title: 'SVP, Customer Experience',
+        company: 'Truist Financial',
+        location: 'Charlotte, NC',
+        email: 'sarah.chen@truist.com',
+        emailVerified: true,
+        phone: '+1 (704) 555-0142',
+        linkedin: 'linkedin.com/in/sarahchen-cx',
+        tenure: '8 months at Truist',
+        previousRole: 'Capital One · SVP Customer Insights (4.2 years)',
+        education: 'Wharton MBA · Carnegie Mellon BS Computer Science',
+        directReports: '4 (CX Strategy, VoC Manager, Closed-Loop Specialist, Insights Lead)',
+        reportsTo: 'Chief Customer Officer → CEO Bill Rogers',
+        mutualConnections: '23 mutual · 7 Qualtrics employees in network',
+        bio: 'CX leader with 15+ years in financial services. Specializes in voice-of-customer programs, CX measurement, and closed-loop feedback systems. Led post-merger CX integration at Capital One before joining Truist 8 months ago.',
+        skills: ['Customer Experience', 'Voice of Customer', 'NPS', 'Closed-Loop Feedback', 'Banking', 'CX Strategy', 'Team Leadership'],
+        activity: [
+          { when: '6d', text: 'LinkedIn post: "Why our NPS strategy needs a reset"' },
+          { when: '12d', text: 'Liked Qualtrics LinkedIn post on closed-loop CX' },
+          { when: '21d', text: 'Speaking at FinXTech Summit · CX panel' },
+          { when: '35d', text: 'Endorsed Capital One alumni in customer analytics' },
+        ],
+      };
+
+      const skills = data.skills.map(s => '<span class="enrich-chip">' + s + '</span>').join('');
+      const activity = data.activity.map(a =>
+        '<div class="enrich-news-item"><div class="enrich-news-when">' + a.when + '</div><div class="enrich-news-text">' + a.text + '</div></div>'
+      ).join('');
+
+      const initials = name.split(' ').map(s => s[0]).join('').substring(0, 2).toUpperCase();
+      const verifiedIcon = data.emailVerified ? ' <iconify-icon icon="ph:seal-check-fill" class="enrich-verified"></iconify-icon>' : '';
+
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:user-circle"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Contact Enrichment · ' + name + '</div>' +
+        '<div class="skill-widget-meta">Pulled from ZoomInfo, LinkedIn, Apollo · verified</div></div>' +
+        '<div class="skill-widget-body">' +
+
+        '<div class="enrich-hero">' +
+        '<div class="enrich-hero-avatar">' + initials + '</div>' +
+        '<div class="enrich-hero-info">' +
+        '<div class="enrich-hero-name">' + name + '</div>' +
+        '<div class="enrich-hero-title">' + data.title + ' · ' + data.company + '</div>' +
+        '<div class="enrich-hero-location"><iconify-icon icon="ph:map-pin"></iconify-icon>' + data.location + '</div>' +
+        '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:address-book"></iconify-icon>Contact Info</div>' +
+        '<div class="enrich-grid">' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Email</div><div class="enrich-prop-value">' + data.email + verifiedIcon + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Phone</div><div class="enrich-prop-value">' + data.phone + '</div></div>' +
+        '<div class="enrich-prop enrich-prop-full"><div class="enrich-prop-label">LinkedIn</div><div class="enrich-prop-value">' + data.linkedin + '</div></div>' +
+        '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:identification-badge"></iconify-icon>Profile</div>' +
+        '<div class="enrich-bio">' + data.bio + '</div>' +
+        '<div class="enrich-grid">' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Tenure</div><div class="enrich-prop-value">' + data.tenure + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Previous role</div><div class="enrich-prop-value">' + data.previousRole + '</div></div>' +
+        '<div class="enrich-prop enrich-prop-full"><div class="enrich-prop-label">Education</div><div class="enrich-prop-value">' + data.education + '</div></div>' +
+        '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:tree-structure"></iconify-icon>Reporting Structure</div>' +
+        '<div class="enrich-grid">' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Reports to</div><div class="enrich-prop-value">' + data.reportsTo + '</div></div>' +
+        '<div class="enrich-prop"><div class="enrich-prop-label">Direct reports</div><div class="enrich-prop-value">' + data.directReports + '</div></div>' +
+        '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:sparkle"></iconify-icon>Expertise</div>' +
+        '<div class="enrich-chips">' + skills + '</div></div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:graph"></iconify-icon>Network</div>' +
+        '<div class="enrich-prop enrich-prop-full"><div class="enrich-prop-label">Mutual connections</div><div class="enrich-prop-value">' + data.mutualConnections + '</div></div>' +
+        '</div>' +
+
+        '<div class="enrich-section">' +
+        '<div class="enrich-section-label"><iconify-icon icon="ph:pulse"></iconify-icon>Recent Activity</div>' +
+        '<div class="enrich-news">' + activity + '</div></div>' +
+
+        '</div>' +
+        '<div class="skill-widget-footer">' +
+        '<button class="skill-widget-cta primary" data-chain="response-from-pov">Draft outreach</button>' +
+        '<button class="skill-widget-cta">Save to Salesforce</button>' +
+        '<button class="skill-widget-cta">View on LinkedIn</button></div></div>';
+    }
+
+    // ─── Activity & opportunity history (SFDC timeline) ──────────────
+    function renderActivityHistory(opts) {
+      opts = opts || {};
+      const target = opts.target || 'Truist Financial';
+      const windowLabel = opts.window || 'Last 90 days';
+
+      // Mock SFDC timeline events
+      const events = [
+        { date: 'Mar 18, 2026', daysAgo: '2d', type: 'meeting', icon: 'ph:video-camera', title: 'Discovery Call · CX Modernization', detail: 'Sarah Chen + Marcus Reid · 45 min · positive sentiment', tag: 'Discovery' },
+        { date: 'Mar 15, 2026', daysAgo: '5d', type: 'email-in', icon: 'ph:envelope-open', title: 'Reply received: "Closed-loop benchmark"', detail: 'From Sarah Chen · "Could you share examples from similar regional banks?"', tag: 'Email · inbound' },
+        { date: 'Mar 12, 2026', daysAgo: '8d', type: 'opp', icon: 'ph:trend-up', title: 'Opportunity stage advanced: Discovery → Demo Scheduled', detail: 'CX Modernization · $185K ARR · Close date Q2 FY27', tag: 'Opportunity' },
+        { date: 'Mar 10, 2026', daysAgo: '10d', type: 'call', icon: 'ph:phone', title: 'Outbound call · Sarah Chen', detail: 'Connected · 12 min · scheduled discovery for Mar 18', tag: 'Cold call' },
+        { date: 'Mar 5, 2026', daysAgo: '15d', type: 'email-out', icon: 'ph:envelope', title: 'Email sent: "Closed-loop systems for regional banks"', detail: 'To Sarah Chen · Referenced Citizens detractor framing · opened 3x', tag: 'Email · outbound' },
+        { date: 'Feb 28, 2026', daysAgo: '20d', type: 'task', icon: 'ph:check-circle', title: 'Task completed: "Send Bain/Qualtrics co-publication"', detail: 'Sent PDF link + 2-page summary to Marcus Reid', tag: 'Task' },
+        { date: 'Feb 24, 2026', daysAgo: '24d', type: 'meeting', icon: 'ph:video-camera', title: 'Intro call · Marcus Reid (Digital Banking)', detail: 'Marcus Reid · 30 min · referred to Sarah Chen for CX scope', tag: 'Intro' },
+        { date: 'Feb 21, 2026', daysAgo: '27d', type: 'opp', icon: 'ph:plus-circle', title: 'Opportunity created: Truist CX Modernization', detail: 'New logo · $185K ARR · Discovery stage · Closed-Loop CX play', tag: 'New opportunity' },
+        { date: 'Feb 18, 2026', daysAgo: '30d', type: 'email-out', icon: 'ph:envelope', title: 'Cold outreach: "Voice of Customer transformation"', detail: 'To Sarah Chen · Anchored to Q1 earnings call quote · replied within 2 days', tag: 'Email · outbound' },
+        { date: 'Feb 14, 2026', daysAgo: '34d', type: 'signal', icon: 'ph:broadcast', title: 'Signal: Sarah Chen named SVP Customer Experience', detail: 'Promoted internally · LinkedIn announcement · added to ICP list', tag: 'External signal' },
+      ];
+
+      const summary = {
+        meetings: events.filter(e => e.type === 'meeting').length,
+        emails: events.filter(e => e.type === 'email-in' || e.type === 'email-out').length,
+        calls: events.filter(e => e.type === 'call').length,
+        oppChanges: events.filter(e => e.type === 'opp').length,
+      };
+
+      const tagClass = (t) => {
+        if (t === 'meeting') return 'hist-event-meeting';
+        if (t === 'email-in' || t === 'email-out') return 'hist-event-email';
+        if (t === 'call') return 'hist-event-call';
+        if (t === 'opp') return 'hist-event-opp';
+        if (t === 'task') return 'hist-event-task';
+        if (t === 'signal') return 'hist-event-signal';
+        return '';
+      };
+
+      const timeline = events.map((e, i) =>
+        '<div class="hist-event ' + tagClass(e.type) + '">' +
+          '<div class="hist-event-rail">' +
+            '<div class="hist-event-dot"><iconify-icon icon="' + e.icon + '"></iconify-icon></div>' +
+            (i < events.length - 1 ? '<div class="hist-event-line"></div>' : '') +
+          '</div>' +
+          '<div class="hist-event-card">' +
+            '<div class="hist-event-meta">' +
+              '<span class="hist-event-date">' + e.date + '</span>' +
+              '<span class="hist-event-ago">' + e.daysAgo + ' ago</span>' +
+              '<span class="hist-event-tag">' + e.tag + '</span>' +
+            '</div>' +
+            '<div class="hist-event-title">' + e.title + '</div>' +
+            '<div class="hist-event-detail">' + e.detail + '</div>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:clock-counter-clockwise"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Activity &amp; Opportunity History · ' + target + '</div>' +
+        '<div class="skill-widget-meta">' + events.length + ' events · ' + windowLabel + ' · pulled from Salesforce</div></div>' +
+        '<div class="skill-widget-body">' +
+
+        '<div class="hist-summary">' +
+        '<div class="hist-stat"><div class="hist-stat-value">' + summary.meetings + '</div><div class="hist-stat-label">Meetings</div></div>' +
+        '<div class="hist-stat"><div class="hist-stat-value">' + summary.emails + '</div><div class="hist-stat-label">Emails</div></div>' +
+        '<div class="hist-stat"><div class="hist-stat-value">' + summary.calls + '</div><div class="hist-stat-label">Calls</div></div>' +
+        '<div class="hist-stat"><div class="hist-stat-value">' + summary.oppChanges + '</div><div class="hist-stat-label">Opp changes</div></div>' +
+        '</div>' +
+
+        '<div class="hist-timeline">' + timeline + '</div>' +
+
+        '</div>' +
+        '<div class="skill-widget-footer">' +
+        '<button class="skill-widget-cta primary" data-chain="pov-from-signals">Build POV from history</button>' +
+        '<button class="skill-widget-cta">Export to Salesforce note</button>' +
+        '<button class="skill-widget-cta">Summarize for handoff</button></div></div>';
+    }
+
+    // ─── Coach me (sales call coaching) ──────────────────────────────
+    function renderCoachMe(opts) {
+      opts = opts || {};
+      const sample = opts.sampleSize || '10 calls';
+
+      const meddic = [
+        { letter: 'M', name: 'Metrics', pct: 78, note: 'Strong — quantifying pain in 78% of calls' },
+        { letter: 'E', name: 'Economic Buyer', pct: 25, note: 'Major gap — only identifying EB in 1 of 4 calls', flag: 'gap' },
+        { letter: 'D', name: 'Decision Criteria', pct: 55, note: 'Decent — capturing in 55%' },
+        { letter: 'D', name: 'Decision Process', pct: 33, note: 'Gap — missing process map most of the time', flag: 'gap' },
+        { letter: 'I', name: 'Identify Pain', pct: 92, note: 'Excellent — pain ID is your strength' },
+        { letter: 'C', name: 'Champion', pct: 67, note: 'Mid — identifying but not always testing' },
+      ];
+
+      const meddicRows = meddic.map(m =>
+        '<div class="coach-meddic-row">' +
+          '<div class="coach-meddic-letter">' + m.letter + '</div>' +
+          '<div class="coach-meddic-name">' + m.name + '</div>' +
+          '<div class="coach-meddic-bar"><div class="coach-meddic-fill' + (m.flag ? ' coach-meddic-fill-gap' : '') + '" style="width:' + m.pct + '%"></div></div>' +
+          '<div class="coach-meddic-pct">' + m.pct + '%</div>' +
+        '</div>'
+      ).join('');
+
+      const strengths = [
+        {
+          title: 'Strong agenda alignment in openings',
+          detail: 'You open with rapport + agenda + permission in 100% of calls. Clean, professional, sets tone.',
+          quote: '"I want to make sure we use our 30 minutes wisely — would it work to walk through the three things on my mind, then leave time for your priorities?"',
+          callRef: 'Truist Discovery · Mar 18'
+        },
+        {
+          title: 'You ask great open-ended discovery',
+          detail: 'Average 8 open-ended questions per discovery call. Top quartile across the team.',
+          quote: '"Walk me through how you measure success of your closed-loop program today."',
+          callRef: 'Pattern across 9 of 10 calls'
+        }
+      ];
+
+      const gaps = [
+        {
+          title: 'Missing economic buyer probe',
+          detail: 'In 9 of 10 discovery calls, you didn\'t ask who else needs to weigh in before signing. This is the #1 reason deals stall at $50K+.',
+          recommendation: 'After confirming pain + value, try: <strong>"If we proved this delivered the X you described, who else would need to weigh in on a decision like this?"</strong>',
+          callRef: '9 of 10 calls'
+        },
+        {
+          title: 'Light on pain quantification',
+          detail: 'You ask great open-ended pain questions but rarely follow up with dollar/time/count quantification. Average 0.4 quantification questions per call.',
+          recommendation: 'Follow every pain statement with: <strong>"How much is that costing today?"</strong> or <strong>"What does that look like in detractors / churn / hours?"</strong>',
+          callRef: 'Pattern across 10 calls'
+        },
+        {
+          title: 'Talk-to-listen ratio drifting',
+          detail: 'Your average talk ratio is 56% (target: ≤45%). Highest call was 71% in the Citizens demo on Mar 12.',
+          recommendation: 'Pause for 3 seconds after asking questions. Resist filling silence. Use <strong>"Tell me more about that"</strong> as a default follow-up.',
+          callRef: '6 of 10 calls above 50%'
+        }
+      ];
+
+      const strengthCards = strengths.map(s =>
+        '<div class="coach-insight coach-insight-strength">' +
+          '<div class="coach-insight-header">' +
+            '<iconify-icon icon="ph:check-circle-fill"></iconify-icon>' +
+            '<div class="coach-insight-title">' + s.title + '</div>' +
+          '</div>' +
+          '<div class="coach-insight-detail">' + s.detail + '</div>' +
+          '<div class="coach-insight-quote">' + s.quote + '</div>' +
+          '<div class="coach-insight-ref">' + s.callRef + '</div>' +
+        '</div>'
+      ).join('');
+
+      const gapCards = gaps.map(g =>
+        '<div class="coach-insight coach-insight-gap">' +
+          '<div class="coach-insight-header">' +
+            '<iconify-icon icon="ph:warning-circle-fill"></iconify-icon>' +
+            '<div class="coach-insight-title">' + g.title + '</div>' +
+          '</div>' +
+          '<div class="coach-insight-detail">' + g.detail + '</div>' +
+          '<div class="coach-insight-rec"><strong>Try this:</strong> ' + g.recommendation + '</div>' +
+          '<div class="coach-insight-ref">' + g.callRef + '</div>' +
+        '</div>'
+      ).join('');
+
+      return '<div class="skill-widget"><div class="skill-widget-header"><div class="skill-widget-header-icon"><iconify-icon icon="ph:graduation-cap"></iconify-icon></div>' +
+        '<div class="skill-widget-title">Sales Coaching · ' + sample + ' analyzed</div>' +
+        '<div class="skill-widget-meta">Analyzed Kaia recordings + scored MEDDIC + identified patterns</div></div>' +
+        '<div class="skill-widget-body">' +
+
+        '<div class="coach-score">' +
+          '<div class="coach-score-grade">B+</div>' +
+          '<div class="coach-score-info">' +
+            '<div class="coach-score-label">Overall</div>' +
+            '<div class="coach-score-text">Strong in discovery and pain identification. Major gaps in economic buyer probes and pain quantification.</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="coach-section">' +
+          '<div class="coach-section-label"><iconify-icon icon="ph:list-checks"></iconify-icon>MEDDIC Coverage</div>' +
+          '<div class="coach-meddic">' + meddicRows + '</div>' +
+        '</div>' +
+
+        '<div class="coach-section">' +
+          '<div class="coach-section-label coach-section-label-good"><iconify-icon icon="ph:thumbs-up-fill"></iconify-icon>Strengths</div>' +
+          '<div class="coach-insights">' + strengthCards + '</div>' +
+        '</div>' +
+
+        '<div class="coach-section">' +
+          '<div class="coach-section-label coach-section-label-warn"><iconify-icon icon="ph:target"></iconify-icon>Coaching Opportunities</div>' +
+          '<div class="coach-insights">' + gapCards + '</div>' +
+        '</div>' +
+
+        '</div>' +
+        '<div class="skill-widget-footer">' +
+        '<button class="skill-widget-cta primary">Generate practice scenarios</button>' +
+        '<button class="skill-widget-cta">Share with Matt Ross</button>' +
+        '<button class="skill-widget-cta">Track over time</button></div></div>';
     }
 
     // ═════════════════════════════════════════════════════════
@@ -17276,6 +18260,157 @@ Mason`;
           </div>
         </div>
       `,
+
+      'enrich-account': (formId) => `
+        <div class="chat-form" id="${formId}">
+          <div class="chat-form-header">
+            <div class="chat-form-header-icon"><iconify-icon icon="ph:buildings"></iconify-icon></div>
+            <div class="chat-form-header-title">Enrich an account</div>
+          </div>
+          <div class="chat-form-body">
+            <div class="chat-form-field">
+              <div class="chat-form-label">Which account?</div>
+              <select class="chat-form-select" data-field="account">
+                ${buildOptions(ACCOUNTS, 'truist')}
+              </select>
+              <div class="chat-form-hint">I'll pull domain, tech stack, scale, strategic priorities, and recent activity from ZoomInfo, Clay, and public filings.</div>
+            </div>
+          </div>
+          <div class="chat-form-footer">
+            <button class="chat-form-cancel" data-cancel="${formId}">Cancel</button>
+            <button class="chat-form-submit" data-submit="enrich-account" data-formid="${formId}">
+              Enrich account <iconify-icon icon="ph:arrow-right"></iconify-icon>
+            </button>
+          </div>
+        </div>
+      `,
+
+      'enrich-contact': (formId) => `
+        <div class="chat-form" id="${formId}">
+          <div class="chat-form-header">
+            <div class="chat-form-header-icon"><iconify-icon icon="ph:user-circle"></iconify-icon></div>
+            <div class="chat-form-header-title">Enrich a contact</div>
+          </div>
+          <div class="chat-form-body">
+            <div class="chat-form-field">
+              <div class="chat-form-label">Full name</div>
+              <input type="text" class="chat-form-input" data-field="name" placeholder="e.g., Sarah Chen" value="Sarah Chen">
+            </div>
+            <div class="chat-form-field">
+              <div class="chat-form-label">LinkedIn profile URL</div>
+              <input type="text" class="chat-form-input" data-field="linkedin" placeholder="https://linkedin.com/in/..." value="https://linkedin.com/in/sarahchen-cx">
+            </div>
+            <div class="chat-form-field">
+              <div class="chat-form-label">Account <span class="chat-form-label-hint">optional context</span></div>
+              <select class="chat-form-select" data-field="account">
+                <option value="">No account context</option>
+                ${buildOptions(ACCOUNTS, 'truist')}
+              </select>
+            </div>
+            <div class="chat-form-hint">I'll pull contact info, LinkedIn bio, work history, education, network, and recent activity. Paste any LinkedIn URL.</div>
+          </div>
+          <div class="chat-form-footer">
+            <button class="chat-form-cancel" data-cancel="${formId}">Cancel</button>
+            <button class="chat-form-submit" data-submit="enrich-contact" data-formid="${formId}">
+              Enrich contact <iconify-icon icon="ph:arrow-right"></iconify-icon>
+            </button>
+          </div>
+        </div>
+      `,
+
+      history: (formId) => `
+        <div class="chat-form" id="${formId}">
+          <div class="chat-form-header">
+            <div class="chat-form-header-icon"><iconify-icon icon="ph:clock-counter-clockwise"></iconify-icon></div>
+            <div class="chat-form-header-title">Pull activity &amp; opportunity history</div>
+          </div>
+          <div class="chat-form-body">
+            <div class="chat-form-field">
+              <div class="chat-form-label">Account or contact</div>
+              <input type="text" class="chat-form-input" data-field="target" placeholder="Account name or contact name" value="Truist Financial">
+              <div class="chat-form-label-hint" style="margin-top:6px">I'll search Salesforce for this account or contact and build a unified timeline.</div>
+            </div>
+            <div class="chat-form-row">
+              <div class="chat-form-field">
+                <div class="chat-form-label">Time period</div>
+                <select class="chat-form-select" data-field="window">
+                  <option>Last 30 days</option>
+                  <option selected>Last 90 days</option>
+                  <option>Last 6 months</option>
+                  <option>Last year</option>
+                  <option>All time</option>
+                </select>
+              </div>
+              <div class="chat-form-field">
+                <div class="chat-form-label">Sort order</div>
+                <div class="chat-form-radio-group">
+                  ${buildRadios(['Newest first', 'Oldest first'], 'Newest first', 'sortOrder')}
+                </div>
+              </div>
+            </div>
+            <div class="chat-form-field">
+              <div class="chat-form-label">Include</div>
+              <div class="chat-form-pills">
+                <button type="button" class="chat-form-pill active" data-pill="includeTypes" data-value="Meetings">Meetings</button>
+                <button type="button" class="chat-form-pill active" data-pill="includeTypes" data-value="Emails">Emails</button>
+                <button type="button" class="chat-form-pill active" data-pill="includeTypes" data-value="Calls">Calls</button>
+                <button type="button" class="chat-form-pill active" data-pill="includeTypes" data-value="Tasks">Tasks</button>
+                <button type="button" class="chat-form-pill active" data-pill="includeTypes" data-value="Opportunity changes">Opportunity changes</button>
+                <button type="button" class="chat-form-pill" data-pill="includeTypes" data-value="Notes">Notes</button>
+              </div>
+            </div>
+          </div>
+          <div class="chat-form-footer">
+            <button class="chat-form-cancel" data-cancel="${formId}">Cancel</button>
+            <button class="chat-form-submit" data-submit="history" data-formid="${formId}">
+              Pull history <iconify-icon icon="ph:arrow-right"></iconify-icon>
+            </button>
+          </div>
+        </div>
+      `,
+
+      coach: (formId) => `
+        <div class="chat-form" id="${formId}">
+          <div class="chat-form-header">
+            <div class="chat-form-header-icon"><iconify-icon icon="ph:graduation-cap"></iconify-icon></div>
+            <div class="chat-form-header-title">Coach me on my recent calls</div>
+          </div>
+          <div class="chat-form-body">
+            <div class="chat-form-row">
+              <div class="chat-form-field">
+                <div class="chat-form-label">Analyze last</div>
+                <div class="chat-form-radio-group">
+                  ${buildRadios(['5 calls', '10 calls', '20 calls', 'Last 14 days', 'Last 30 days'], '10 calls', 'sampleSize')}
+                </div>
+              </div>
+            </div>
+            <div class="chat-form-field">
+              <div class="chat-form-label">Focus areas</div>
+              <div class="chat-form-pills">
+                <button type="button" class="chat-form-pill active" data-pill="focusAreas" data-value="Discovery questions">Discovery questions</button>
+                <button type="button" class="chat-form-pill active" data-pill="focusAreas" data-value="MEDDIC qualification">MEDDIC qualification</button>
+                <button type="button" class="chat-form-pill active" data-pill="focusAreas" data-value="Message running">Message running</button>
+                <button type="button" class="chat-form-pill" data-pill="focusAreas" data-value="Objection handling">Objection handling</button>
+                <button type="button" class="chat-form-pill" data-pill="focusAreas" data-value="Talk-to-listen ratio">Talk-to-listen ratio</button>
+                <button type="button" class="chat-form-pill" data-pill="focusAreas" data-value="Closing technique">Closing technique</button>
+              </div>
+            </div>
+            <div class="chat-form-field">
+              <div class="chat-form-label">Coaching style</div>
+              <div class="chat-form-radio-group">
+                ${buildRadios(['Direct', 'Encouraging', 'Tactical'], 'Direct', 'coachingStyle')}
+              </div>
+            </div>
+            <div class="chat-form-hint">I'll analyze your Kaia recordings, score MEDDIC coverage, find patterns, and give you specific moments to work on.</div>
+          </div>
+          <div class="chat-form-footer">
+            <button class="chat-form-cancel" data-cancel="${formId}">Cancel</button>
+            <button class="chat-form-submit" data-submit="coach" data-formid="${formId}">
+              Coach me <iconify-icon icon="ph:arrow-right"></iconify-icon>
+            </button>
+          </div>
+        </div>
+      `,
     };
 
     // ── Form intro messages ──
@@ -17286,6 +18421,10 @@ Mason`;
       pov: 'Let&apos;s build a signal-grounded POV. Pick the account and play and I&apos;ll do the rest.',
       response: 'Happy to draft a response. Tell me what kind, who it&apos;s for, and what they said.',
       transcripts: 'I&apos;ll search across all your Kaia recordings. What are you looking for?',
+      'enrich-account': 'Pick the account and I&apos;ll pull everything from public filings, ZoomInfo, and Clay.',
+      'enrich-contact': 'Paste the name and LinkedIn URL — I&apos;ll pull the full profile.',
+      history: 'Which account or contact? I&apos;ll build a unified timeline from Salesforce.',
+      coach: 'I&apos;ll analyze your recent calls and give specific, actionable coaching grounded in real moments.',
     };
 
     // ── Widget renderers + intro text (used after form submit) ──
@@ -17296,6 +18435,10 @@ Mason`;
       pov: { render: renderPOV, intro: 'Generated a <strong>signal-grounded POV</strong>. Anchored to their stated priorities, comparable customer outcomes, and recent buyer language:' },
       response: { render: renderResponse, intro: 'Drafted a response. Pulled signal hooks from recent activity and anchored to the play&apos;s value prop:' },
       transcripts: { render: renderTranscripts, intro: 'Searched <strong>1,247 Kaia recordings</strong>. Pulled the highest-relevance moments:' },
+      'enrich-account': { render: renderAccountEnrichment, intro: 'Enriched that account. Here&apos;s everything I pulled — refresh anytime to get latest:' },
+      'enrich-contact': { render: renderContactEnrichment, intro: 'Enriched that contact from LinkedIn + ZoomInfo + Apollo. Here&apos;s the full profile:' },
+      history: { render: renderActivityHistory, intro: 'Scraped Salesforce for all activity and opportunity history. Here&apos;s the unified timeline:' },
+      coach: { render: renderCoachMe, intro: 'Pulled your recent Kaia recordings and analyzed them across MEDDIC, discovery quality, and message running. Here&apos;s what I found:' },
     };
 
     // Build human-readable summary of form selections
@@ -17335,6 +18478,20 @@ Mason`;
             (accountName ? ' in <strong>' + accountName + '</strong>' : ' across all accounts') +
             ', ' + (data.window || 'Last 90 days').toLowerCase() +
             (data.speakerType && data.speakerType !== 'All' ? ', ' + data.speakerType.toLowerCase() + ' only' : '') + '.';
+        case 'enrich-account':
+          return 'Enrich account <strong>' + (accountName || data.account) + '</strong> — pull full company profile.';
+        case 'enrich-contact':
+          return 'Enrich <strong>' + (data.name || 'contact') + '</strong>' +
+            (data.linkedin ? ' (' + data.linkedin.replace(/^https?:\/\//, '') + ')' : '') +
+            (accountName ? ' at <strong>' + accountName + '</strong>' : '') + '.';
+        case 'history':
+          return 'Pull activity &amp; opportunity history for <strong>' + (data.target || 'account') + '</strong>' +
+            ' (' + (data.window || 'Last 90 days').toLowerCase() + ')' +
+            (data.includeTypes && data.includeTypes.length ? ', include: ' + data.includeTypes.join(', ').toLowerCase() : '') + '.';
+        case 'coach':
+          return 'Coach me on <strong>' + (data.sampleSize || '10 calls') + '</strong>' +
+            (data.focusAreas && data.focusAreas.length ? ', focus on <strong>' + data.focusAreas.join(', ') + '</strong>' : '') +
+            (data.coachingStyle ? ', <strong>' + data.coachingStyle + '</strong> style' : '') + '.';
         default:
           return 'Run ' + actionKey;
       }
