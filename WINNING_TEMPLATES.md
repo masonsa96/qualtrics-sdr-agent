@@ -30,7 +30,13 @@ the way they are:
 
 # The templates
 
-Each framework has 2–3 fully-written, ready-to-send versions. Pick the one that matches your scenario.
+Each framework has 2–4 fully-written, ready-to-send versions. Pick the one that matches your scenario.
+
+> **How to read each block:** the ` ``` ` code block is the **fill-in-the-blank template**. Directly
+> beneath it, **📨 Real example that booked the meeting** shows an *actual email from the source doc*
+> with the blanks filled in — so you can see what a good company, proof point, or topic looks like in
+> practice — followed by a **💡 Why it works** note. Copy the template, then model your specifics on
+> the example.
 
 ---
 
@@ -55,6 +61,20 @@ Would you be open to a quick 20-minute intro sometime next week?
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Foodservice · "Welcome to Shamrock / Qualtrics partnership"*
+> Hi Sam, great to meet you! Reaching out since I work on the Shamrock Foods account team here at
+> Qualtrics. Our technology is being used for a variety of market research use cases at Shamrock
+> today. We work primarily with Ann Ocana and Sandy Kelly, who are the current license owners.
+>
+> Would love to make introductions, give you some details about the current capabilities, and share
+> some details about our new Digital Customer Experience platform.
+>
+> Would you be open to this?
+>
+> Best, Nick
+
+> 💡 *Why it works:* names the **real license owners** (Ann Ocana, Sandy Kelly) as the credibility
+> bridge, and the "what's new" is a **specific product** (Digital CX platform), not a vague claim.
 
 ### Template 1B — Cross-department expansion ("are you aware?")
 ```
@@ -71,6 +91,19 @@ Are you open to setting aside 30 minutes next week to see what that looks like?
 
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Technology · "Consolidation"*
+> Hi Tim, David here — wanted to reach out and ask if you were aware that NetApp is currently a
+> Qualtrics customer? We work closely with your customer experience and engagement team, as they
+> leverage our solutions to collect and act on customer feedback.
+>
+> I wanted to reach out to you specifically because I understand product experience falls under your
+> purview, and wanted to let you know we have some advanced AI product functionalities I figured you
+> may be interested to take a peep at.
+>
+> Are you open to setting aside 30 minutes next week or after to see what that tech looks like? — David
+
+> 💡 *Why it works:* leads with the **"are you aware?"** hook (turns a cold exec into a warm intro),
+> then ties the ask precisely to **what that person owns** (product experience).
 
 ### Template 1C — Renewal + expansion / new account director
 ```
@@ -88,6 +121,19 @@ Are you available for 30 minutes Thursday or Friday to connect?
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Insurance · "Qualtrics Current Partnership"*
+> Hi Hunter, I'm on the AmTrust Financial team here at Qualtrics and wanted to introduce myself.
+> We've had some departures here at Qualtrics, and I wanted to connect you with the new account
+> director of the AmTrust Financial team.
+>
+> I would love to learn how things are going with your current license and discuss your upcoming
+> renewal. We've also added some exciting new qualitative capabilities in the past 12 months that
+> global UX organizations are now beginning to deploy, and would love to share those with you as well.
+>
+> Are you available for 30 minutes Thursday or Friday to discuss?
+
+> 💡 *Why it works:* uses the **rep transition + renewal** as a perfectly legitimate reason to meet,
+> and offers **two specific days** to make the yes frictionless.
 
 ---
 
@@ -114,6 +160,19 @@ Would you have 20 minutes end of this week or early next so we can realign?
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Life Sciences (Elanco) · replied*
+> Great to e-meet you! My name is Sara and I work alongside Colin Bowler here at Qualtrics. Based on
+> my notes, it looks like you had connected with Todd Brown beginning of 2024 regarding a number of
+> projects with Qualtrics — including a closed-loop action system and serving key customer insights
+> to call-center agents. At the time, we were looking to connect with the CX team to ensure alignment
+> on their initiatives.
+>
+> Qualtrics has made a number of changes since 2024, and I thought it would be beneficial for us to
+> reconnect with the Elanco team and see where things are today. Would you have 20-minutes end of this
+> week / early next so we can realign? — All the best, Sara
+
+> 💡 *Why it works:* the **specific recalled detail** ("closed-loop action system… call-center agents,
+> beginning of 2024") proves real homework — that specificity is what earns the reply.
 
 ### Template 2B — Prior rep has left
 ```
@@ -128,6 +187,16 @@ capabilities. Could we grab a few minutes on the calendar to reconnect — maybe
 
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Healthcare (voicemail follow-up) · replied*
+> Hi Bill — just left you a voicemail. I saw that you had proposed November as a good time to
+> reconnect with our team, so I wanted to introduce Kody and me as your new points of contact. Neil
+> Atkinson is unfortunately no longer with Qualtrics, but we'd be happy to share updates around our
+> real-time patient experience and CAHPS capabilities. Let me know if there's a date/time that'd work
+> best — Kody and I are pretty open next week. — Kamryn Terch
+
+> 💡 *Why it works:* honors the prospect's **own stated timing** ("you proposed November"), and the
+> email is the **second touch after a voicemail** — the call+email combo that recurs across the
+> replied winners.
 
 ### Template 2C — Reconnect + deadline (RFP / renewal)
 ```
@@ -145,6 +214,16 @@ Do you have 15 minutes to reconnect in the coming week or two?
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Healthcare · "Checking In"*
+> Hi Andrea, I hope the year has been off to a great start! I support Lucy Akoubian, who you met with
+> in Spring 2023. With the possibility of an RFP coming up this year, we thought it would make sense
+> to reconnect and catch up. We've had quite a few changes — both pricing and innovation-wise — and
+> would love to learn more about your strategy this year. Let us know if you'd have time in the coming
+> week or two! — Best, Haley Laufketter
+
+> 💡 *Why it works:* names the **colleague the prospect already met** (Lucy Akoubian, Spring 2023) and
+> the **looming RFP** as the timing trigger — two reasons to talk, zero pressure.
+
 > **Pro move (proven in the data):** pair 2A/2B with a **same-day voicemail** — *"Hi [Name], just
 > left you a voicemail…"* The call + email one-two punch recurs throughout the replied-tagged winners.
 
@@ -172,6 +251,22 @@ Would you be open to a brief 15-minute introductory call in the coming weeks to 
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *FSI (Credit Union) · "member insights program"*
+> Hi Melissa, after seeing your role at Homeowners Advantage and your expertise in mortgage
+> experience, I wanted to reach out regarding the ability to enhance your member feedback and
+> insights program.
+>
+> Not sure if you are familiar with Qualtrics, but we're working with similar credit unions, like
+> Municipal, to help them achieve member-experience goals such as recording and analyzing member
+> feedback, website and mobile optimization, and developing a holistic view of the member journey.
+> We pair our AI-powered automation with Natural Language Processing to understand where and when
+> members fall off.
+>
+> If you're available, I'd like to connect in April for brief introductions. Do you have availability
+> in the coming weeks? — Best, Jack
+
+> 💡 *Why it works:* the peer (**Municipal**, a fellow credit union) is an exact-match proof point, and
+> the value is phrased as **their goals** ("member journey," "where members fall off"), not features.
 
 ### Template 3B — "By way of introduction" + peer cohort
 ```
@@ -192,6 +287,22 @@ the coming weeks.
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Enterprise FSI · "Contact Center Automation & CX"*
+> Dean, by way of introduction, my name is Jack Hicks and I work on the KeyBank account team directly
+> with our National Account Director, Kyle Scheerer. Kyle works closely with Era Ziroe's team helping
+> with Customer Experience, VOC, and research initiatives.
+>
+> In seeing your role leading automation in the contact center, we thought it may be beneficial to
+> connect, given the enormous amount of customer feedback available with contact-center analytics and
+> quality-management automation. We'd love to walk through our perspective and review how many of your
+> peers — including companies like **Citi, AMEX, and JPMC** — have used our platform to enhance their
+> current program.
+>
+> Please let me know if you or one of your directs are available for a brief introductory call either
+> this month or November. — Best, Jack
+
+> 💡 *Why it works:* three instantly-recognizable banking peers (**Citi, AMEX, JPMC**) do the heavy
+> lifting, and offering to meet "you **or one of your directs**" widens the path to yes.
 
 ### Template 3C — Competitor displacement / benchmark
 ```
@@ -209,6 +320,19 @@ Is there a time that works to connect over the next couple weeks?
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Enterprise FSI · "cx platform comparison"*
+> Hi Maria, it's possible you've had some exposure to Qualtrics over the past few years. We understand
+> Comerica currently leverages **Medallia** for your CX program. Is now a good time to benchmark what
+> you're doing in Medallia today vs. what the future could look like?
+>
+> I'd like to connect you with the Comerica account head to review the discussions we're having in
+> other departments, as well as the advances we've made with AI, NLP, and Omnichannel CX — making us
+> the market leader for 2024.
+>
+> Is there a time that works for you to connect over the next couple weeks? — Best, Jack
+
+> 💡 *Why it works:* names the **incumbent (Medallia)** directly and reframes the ask as a low-stakes
+> **"benchmark,"** not a rip-and-replace — easy to say yes to even under contract.
 
 ---
 
@@ -231,6 +355,14 @@ my Calendly whenever works.
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Life Sciences (Novo) · "Intent – Demo Video View" · replied*
+> Hi Lisa, just gave you a call. I saw that you watched one of our demo videos, and wanted to
+> introduce myself as an available resource/POC for you. I'd love to set up some time to make
+> introductions, better understand your interest, and speak to Qualtrics in that context. Do you have
+> 20 minutes this week or next? Can't wait to meet! — Sara
+
+> 💡 *Why it works:* it's **short, fast, and reactive** — references the exact action they took
+> (watched a demo) and positions the rep as a helpful POC, not a pitch. Note the **phone call first.**
 
 ### Template 4B — New-role congrats
 ```
@@ -248,6 +380,19 @@ Would you be open to a quick intro this week or next?
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *FSI · "Future alignment with Visa"*
+> Hi Jan, congrats on the recent move into the SVP seat — exciting to see! I know you'd had some
+> conversations with Qualtrics a while back, and figured now might be a good time to reconnect.
+>
+> We're working with marketing leaders to get closer to the tenant and shopper experience — using
+> real-time feedback to refine messaging, spot friction early, and keep brand and leasing goals
+> aligned. Especially now, with more pressure to keep centers full and campaigns measurable across
+> markets, the timing felt right to reach out.
+>
+> Would you be open to a quick strategy comparison?
+
+> 💡 *Why it works:* the **promotion** is the permission to reach out, and the value is tied to what a
+> newly-promoted leader cares about most — making an early, measurable impact.
 
 ### Template 4C — Public initiative / report trigger
 ```
@@ -267,6 +412,18 @@ Would you be open to a brief 15-minute chat this week or next to explore how thi
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Healthcare · "Becker's" · replied*
+> Hi Stephen, I really enjoyed reading about your approach to ED efficiency in the recent Becker's
+> article. I was specifically intrigued by your dashboards and the framework you have in place for
+> optimizing ED performance. We're working with other ambulatory leaders on improving many of the ED
+> metrics mentioned (length of stay, wait times, throughput times, etc.) by integrating patient
+> experience data with their clinical data. Our leadership would love to connect with you to gain your
+> perspective on your data-driven approach to ED efficiency and share some strategies/thought
+> leadership as well. Could we find a few minutes to connect, possibly the first or second week of
+> April? — Let me know, Mikaila
+
+> 💡 *Why it works:* it **quotes their published work specifically** ("dashboards," "ED performance
+> framework"), then mirrors their language back with relevant metrics — pure earned relevance.
 
 ### Template 4D — Inbound contact request (fastest yes)
 ```
@@ -277,6 +434,14 @@ works — looking forward to it!
 
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Education (K-12) · "MQC – Inbound Contact Request" · replied*
+> Just gave you a call. I received your request for contact and wanted to introduce myself as an
+> available resource/POC for you. I'd love to set up some time to discuss what you had mentioned in
+> your notes. Do you have 15/20 minutes this week or next? Feel free to grab a time on my Calendly
+> link whenever works for you. Looking forward to hearing from you! — Kyle
+
+> 💡 *Why it works:* the prospect **raised their hand first**, so the only job is to make scheduling
+> effortless — call + email + a self-serve Calendly link. Speed is the whole game here.
 
 ---
 
@@ -298,6 +463,14 @@ could support [their goal]?
 Thank you,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Government (SLG) · "Referral – County Manager"*
+> Hey Jason, I'm reaching out at the suggestion of David Ellis, the County Manager. He recommended I
+> connect with you regarding our platform, as he believes it would be of interest to the county.
+> Would you be available for a brief meeting the week of the 25th to discuss how our platform could be
+> a valuable asset for your strategic goals? Thank you!
+
+> 💡 *Why it works:* the entire email rides on **one borrowed name** (the County Manager). When a
+> trusted internal figure sends you, you barely need a value prop — just name them and ask.
 
 ### Template 5B — On-site / AE in town (adds scarcity)
 ```
@@ -314,6 +487,20 @@ introduce themselves?
 Thanks,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Hospitality / Gaming (Dave & Buster's)*
+> Hi Devesh, I'm on the Qualtrics team supporting Dave & Buster's. We're the leading experience
+> management company working with groups like **Delta, PGA TOUR, and Disney** to power their guest &
+> employee experience programs.
+>
+> My team is going to be in Dallas on March 4th & 5th, so I wanted to ask if you'd be in town to chat
+> for a few mins. We'd love to introduce ourselves and hear your perspective on how better listening/
+> sentiment could benefit your initiatives.
+>
+> Possible to find ~10 mins while we're there? Even if just to say hello or grab a coffee. — Cheers, Amber
+
+> 💡 *Why it works:* the **in-person window** ("Dallas, March 4–5") creates natural scarcity, the ask
+> is tiny ("~10 mins… even just to say hello"), and recognizable peers (**Delta, PGA TOUR, Disney**)
+> establish instant credibility.
 
 ### Template 5C — Colleague-sourced insight (warm signal from inside)
 ```
@@ -331,6 +518,21 @@ Would you be open to connecting in the coming weeks?
 Best,
 [Your name]
 ```
+**📨 Real example that booked the meeting** — *Real Estate (Zillow) · "Welcome to Zillow / Qualtrics partnership"*
+> Hi Meghan, reaching out on behalf of the Zillow account team here at Qualtrics. Are you aware that
+> Zillow and Qualtrics partner together on a wide variety of customer and employee experience use
+> cases?
+>
+> My colleague Nate White has been hearing from Zillow's Research Operations team that there could be
+> some interest in learning more about Qualtrics' AI capabilities from a text-analytics perspective in
+> your organization. Our AI helps decrease time spent taking action with recommended responses to
+> customer emails, texts, chats, and reviews.
+>
+> Would you be open to connecting to share the current usage of the Qualtrics license and some of our
+> new AI functionality? — Best
+
+> 💡 *Why it works:* it surfaces a **warm signal from inside the account** ("Nate has been hearing
+> from your Research Ops team that there's interest") — so the outreach feels invited, not cold.
 
 ---
 
